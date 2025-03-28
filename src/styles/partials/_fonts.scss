@@ -1,9 +1,7 @@
-// _fonts.scss - SCSS partial for Titillium Web font styles
+// _fonts.scss
 
-// In your SCSS or CSS file
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
-
-
+// Downloaded from Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap");
 
 //Example of how to call this in other SCSS
 // body {
@@ -17,5 +15,3 @@
 // p {
 //   font-weight: 400; // Regular weight
 // }
-
-
