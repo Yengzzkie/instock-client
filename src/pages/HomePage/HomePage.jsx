@@ -1,3 +1,4 @@
+import { WareHouseList } from "../../components/WarehouseList/WarehouseList"
 
 
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
       <button className="button__delete"> Button Delete Test</button>
 
     <div className="container">Basic Ass Container</div>
+    <WareHouseList />
 
 
     </div>

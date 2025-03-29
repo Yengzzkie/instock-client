@@ -1,0 +1,138 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/variables" as variables;
+
+.warehouses_list {
+    font-family: 'Titillium Web', sans-serif;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px;
+    box-shadow: 0 2px 5px variables.$instock-black;
+    border-radius: 3px;
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+
+    &__title{
+        font-weight: 600;
+        font-size: 1.75rem;
+    }
+    &__search{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid variables.$instock-cloud;
+        border-radius: 20px;
+        padding: 0.3rem 0.8rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__search-text{
+        font-size: 0.85rem;
+        color: variables.$instock-slate;
+    }
+    &__search-icon{
+        width: 1.5rem;
+    }
+    &__button{
+        font-family: "Titillium Web", sans-serif;
+        border-radius: 1.25rem;
+        font-size: 0.85rem;
+        color: variables.$instock-white;
+        font-weight: 600;
+        background-color: variables.$instock-blue;
+        padding: 0.5rem 0;
+        border: 0;
+    }
+
+}
+.warehouse-cards{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+.warehouse-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0.5rem;
+
+    &__col-1{
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+    &__col-2{
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+    &__icons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 0.8rem;
+    }
+    &__warehouse-name{
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+    }
+    &__address{
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    &__warehouse{
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
+.warehouse-title{
+    font-size: 0.7rem;
+    color: variables.$instock-slate;
+    line-height: 1rem;
+}
+.address-title{
+    font-size: 0.7rem;
+    color: variables.$instock-slate;
+    line-height: 1rem;
+}
+.warehouse-name{
+    color: variables.$instock-blue;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.address{
+    font-size: 0.9rem;
+}
+.contact-name{
+    color: variables.$instock-slate;
+    font-size: 0.7rem;
+}
+.contact-info{
+    color: variables.$instock-slate;
+    font-size: 0.7rem;
+}
+.contact-name-value{
+    font-size: 0.9rem;
+}
+.contact-phone{
+    font-size: 0.9rem;
+}
+.contact-email{
+    font-size: 0.9rem;
+}
+.arrow-icon{
+    font-size: 0.9rem;
+}
+.warehouse-line{
+    border: 1px solid variables.$instock-cloud;
+    width: 100%;
+}
