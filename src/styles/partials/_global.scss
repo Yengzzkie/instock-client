@@ -1,9 +1,7 @@
-@import "./fonts";
-@import "./variables";
-@import "./mixins";
-
+@use "./fonts" as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 // TYPOGRAPHY ===============================
-
 h1,
 h2,
 h3,
@@ -15,7 +13,7 @@ span,
 a,
 ul,
 li,
-body {
+body,button {
   margin: 0;
   font-family: "Titillium Web", sans-serif;
   color: $instock-black;
@@ -24,52 +22,41 @@ body {
   text-decoration: none;
   list-style-type: none;
 }
-
 body {
   background-color: $instock-light-grey;
 }
-
 h1 {
   font-size: 32px;
   font-weight: 700;
-
   @include mobile {
     font-size: 28px;
   }
 }
-
 h2 {
   font-size: 24px;
   font-weight: 700;
-
   @include mobile {
     font-size: 20px;
   }
 }
-
 h3 {
   font-size: 14px;
   font-weight: 400;
-
   @include mobile {
     font-size: 13px;
   }
 }
-
 h4 {
   font-size: 12px;
   font-weight: 400;
-
   @include mobile {
     font-size: 14px;
   }
 }
-
 p {
   font-size: 16px;
   font-weight: 400;
 }
-
 // BASIC CONTAINER ===============================
 .container {
   border: 1px dotted black;
@@ -77,45 +64,32 @@ p {
   justify-content: space-around;
   padding: 0.5rem;
 }
-
 // STANDARD BUTTON ===============================
-
 //Primary button
-
-.button {
-  &__main {
-    background-color: $instock-blue;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 30px;
-    border: none;
-
-    @include mobile {
-      padding: 10px 40px;
-    }
+button {
+  cursor: pointer;
+  @include mobile {
+    padding: 10px 40px;
   }
-
-  &__secondary {
-    background-color: $instock-white;
-    border: 2px solid $instock-cloud;
-    color: $instock-graphite;
-    border-radius: 30px;
-    padding: 10px 20px;
-
-    @include mobile {
-      padding: 10px 40px;
-    }
-  }
-
-  &__delete {
-    background-color: $instock-red;
-    border: none;
-    color: $instock-white;
-    border-radius: 30px;
-    padding: 10px 20px;
-
-    @include mobile {
-      padding: 10px 40px;
-    }
-  }
+}
+.btn-main {
+  background-color: $instock-blue;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+}
+.btn-secondary {
+  background-color: $instock-white;
+  border: 1px solid $instock-cloud;
+  color: $instock-graphite;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+.btn-delete {
+  background-color: $instock-red;
+  border: none;
+  color: $instock-white;
+  border-radius: 30px;
+  padding: 10px 20px;
 }
