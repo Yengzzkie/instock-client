@@ -2,6 +2,8 @@ import "./Table.scss";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import Edit from "../../assets/Icons/edit-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
+import InStockTag from "../InStockTag/InStockTag";
+import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 
 const TABLE_HEAD = [
   "INVENTORY ITEM",
@@ -62,7 +64,7 @@ const Table = () => {
             <tr key={index}>
               <td>{row.item}</td>
               <td>{row.category}</td>
-              <td>{row.status}</td>
+              <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
               <td>{row.quantity}</td>
               <td>
                 <Delete className="table__cta" />
