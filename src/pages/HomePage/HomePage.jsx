@@ -1,5 +1,6 @@
 import Navigation from "../../components/Navigation/Navigation";
 import Footer from "../../components/Footer/Footer";
+import Table from "../../components/Table/Table";
 
 const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ const HomePage = () => {
     </div> */}
 
     <Navigation />
+    <Table />
 
     <Footer />
     </>

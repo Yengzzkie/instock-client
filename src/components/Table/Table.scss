@@ -1,0 +1,62 @@
+@use "../../styles/partials/variables" as *;
+
+.table__container {
+  background: #fff;
+  border: 1px solid black;
+  margin: 10px auto;
+  width: 80%;
+  min-height: 75vh;
+  transform: translateY(-100px);
+
+  table {
+    width: 100%;
+    padding: 32px 40px;
+    border-collapse: collapse;
+
+    thead {
+      background: $instock-light-grey;
+      text-align: left;
+      & * {
+        color: $instock-slate;
+      }
+
+      tr {
+        th {
+          font-weight: 300;
+
+          td {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            padding: 8px 24px;
+
+
+            svg {
+              width: 14px;
+              margin-left: 8px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+
+        td {
+          padding: 8px 24px;
+          cursor: pointer;
+
+          .table__cta {
+            margin-right: 16px;
+          }
+        }
+      }
+
+      tr:hover {
+        background-color: $instock-lightblue;
+      }
+    }
+  }
+}
