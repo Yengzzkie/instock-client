@@ -3,10 +3,46 @@
 .table__container {
   background: #fff;
   border: 1px solid black;
-  margin: 10px auto;
   width: 80%;
+  margin: 10px auto;
   min-height: 75vh;
   transform: translateY(-100px);
+
+  // NAVIGATION
+  .table__nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 40px 24px 40px;
+
+    .back-link {
+      display: flex;
+      align-items: center;
+
+      .table__nav-header {
+        font-weight: 600;
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+
+    .edit-btn {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      height: fit-content;
+
+      &:hover {
+        background: $instock-hoverblue;
+      }
+
+      svg {
+        width: 16px;
+        margin-right: 4px;
+      }
+    }
+  }
 
   // WAREHOUSE INFORMATION (main container)
   .table__warehouse-details {
@@ -83,10 +119,12 @@
 
     // TABLE BODY
     tbody {
+      font-weight: 300;
+
       tr {
 
         &:hover {
-          background-color: $instock-lightblue;
+          background-color: $instock-transparentblue;
         }
 
         .table__item-name {
@@ -95,7 +133,7 @@
 
           a {
             color: $instock-blue;
-            font-weight: 700;
+            font-weight: 600;
             margin-right: 8px;
           }
 
@@ -112,9 +150,31 @@
         td {
           padding: 16px 24px;
 
-          .table__cta {
+          .table__cta-edit {
+            cursor: pointer;
+
+            &:hover {
+              scale: (1.15);
+              transition: scale .1s ease-in-out;
+            }
+          }
+
+          .table__cta-delete {
             margin-right: 16px;
             cursor: pointer;
+
+            &:hover {
+              animation: shake 0.3s ease-in-out;
+            }
+
+            @keyframes shake {
+              0% { transform: rotate(0); }
+              20% { transform: rotate(-13deg); }
+              40% { transform: rotate(13deg); }
+              60% { transform: rotate(-13deg); }
+              80% { transform: rotate(13deg); }
+              100% { transform: rotate(0); }
+            }
           }
         }
       }

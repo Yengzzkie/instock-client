@@ -2,7 +2,9 @@ import "./Table.scss";
 import { Link } from "react-router-dom";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
+import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import Edit from "../../assets/Icons/edit-24px.svg?react";
+import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
@@ -47,6 +49,14 @@ const Table = () => {
   return (
     <div className="table__container">
 
+      {/* NAVIGATION */}
+      <div className="table__nav">
+        <div className="back-link">
+          <ArrowBack /> <h1 className="table__nav-header">Washington</h1>
+        </div>
+        <button className="btn-main edit-btn"><EditWhite /> Edit</button>
+      </div>
+
       <div className="table__warehouse-details">
         {/* WAREHOUSE ADDRESS CONTAINER */}
         <div className="table__address">
@@ -72,7 +82,6 @@ const Table = () => {
             <p>go2hell@email.com</p>
           </div>
         </div>
-
       </div>
 
       <table>
@@ -99,8 +108,8 @@ const Table = () => {
               <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
               <td>{row.quantity}</td>
               <td>
-                <Delete className="table__cta" />
-                <Edit className="table__cta" />
+                <Delete className="table__cta-delete" />
+                <Edit className="table__cta-edit" />
               </td>
             </tr>
           ))}
