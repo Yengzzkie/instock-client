@@ -1,4 +1,4 @@
-import "../components/Navigation.scss";
+import "./Navigation.scss";
 import Logo from "../../assets/Logo/InStock-Logo.svg?react";
 
 export const Navigation = () => {

@@ -1,9 +1,10 @@
-import Navigation from "../../components/Navigation";
+import Navigation from "../../components/Navigation/Navigation";
+import Footer from "../../components/Footer/Footer";
 
 const HomePage = () => {
   return (
     <>
-    <div>
+    {/* <div>
       <h1>Header</h1>
       <h2>Sub-Header</h2>
       <h3>labes/links/buttons</h3>
@@ -14,9 +15,11 @@ const HomePage = () => {
       <button className="btn-delete"> Button Delete Test</button>
 
       <div className="container">Basic Ass Container</div>
-    </div>
+    </div> */}
 
     <Navigation />
+
+    <Footer />
     </>
   );
 };
