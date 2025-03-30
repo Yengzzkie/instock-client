@@ -8,11 +8,52 @@
   min-height: 75vh;
   transform: translateY(-100px);
 
+  // WAREHOUSE INFORMATION (main container)
+  .table__warehouse-details {
+    display: flex;
+    padding: 32px 40px;
+    border-top: 1px solid $instock-cloud;
+
+    .table__address {
+      border-right: 1px solid $instock-cloud;
+      margin-right: 40px;
+      flex: 1;
+
+      * {
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
+    .table__contact-info {
+      display: flex;
+      flex: 1;
+
+      * {
+        font-size: 14px;
+        font-weight: 300;
+      }
+
+      .contact-name, .contact-number {
+        flex: 1;
+      }
+    }
+
+    .warehouse_label {
+      color: $instock-slate;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  }
+
+  // MAIN TABLE
   table {
     width: 100%;
     padding: 32px 40px;
     border-collapse: collapse;
 
+    // TABLE HEADER
     thead {
       background: $instock-light-grey;
       text-align: left;
@@ -30,7 +71,6 @@
             font-size: 14px;
             padding: 8px 24px;
 
-
             svg {
               width: 14px;
               margin-left: 8px;
@@ -41,21 +81,42 @@
       }
     }
 
+    // TABLE BODY
     tbody {
       tr {
 
+        &:hover {
+          background-color: $instock-lightblue;
+        }
+
+        .table__item-name {
+          display: flex;
+          align-items: center;
+
+          a {
+            color: $instock-blue;
+            font-weight: 700;
+            margin-right: 8px;
+          }
+
+          &:hover {
+            text-decoration: underline;
+
+            svg {
+              transform: translateX(4px);
+              transition: transform 0.1s linear;
+            }
+          }
+        }
+
         td {
-          padding: 8px 24px;
-          cursor: pointer;
+          padding: 16px 24px;
 
           .table__cta {
             margin-right: 16px;
+            cursor: pointer;
           }
         }
-      }
-
-      tr:hover {
-        background-color: $instock-lightblue;
       }
     }
   }

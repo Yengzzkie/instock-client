@@ -1,5 +1,7 @@
 import "./Table.scss";
+import { Link } from "react-router-dom";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
+import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import Edit from "../../assets/Icons/edit-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
@@ -45,6 +47,34 @@ const Table = () => {
   return (
     <div className="table__container">
 
+      <div className="table__warehouse-details">
+        {/* WAREHOUSE ADDRESS CONTAINER */}
+        <div className="table__address">
+          <p className="warehouse_label">WAREHOUSE ADDRESS:</p>
+          <p>666 Inferno St.</p>
+          <span>Tonshingwa</span>
+          <span>, </span>
+          <span>Japan</span>
+        </div>
+
+        {/* CONTACT INFORMATION CONTAINER */}
+        <div className="table__contact-info">
+          {/* CONTACT NAME */}
+          <div className="contact-name">
+            <p className="warehouse_label">CONTACT NAME:</p>
+            <p>Lucy Fier</p>
+            <p>Floor Manager</p>
+          </div>
+          {/* CONTACT NUMBER */}
+          <div className="contact-number">
+            <p className="warehouse_label">CONTACT INFORMATION:</p>
+            <p>+1 800-666-1313</p>
+            <p>go2hell@email.com</p>
+          </div>
+        </div>
+
+      </div>
+
       <table>
         {/* TABLE HEADER */}
         <thead>
@@ -62,7 +92,9 @@ const Table = () => {
         <tbody>
           {TABLE_DATA.map((row, index) => (
             <tr key={index}>
-              <td>{row.item}</td>
+              <td className="table__item-name">
+                <Link>{row.item}</Link> <ChevronRight />
+              </td>
               <td>{row.category}</td>
               <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
               <td>{row.quantity}</td>
