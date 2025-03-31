@@ -1,0 +1,94 @@
+@use "../../styles/partials/variables" as *;
+
+.table__container {
+  background: #fff;
+  width: 80%;
+  margin: 10px auto;
+  box-shadow: 0 3px 6px $instock-cloud;
+  transform: translateY(-100px);
+
+  // NAVIGATION
+  .table__nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 40px 24px 40px;
+
+    .back-link {
+      display: flex;
+      align-items: center;
+
+      .table__nav-header {
+        font-weight: 600;
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+
+    .edit-btn {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      height: fit-content;
+
+      &:hover {
+        background: $instock-hoverblue;
+      }
+
+      svg {
+        width: 16px;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  // WAREHOUSE INFORMATION (main container)
+  .table__warehouse-details {
+    display: flex;
+    flex-direction: row;
+    padding: 32px 40px;
+    border-top: 1px solid $instock-cloud;
+
+    .table__address {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid $instock-cloud;
+      margin-right: 40px;
+      flex: 1;
+
+      * {
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
+    .table__contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      * {
+        font-size: 14px;
+        font-weight: 300;
+      }
+
+      .contact-name, .contact-number {
+        flex: 1;
+      }
+    }
+
+    .warehouse_label {
+      color: $instock-black;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  }
+
+//Form inputs
+.form-input {
+  border: red solid 1px;
+  border-radius: 5rem;
+}
+}
