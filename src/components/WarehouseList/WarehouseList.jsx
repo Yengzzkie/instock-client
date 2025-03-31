@@ -89,7 +89,6 @@ export const WareHouseList = () => {
                         <div className="table-edit"><EditIcon /></div>
                       </td>
                     </tr>
-                    <hr className="warehouse-line" />
                     </>
                   ))}
                 </tbody>
