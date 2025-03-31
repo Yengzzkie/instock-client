@@ -4,6 +4,7 @@ import SearchIcon from "../../../assets/Icons/search-24px.svg?react";
 import ChevronRight from "../../../assets/Icons/chevron_right-24px.svg?react";
 import DeleteIcon from "../../../assets/Icons/delete_outline-24px.svg?react";
 import EditIcon from "../../../assets/Icons/edit-24px.svg?react";
+import SortIcon from "../../../assets/Icons/sort-24px.svg?react";
 import "./WarehouseList.css";
 import {useMediaQuery} from 'react-responsive';
 
@@ -26,6 +27,7 @@ export const WareHouseList = () => {
         <section className="warehouses_list">
         <section className="header">
             <h1 className="header__title">Warehouses</h1>
+            
             <div className="header__search">
                 <p className="header__search-text">Search...</p>
                 <SearchIcon className="header__search-icon" />
@@ -35,39 +37,60 @@ export const WareHouseList = () => {
         <div className="warehouse-list">
             {isTablet ? (
                 <table className="warehouse-table">
-                <thead>
+                <thead className="warehouse-table__header">
                   <tr>
-                    <th>WAREHOUSE</th>
-                    <th>ADDRESS</th>
-                    <th>CONTACT NAME</th>
-                    <th>CONTACT INFORMATION</th>
-                    <th>ACTIONS</th>
+                    <th className="table-header">
+                        <div className="table-header__contents">
+                        <div>WAREHOUSE </div>
+                        <div className="sort-icon"><SortIcon className="sort-icon"/></div>
+                        </div>
+                        </th>
+                    <th className="table-header">
+                    <div className="table-header__contents"> 
+                        <div>ADDRESS </div>
+                        <div><SortIcon className="sort-icon"/></div>
+                        </div>
+                        </th>
+                    <th className="table-header">
+                    <div className="table-header__contents"> 
+                        <div>CONTACT NAME </div>
+                        <div className="sort-icon"><SortIcon className="sort-icon"/></div>
+                        </div>
+                        </th>
+                    <th className="table-header">
+                    <div className="table-header__contents"> 
+                        <div>CONTACT INFORMATION</div>
+                        <div className="sort-icon"><SortIcon className="sort-icon"/></div>
+                        </div>
+                        </th>
+                    <th className="table-header">ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
                   {wareHouses.map((warehouse, index) => (
-                    <tr key={index}>
-                      {/* data-label is used for the stacked layout on mobile */}
-                      <td data-label="WAREHOUSE">
-                        {warehouse.warehouse_name}
-                        {/* Example arrow (you could also use an icon) */}
-                        <span className="arrow"> &gt; </span>
+                    <>
+                    <tr className="table-data" key={index}>
+                      <td>
+                        <span className="warehouse-name">{warehouse.warehouse_name}</span>
+                        <span className="arrow-table"> <ChevronRight /> </span>
                       </td>
-                      <td data-label="ADDRESS">
+                      <td>
                         {warehouse.address}
                       </td>
-                      <td data-label="CONTACT NAME">
+                      <td>
                         {warehouse.contact_name}
                       </td>
-                      <td data-label="CONTACT INFORMATION">
+                      <td>
                         <div>{warehouse.contact_phone}</div>
                         <div>{warehouse.contact_email}</div>
                       </td>
-                      <td data-label="ACTIONS" className="warehouse-table__actions">
-                        <button className="icon-btn">Trash</button>
-                        <button className="icon-btn">Edit</button>
+                      <td className="warehouse-table__actions">
+                        <div className="table-delete"><DeleteIcon /></div>
+                        <div className="table-edit"><EditIcon /></div>
                       </td>
                     </tr>
+                    <hr className="warehouse-line" />
+                    </>
                   ))}
                 </tbody>
               </table>

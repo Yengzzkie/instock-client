@@ -1,5 +1,5 @@
 @use "../../styles/partials/global" as *;
-@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/mixins" as mixins;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/variables" as variables;
 
@@ -17,10 +17,18 @@
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-
+    @include tablet{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     &__title{
         font-weight: 600;
         font-size: 1.75rem;
+        @include tablet{
+            font-size: 2rem;
+        }
     }
     &__search{
         display: flex;
@@ -30,10 +38,19 @@
         padding: 0.3rem 0.8rem;
         align-items: center;
         justify-content: space-between;
+        @include tablet{
+            padding: 0.5rem 1rem;
+            width: 25%;
+            position: relative;
+            left: 3.8rem;
+        }
     }
     &__search-text{
         font-size: 0.85rem;
         color: variables.$instock-slate;
+        @include tablet{
+            font-size: 0.9rem;
+        }
     }
     &__search-icon{
         width: 1.5rem;
@@ -47,6 +64,10 @@
         background-color: variables.$instock-blue;
         padding: 0.5rem 0;
         border: 0;
+        @include tablet{
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+        }
     }
 
 }
@@ -134,5 +155,50 @@
 }
 .warehouse-line{
     border: 1px solid variables.$instock-cloud;
+    width: 577%;
+}
+
+.warehouse-table{
+    border-spacing: 1.5rem 0.5rem;
+    margin-top: 1.5rem;
+    border-collapse: collapse;
     width: 100%;
+
+    &__header{
+        background-color: variables.$instock-light-grey;
+        padding: 0 0.7rem;
+    }
+    &__actions{
+        display:flex;
+        justify-content: space-between;
+        position: relative;
+        right: 0.8rem;
+    }
+}
+
+.table-header{
+    font-size: 0.75rem;
+    color: variables.$instock-slate;
+    text-align: left;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+
+    &__contents{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+.arrow-table{
+    position: relative;
+    top: 0.4rem;
+    width: 1.25rem;
+}
+.table-data{
+    font-size: 0.875rem;
+}
+.sort-icon{
+    width: 1.1rem;
+    position: relative;
 }
