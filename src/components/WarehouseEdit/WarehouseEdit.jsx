@@ -1,98 +1,109 @@
+import { useState } from "react";
 import "./WarehouseEdit.scss";
-import { Link } from "react-router-dom";
-import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
-import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
-import Edit from "../../assets/Icons/edit-24px.svg?react";
-import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
-import Sort from "../../assets/Icons/sort-24px.svg?react";
-import InStockTag from "../InStockTag/InStockTag";
-import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
-
-const TABLE_HEAD = [
-  "INVENTORY ITEM",
-  "Category",
-  "Status",
-  "Quantity",
-  "Actions",
-];
-
-const TABLE_DATA = [
-  { item: "Laptop", category: "Electronics", status: "In Stock", quantity: 10 },
-  {
-    item: "Office Chair",
-    category: "Furniture",
-    status: "Low Stock",
-    quantity: 3,
-  },
-  {
-    item: "Notebook",
-    category: "Stationery",
-    status: "Out of Stock",
-    quantity: 0,
-  },
-  {
-    item: "Headphones",
-    category: "Electronics",
-    status: "In Stock",
-    quantity: 25,
-  },
-  {
-    item: "Whiteboard",
-    category: "Office Supplies",
-    status: "In Stock",
-    quantity: 7,
-  },
-];
 
 const WarehouseEdit = () => {
+  const initialWarehouseData = {
+    warehouseName: "",
+    streetAddress: "",
+    city: "",
+    country: "",
+  };
+
+  const initialContactData = {
+    contactName: "",
+    position: "",
+    phoneNumber: "",
+    email: "",
+  };
+
+  const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
+  const [contactData, setContactData] = useState(initialContactData);
+
+  const handleWarehouseChange = (e) => {
+    setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
+  };
+
+  const handleContactChange = (e) => {
+    setContactData({ ...contactData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      warehouse: warehouseData,
+      contact: contactData,
+    };
+
+    try {
+      const response = await fetch("https://api.example.com/updateWarehouse", {
+        method: "POST", // Change to PUT if updating existing records
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error("Failed to update warehouse details");
+
+      alert("Warehouse details updated successfully!");
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+  const handleCancel = () => {
+    setWarehouseData(initialWarehouseData);
+    setContactData(initialContactData);
+  };
+
   return (
-    <div className="table__container">
+    <div className="form__container">
       {/* NAVIGATION */}
-      <div className="table__nav">
+      <div className="form__nav">
         <div className="back-link">
-          <ArrowBack /> <h1 className="table__nav-header">Edit Warehouse</h1>
+          <ArrowBack /> <h1 className="form__nav-header">Edit Warehouse</h1>
         </div>
       </div>
 
-      <div className="table__warehouse-details">
-        {/* WAREHOUSE DETAILS COLUMN*/}
-        <div className="table__address">
+      <form onSubmit={handleSubmit} className="form__warehouse-details">
+        {/* WAREHOUSE DETAILS COLUMN */}
+        <div className="form__address">
           <h2 className="warehouse_label">Warehouse Details</h2>
 
           <label>Warehouse Name</label>
-          <input className="form-input" type="text" defaultValue="Washington" />
+          <input className="form-input" type="text" name="warehouseName" placeholder="Washington" value={warehouseData.warehouseName} onChange={handleWarehouseChange} />
 
           <label>Street Address</label>
-          <input className="form-input" type="text" defaultValue="33 Pearl Street SW" />
+          <input className="form-input" type="text" name="streetAddress" placeholder="Washington" value={warehouseData.streetAddress} onChange={handleWarehouseChange} />
 
           <label>City</label>
-          <input className="form-input" type="text" defaultValue="Washington" />
+          <input className="form-input" type="text" name="city" placeholder="Washington" value={warehouseData.city} onChange={handleWarehouseChange} />
 
           <label>Country</label>
-          <input className="form-input" type="text" defaultValue="USA" />
+          <input className="form-input" type="text" name="country" placeholder="Washington" value={warehouseData.country} onChange={handleWarehouseChange} />
         </div>
 
         {/* CONTACT DETAILS CONTAINER */}
-        <div className="table__contact-info">
+        <div className="form__contact-info">
           <h2 className="warehouse_label">Contact Details</h2>
           <label>Contact Name</label>
-          <input className="form-input" type="text" defaultValue="Graeme Lyon" />
-          
+          <input className="form-input" type="text" name="contactName" placeholder="Washington" value={contactData.contactName} onChange={handleContactChange} />
+
           <label>Position</label>
-          <input className="form-input" type="text" defaultValue="Warehouse Manager" />
-          
+          <input className="form-input" type="text" name="position" placeholder="Washington" value={contactData.position} onChange={handleContactChange} />
+
           <label>Phone Number</label>
-          <input className="form-input" type="text" defaultValue="+1 (647) 504-0911" />
-          
+          <input className="form-input" type="text" name="phoneNumber" placeholder="Washington" value={contactData.phoneNumber} onChange={handleContactChange} />
+
           <label>Email</label>
-          <input className="form-input" type="email" defaultValue="glyon@instock.com" />
-          
+          <input className="form-input" type="email" name="email" placeholder="Washington" value={contactData.email} onChange={handleContactChange} />
         </div>
-        
+      </form>
+      <div className="form__buttons">
+        <button type="button" className="btn-main cancel-btn" onClick={handleCancel}>Cancel</button>
+        <button type="submit" className="btn-main save-btn">Save Changes</button>
       </div>
-      <button className="btn-main edit-btn"><EditWhite /> Edit</button>
-        <button className="btn-main edit-btn"><EditWhite /> Edit</button>
     </div>
   );
 };
