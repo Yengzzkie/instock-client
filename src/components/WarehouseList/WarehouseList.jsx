@@ -97,7 +97,6 @@ export const WareHouseList = () => {
                 <section className="warehouse-cards"> 
                     {wareHouses.map((warehouse, index) => (
                         <>
-                        <hr className="warehouse-line" />
                         <div key={index} className="warehouse-card"> 
                         <div className="warehouse-card__col-1">
                             <div className="warehouse-card__warehouse">
