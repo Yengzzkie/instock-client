@@ -1,15 +1,17 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./styles/partials/_global.scss";
-
-import HomePage from "./pages/HomePage/HomePage";
+import { Outlet } from "react-router-dom";
+import "./App.scss";
+import Navigation from "./components/Navigation/Navigation";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-    </BrowserRouter>
+    <main>
+      <Navigation />
+      <section className="main__container">
+        <Outlet />
+      </section>
+      <Footer />
+    </main>
   );
 };
 

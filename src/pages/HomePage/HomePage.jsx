@@ -18,10 +18,10 @@ const HomePage = () => {
       <div className="container">Basic Ass Container</div>
     </div> */}
 
-    <Navigation />
-    <Table />
+    {/* <Navigation /> */}
+    Hello world
 
-    <Footer />
+    {/* <Footer /> */}
     </>
   );
 };

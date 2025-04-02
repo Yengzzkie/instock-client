@@ -2,11 +2,8 @@
 
 .table__container {
   background: #fff;
-  width: 80%;
   margin: 10px auto;
-  min-height: 75vh;
-  box-shadow: 0 3px 6px $instock-cloud;
-  transform: translateY(-100px);
+  height: 100%;
 
   // NAVIGATION
   .table__nav {

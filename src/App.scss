@@ -1,0 +1,14 @@
+@use "./styles/partials/global" as *;
+@use "./styles/partials/fonts" as *;
+@use "./styles/partials/mixins" as *;
+@use "./styles/partials/variables" as *;
+
+.main__container {
+  background: #fff;
+  width: 80%;
+  margin: 10px auto;
+  height: 75vh;
+  min-height: 75vh;
+  box-shadow: 0 3px 6px $instock-cloud;
+  transform: translateY(-100px);
+}
