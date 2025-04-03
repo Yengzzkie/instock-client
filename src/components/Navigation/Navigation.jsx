@@ -1,4 +1,5 @@
 import "./Navigation.scss";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/InStock-Logo.svg?react";
 
 export const Navigation = () => {
@@ -6,10 +7,12 @@ export const Navigation = () => {
     <>
       <nav>
         <div className="nav__container">
-          <Logo />
+          <Link to={"/"}>
+            <Logo />
+          </Link>
           <div className="nav__menu">
-            <button className="nav__btn">Warehouses</button>
-            <button className="nav__btn--active">Inventory</button>
+            <Link to={"/warehouse"}><button className="nav__btn">Warehouses</button></Link>
+            <Link to={"/inventory"}><button className="nav__btn--active">Inventory</button></Link>
           </div>
         </div>
       </nav>
