@@ -1,0 +1,102 @@
+@use "../../styles/partials/variables" as *;
+
+.form__container {
+  background: #fff;
+  width: 80%;
+  margin: 10px auto;
+  box-shadow: 0 3px 6px $instock-cloud;
+  transform: translateY(-100px);
+
+  // NAVIGATION
+  .form__nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 40px 24px 40px;
+
+    .back-link {
+      display: flex;
+      align-items: center;
+
+      .form__nav-header {
+        font-weight: 600;
+      }
+
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  // WAREHOUSE INFORMATION (main container)
+  .form__warehouse-details {
+    display: flex;
+    flex-direction: row;
+    padding: 32px 40px;
+    border-top: 1px solid $instock-cloud;
+
+    .form__address,
+    .form__contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      font-weight: 600;
+
+      * {
+        font-size: 1rem;
+      }
+    }
+
+    .form__address {
+      border-right: 1px solid $instock-cloud;
+      margin-right: 40px;
+      padding: 0 2rem 0 0;
+    }
+
+    .warehouse_label {
+      color: $instock-black;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  }
+
+  // Form inputs
+  .form-input {
+    border: 1px solid $instock-cloud;
+    border-radius: 5rem;
+    padding: 0.7rem;
+    margin: 0.5rem 0 2rem;
+    outline: none;
+    font-weight: 300;
+  }
+
+  // Buttons
+  .form__buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 4rem 2rem;
+
+    .btn-main {
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-left: 10px;
+
+      &.cancel-btn {
+        background: $instock-white;
+        color: $instock-slate;
+        border: 1px solid $instock-cloud;
+      }
+
+      &.save-btn {
+        background: $instock-blue;
+        color: #fff;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
