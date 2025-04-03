@@ -3,6 +3,10 @@
 @use "./styles/partials/mixins" as *;
 @use "./styles/partials/variables" as *;
 
+.app__wrapper {
+  position: relative;
+}
+
 .main__container {
   background: #fff;
   width: 80%;

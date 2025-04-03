@@ -1,0 +1,59 @@
+@use "../../styles/partials/variables" as *;
+
+.modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #010d2999;
+    z-index: 99;
+    min-height: 100%;
+    width: 100%;
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 15px;
+        background: #fff;
+        border-radius: 5px;
+        height: fit-content;
+        max-height: 350px;
+        width: 40%;
+        padding: 40px 60px;
+        z-index: 999;
+        transform: translateY(-100px);
+        animation: slideUp .3s ease-in-out forwards;
+
+        .close-btn {
+            position: absolute;
+            top: 4%;
+            right: 2%;
+            cursor: pointer;
+        }
+
+        .modal__header {
+            font-weight: 600;
+        }
+
+        .modal__cta-btn {
+            display: flex;
+            gap: 8px;
+            align-self: flex-end;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(-100px);
+        }
+    }
+}
