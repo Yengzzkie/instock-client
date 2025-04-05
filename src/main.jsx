@@ -4,14 +4,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.scss'
 import App from './App.jsx'
 import HomePage from './pages/HomePage/HomePage.jsx'
+import WarehousePage from './pages/WarehousePage/WarehousePage.jsx'
+import InventoryPage from './pages/InventoryPage/InventoryPage.jsx'
 import Table from './components/Table/Table.jsx'
-import WarehouseEdit from './components/WarehouseEdit/WarehouseEdit.jsx'
 
 const router = createBrowserRouter([
   {path: "/", element: <App />, children: [
     { path: "/", element: <HomePage /> },
-    { path: "/inventory", element: <Table /> },
-    { path: "/warehouse", element: <WarehouseEdit /> },
+    { path: "/warehouse", element: <WarehousePage /> },
+    { path: "/warehouse/:id", element: <Table /> },
+    { path: "/inventory", element: <InventoryPage /> },
   ]},
 ]);
 
