@@ -10,7 +10,6 @@ import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
-import DeleteModal from "../DeleteModal/DeleteModal";
 
 const TABLE_HEAD = [
   "INVENTORY ITEM",
@@ -49,7 +48,15 @@ const TABLE_DATA = [
 ];
 
 const Table = () => {
-  const { setIsModal, setSelectedItem } = useContext(ModalContext);
+  const { setIsModal, setModalText } = useContext(ModalContext);
+
+  // this function will handle the text content of the modal by setting the setModalText
+  // to whatever is passed on to the 'text' parameter
+  // This method will make the Modal reusable
+  const callModalHandler = (text) => {
+    setModalText(text);
+    setIsModal(true);
+  };
 
   return (
     <div className="table__container">
@@ -115,10 +122,7 @@ const Table = () => {
               <td>{row.quantity}</td>
               <td>
                 <Delete
-                  onClick={() => {
-                    setSelectedItem(row.item); // Set selected item name
-                    setIsModal(true);
-                  }}
+                  onClick={() => callModalHandler({header: `Delete ${row.item} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
                   className="table__cta-delete"
                 />
                 <Edit className="table__cta-edit" />
