@@ -8,7 +8,7 @@ import WarehousePage from './pages/WarehousePage/WarehousePage.jsx'
 import InventoryPage from './pages/InventoryPage/InventoryPage.jsx'
 import WarehouseEdit from './components/WarehouseEdit/WarehouseEdit.jsx'
 import WarehouseInventoryItem from './pages/WarehousePage/WarehousePage.jsx'
-import InventoryTable from './components/InventoryTable/Table.jsx'
+import InventoryTable from './components/InventoryTable/InventoryTable.jsx'
 
 const router = createBrowserRouter([
   {path: "/", element: <App />, children: [
