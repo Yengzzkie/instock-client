@@ -1,4 +1,4 @@
-import "./Table.scss";
+import "./InventoryTable.scss";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ModalContext } from "../../context/context";
@@ -47,7 +47,7 @@ const TABLE_DATA = [
   },
 ];
 
-const Table = () => {
+const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
 
   // this function will handle the text content of the modal by setting the setModalText
@@ -135,4 +135,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default InventoryTable;
