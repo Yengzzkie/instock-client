@@ -62,7 +62,7 @@ const WarehousePage = () => {
               {TABLE_DATA.map((row, index) => (
                 <tr key={index}>
                   <td className="table__item-name">
-                    <Link>{row.item}</Link> <ChevronRight />
+                    <Link to={`${row.id}`}>{row.item}</Link> <ChevronRight />
                   </td>
                   <td>{row.address}</td>
                   <td>{row.name}</td>
@@ -72,7 +72,7 @@ const WarehousePage = () => {
                       onClick={() => callModalHandler({header: `Delete ${row.item} warehouse item`, body: `Please confirm that you'd like to delete ${row.item} from the warehouse list. You won't be able to undo this action.`})}
                       className="table__cta-delete"
                     />
-                    <Link className="nav__link nav__item--home" to={`${row.id}`}>
+                    <Link to={`edit/${row.id}`}>
                       <Edit className="table__cta-edit" />
                     </Link>
                   </td>
