@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .table__container {
   background: #fff;
@@ -177,4 +178,85 @@
       }
     }
   }
+}
+
+@include mobile {
+  // Applying to Warehouse List for now. Can apply to the rest if approved
+  // Mainly focusing on the table layout in mobile view. (Layout and Order)
+  
+  .table__container {
+    .warehouse_table {
+      table {
+        display: block;
+        padding: 0;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid $instock-light-grey;
+        border-radius: 8px;
+        padding: 16px;
+        background-color: white;
+      }
+
+      tbody td {
+        box-sizing: border-box;
+        position: relative;
+
+        &::before {
+          content: attr(data-label);
+          font-weight: bold;
+          color: $instock-slate;
+          display: block;
+          font-size: 12px;
+          text-transform: uppercase;
+        }
+      }
+
+      tbody td:nth-child(1),
+      tbody td:nth-child(3)
+      {
+        width: 50%;
+      }
+
+      tbody td:nth-child(2),
+      tbody td:nth-child(4)
+      {
+        width: 50%;
+      }
+
+      tbody td:nth-child(1) {
+        order: 1;
+      }
+
+      tbody td:nth-child(3) {
+        order: 2;
+      }
+
+      tbody td:nth-child(2) {
+        order: 3;
+      }
+
+      tbody td:nth-child(4) {
+        order: 4;
+      }
+
+      tbody td:nth-child(5) {
+        order: 5;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+  
 }

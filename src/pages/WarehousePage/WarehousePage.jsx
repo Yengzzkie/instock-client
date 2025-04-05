@@ -34,53 +34,53 @@ const WarehousePage = () => {
   
   return (
     <>
-        <div className="table__container">
-          <div className="table__nav">
-            <div className="back-link">
-              <h1 className="table__nav-header">Warehouses</h1>
-            </div>
-            <button className="btn-main edit-btn">
-              + Add New Warehouse
-            </button>
+      <div className="table__container">
+        <div className="table__nav">
+          <div className="back-link">
+            <h1 className="table__nav-header">Warehouses</h1>
           </div>
-
-          <table>
-            {/* TABLE HEADER */}
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head, index) => (
-                  <th key={index}>
-                    <td>
-                      {head.toUpperCase()} <Sort />
-                    </td>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            {/* TABLE BODY */}
-            <tbody>
-              {TABLE_DATA.map((row, index) => (
-                <tr key={index}>
-                  <td className="table__item-name">
-                    <Link to={`${row.id}`}>{row.item}</Link> <ChevronRight />
-                  </td>
-                  <td>{row.address}</td>
-                  <td>{row.name}</td>
-                  <td>{row.contact}</td>
-                  <td>
-                    <Delete
-                      onClick={() => callModalHandler({header: `Delete ${row.item} warehouse item`, body: `Please confirm that you'd like to delete ${row.item} from the warehouse list. You won't be able to undo this action.`})}
-                      className="table__cta-delete"
-                    />
-                    <Link to={`edit/${row.id}`}>
-                      <Edit className="table__cta-edit" />
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <button className="btn-main edit-btn">
+            + Add New Warehouse
+          </button>
         </div>
+
+        <table className="warehouse_table">
+          {/* TABLE HEADER */}
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head, index) => (
+                <th key={index}>
+                  <td>
+                    {head.toUpperCase()} <Sort />
+                  </td>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          {/* TABLE BODY */}
+          <tbody>
+            {TABLE_DATA.map((row, index) => (
+              <tr key={index}>
+                <td className="table__item-name" data-label="Warehouse">
+                  <Link to={`${row.id}`}>{row.item}</Link> <ChevronRight />
+                </td>
+                <td data-label="Address">{row.address}</td>
+                <td data-label="Name">{row.name}</td>
+                <td data-label="Contact">{row.contact}</td>
+                <td data-label="Action">
+                  <Delete
+                    onClick={() => callModalHandler({header: `Delete ${row.item} warehouse item`, body: `Please confirm that you'd like to delete ${row.item} from the warehouse list. You won't be able to undo this action.`})}
+                    className="table__cta-delete"
+                  />
+                  <Link to={`edit/${row.id}`}>
+                    <Edit className="table__cta-edit" />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
