@@ -1,6 +1,6 @@
 import Navigation from "../../components/Navigation/Navigation";
 import Footer from "../../components/Footer/Footer";
-import Table from "../../components/Table/Table";
+import Table from "../../components/InventoryTable/Table";
 import WarehouseEdit from "../../components/WarehouseEdit/WarehouseEdit";
 
 const HomePage = () => {
