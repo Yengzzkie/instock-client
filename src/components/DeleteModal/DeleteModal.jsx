@@ -11,9 +11,10 @@ const WarehouseDeleteModal = () => {
       <div className="modal">
         <Close className="close-btn" onClick={() => setIsModal(false)} />
 
-        <h1 className="modal__header">{`${modalText.header}`}?</h1>
-
-        <p>{modalText.body}</p>
+        <div className="modal__text-content">
+          <h1 className="modal__header">{`${modalText.header}`}?</h1>
+          <p>{modalText.body}</p>
+        </div>
 
         <div className="modal__cta-btn">
           <button className="btn-secondary" onClick={() => setIsModal(false)}>Cancel</button>
