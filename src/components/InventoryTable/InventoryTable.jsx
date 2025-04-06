@@ -107,9 +107,9 @@ const InventoryTable = () => {
           <tr>
             {TABLE_HEAD.map((head, index) => (
               <th key={index}>
-                <td>
+                <span>
                   {head.toUpperCase()} <Sort />
-                </td>
+                </span>
               </th>
             ))}
           </tr>
@@ -118,14 +118,14 @@ const InventoryTable = () => {
         <tbody>
           {TABLE_DATA.map((row, index) => (
             <tr key={index}>
-              <td className="table__item-name">
+              <td data-label="item" className="table__item-name">
                 {/* replace the 'index' in route to the ID of the item */}
                 <Link to={`/warehouse/${id}/item/${index}`}>{row.item}</Link> <ChevronRight />
               </td>
-              <td>{row.category}</td>
-              <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
-              <td>{row.quantity}</td>
-              <td>
+              <td data-label="category">{row.category}</td>
+              <td data-label="status">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
+              <td data-label="quantity">{row.quantity}</td>
+              <td data-label="Action">
                 <Delete
                   onClick={() => callModalHandler({header: `Delete ${row.item} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
                   className="table__cta-delete"

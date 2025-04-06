@@ -99,7 +99,7 @@
         th {
           font-weight: 300;
 
-          td {
+          span {
             display: flex;
             align-items: center;
             font-size: 14px;
@@ -181,15 +181,10 @@
 }
 
 @include mobile {
-  // Applying to Warehouse List for now. Can apply to the rest if approved
-  // Mainly focusing on the table layout in mobile view. (Layout and Order)
-  
   .table__container {
-    .warehouse_table {
-      table {
-        display: block;
-        padding: 0;
-      }
+    table {
+      display: block;
+      padding: 0;
 
       thead {
         display: none;
@@ -202,61 +197,53 @@
         border-radius: 8px;
         padding: 16px;
         background-color: white;
-      }
 
-      tbody td {
-        box-sizing: border-box;
-        position: relative;
-
-        &::before {
-          content: attr(data-label);
-          font-weight: bold;
-          color: $instock-slate;
+        .table__item-name {
           display: block;
-          font-size: 12px;
-          text-transform: uppercase;
+
+          svg {
+            position: absolute;
+          }
+
+          &:hover {
+            text-decoration: none;
+            a {
+              text-decoration: underline;
+            }
+          }
         }
-      }
 
-      tbody td:nth-child(1),
-      tbody td:nth-child(3)
-      {
-        width: 50%;
-      }
+        td {
+          box-sizing: border-box;
+          position: relative;
+          width: 50%;
+  
+          &::before {
+            content: attr(data-label);
+            font-weight: bold;
+            color: $instock-slate;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            width: 100%;
+          }
 
-      tbody td:nth-child(2),
-      tbody td:nth-child(4)
-      {
-        width: 50%;
-      }
-
-      tbody td:nth-child(1) {
-        order: 1;
-      }
-
-      tbody td:nth-child(3) {
-        order: 2;
-      }
-
-      tbody td:nth-child(2) {
-        order: 3;
-      }
-
-      tbody td:nth-child(4) {
-        order: 4;
-      }
-
-      tbody td:nth-child(5) {
-        order: 5;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        
-        &::before {
-          display: none;
+          &:nth-child(1) { order: 1; }
+          &:nth-child(3) { order: 2; }
+          &:nth-child(2) { order: 3; }
+          &:nth-child(4) { order: 4; }
+          &:nth-child(5) {
+            order: 5;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            
+            &::before {
+              display: none;
+            }
+          }
         }
       }
     }
   }
-  
 }
