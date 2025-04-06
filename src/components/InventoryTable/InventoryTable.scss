@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .table__container {
   background: #fff;
@@ -98,7 +99,7 @@
         th {
           font-weight: 300;
 
-          td {
+          span {
             display: flex;
             align-items: center;
             font-size: 14px;
@@ -171,6 +172,84 @@
               60% { transform: rotate(-13deg); }
               80% { transform: rotate(13deg); }
               100% { transform: rotate(0); }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .table__container {
+    .table__warehouse-details {
+      flex-direction: column;
+      border-bottom: 1px solid $instock-cloud;
+
+      .table__address {
+        border-right: none;
+        margin-right: 0;
+        margin-bottom: 40px;
+      }
+    }
+
+    table {
+      display: block;
+      padding: 0;
+
+      thead {
+        display: none;
+      }
+
+      tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $instock-cloud;
+        padding: 16px;
+        background-color: white;
+
+        .table__item-name {
+          display: block;
+
+          svg {
+            position: absolute;
+          }
+
+          &:hover {
+            text-decoration: none;
+            a {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        td {
+          box-sizing: border-box;
+          position: relative;
+          width: 50%;
+  
+          &::before {
+            content: attr(data-label);
+            font-weight: bold;
+            color: $instock-slate;
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            width: 100%;
+          }
+
+          &:nth-child(1) { order: 1; }
+          &:nth-child(3) { order: 2; }
+          &:nth-child(2) { order: 3; }
+          &:nth-child(4) { order: 4; }
+          &:nth-child(5) {
+            order: 5;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            
+            &::before {
+              display: none;
             }
           }
         }
