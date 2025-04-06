@@ -50,9 +50,9 @@ const WarehousePage = () => {
             <tr>
               {TABLE_HEAD.map((head, index) => (
                 <th key={index}>
-                  <td>
+                  <span>
                     {head.toUpperCase()} <Sort />
-                  </td>
+                  </span>
                 </th>
               ))}
             </tr>
