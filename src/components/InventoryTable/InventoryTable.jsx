@@ -1,7 +1,8 @@
-import "./Table.scss";
+import "./InventoryTable.scss";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ModalContext } from "../../context/context";
+import { useParams } from "react-router-dom";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -47,8 +48,11 @@ const TABLE_DATA = [
   },
 ];
 
-const Table = () => {
+const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
+  const { id } = useParams();
+
+  console.log(id)
 
   // this function will handle the text content of the modal by setting the setModalText
   // to whatever is passed on to the 'text' parameter
@@ -115,7 +119,8 @@ const Table = () => {
           {TABLE_DATA.map((row, index) => (
             <tr key={index}>
               <td className="table__item-name">
-                <Link>{row.item}</Link> <ChevronRight />
+                {/* replace the 'index' in route to the ID of the item */}
+                <Link to={`/warehouse/${id}/item/${index}`}>{row.item}</Link> <ChevronRight />
               </td>
               <td>{row.category}</td>
               <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
@@ -135,4 +140,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default InventoryTable;
