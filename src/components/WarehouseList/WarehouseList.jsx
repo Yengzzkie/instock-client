@@ -7,10 +7,14 @@ import EditIcon from "../../../assets/Icons/edit-24px.svg?react";
 import SortIcon from "../../../assets/Icons/sort-24px.svg?react";
 import "./WarehouseList.scss";
 import { useMediaQuery } from "react-responsive";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ModalContext } from "../../context/context";
 
 const WarehouseList = () => {
   const [wareHouses, setWarehouses] = useState([]);
   const isTablet = useMediaQuery({ minWidth: 768 });
+  const { setIsModal, setModalText } = useContext(ModalContext);
 
   const getWarehouses = async () => {
     const response = await axios.get("http://localhost:8000/api/warehouses");
@@ -20,6 +24,10 @@ const WarehouseList = () => {
     getWarehouses();
   }, []);
   console.log("Warehouses", wareHouses);
+  const callModalHandler = (text) => {
+    setModalText(text);
+    setIsModal(true);
+  };
 
   return (
     <>
@@ -27,10 +35,10 @@ const WarehouseList = () => {
         <section className="header">
           <h1 className="header__title">Warehouses</h1>
 
-          <div className="header__search">
-            <p className="header__search-text">Search...</p>
+          <form className="header__search">
+            <input onChange={(e) => e.target.value} className="header__search-text" placeholder="Search..."/>
             <SearchIcon className="header__search-icon" />
-          </div>
+          </form>
           <button className="header__button">+ Add New Warehouse</button>
         </section>
         <div className="warehouse-list">
@@ -78,6 +86,7 @@ const WarehouseList = () => {
                   <>
                     <tr className="table-data" key={index}>
                       <td>
+                        <Link to={`/warehouse/:${warehouse.id}`}>
                         <span className="warehouse-name">
                           {warehouse.warehouse_name}
                         </span>
@@ -85,6 +94,7 @@ const WarehouseList = () => {
                           {" "}
                           <ChevronRight />{" "}
                         </span>
+                        </Link>
                       </td>
                       <td>{warehouse.address}</td>
                       <td>{warehouse.contact_name}</td>
@@ -94,10 +104,14 @@ const WarehouseList = () => {
                       </td>
                       <td className="warehouse-table__actions">
                         <div className="table-delete">
-                          <DeleteIcon />
+                          <DeleteIcon 
+                          onClick={() => callModalHandler({header: `Delete ${warehouse.item} warehouse item`, body: `Please confirm that you'd like to delete ${warehouse.item} from the inventory list. You won't be able to undo this action.`})}
+                          />
                         </div>
                         <div className="table-edit">
+                          <Link to={`/warehouse/edit/:${warehouse.id}`}>
                           <EditIcon />
+                          </Link>
                         </div>
                       </td>
                     </tr>
@@ -113,12 +127,14 @@ const WarehouseList = () => {
                     <div className="warehouse-card__col-1">
                       <div className="warehouse-card__warehouse">
                         <h4 className="warehouse-title">WAREHOUSE</h4>
+                        <Link to={`/warehouse/:${warehouse.id}`}>
                         <div className="warehouse-card__warehouse-name">
                           <p className="warehouse-name">
                             {warehouse.warehouse_name}
                           </p>
                           <ChevronRight className="arrow-icon" />
                         </div>
+                        </Link>
                       </div>
                       <div className="warehouse-card__address">
                         <h4 className="address-title">ADDRESS</h4>
@@ -147,8 +163,12 @@ const WarehouseList = () => {
                     </div>
                   </div>
                   <div className="warehouse-card__icons">
-                    <DeleteIcon className="delete-icon" />
+                    <DeleteIcon 
+                    onClick={() => callModalHandler({header: `Delete ${warehouse.item} warehouse item`, body: `Please confirm that you'd like to delete ${warehouse.item} from the inventory list. You won't be able to undo this action.`})}
+                    className="delete-icon" />
+                    <Link to={`/warehouse/edit/:${warehouse.id}`}>
                     <EditIcon className="edit-icon" />
+                    </Link>
                   </div>
                 </>
               ))}
