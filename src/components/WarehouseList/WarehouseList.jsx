@@ -13,6 +13,7 @@ import { ModalContext } from "../../context/context";
 
 const WarehouseList = () => {
   const [wareHouses, setWarehouses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const isTablet = useMediaQuery({ minWidth: 768 });
   const { setIsModal, setModalText } = useContext(ModalContext);
 
@@ -29,6 +30,25 @@ const WarehouseList = () => {
     setIsModal(true);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const filteredResults = wareHouses.filter((item) => {
+      if (item.warehouse_name.toLowerCase().includes(searchQuery.toLowerCase()) 
+        || item.address.toLowerCase().includes(searchQuery.toLowerCase()) 
+      || item.city.toLowerCase().includes(searchQuery.toLowerCase()) 
+      || item.country.toLowerCase().includes(searchQuery.toLowerCase()) 
+      || item.contact_name.toLowerCase().includes(searchQuery.toLowerCase()) 
+      || item.contact_email.toLowerCase().includes(searchQuery.toLowerCase()) 
+      || item.contact_phone.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return item
+      }
+    })
+    if (filteredResults.length > 0){
+      setWarehouses(filteredResults);
+      setSearchQuery("");
+    }
+  }
+
   return (
     <>
       <section className="warehouses_list">
@@ -36,8 +56,8 @@ const WarehouseList = () => {
           <h1 className="header__title">Warehouses</h1>
 
           <form className="header__search">
-            <input onChange={(e) => e.target.value} className="header__search-text" placeholder="Search..."/>
-            <SearchIcon className="header__search-icon" />
+            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="header__search-text" placeholder="Search..."/>
+            <SearchIcon onClick={handleSubmit} className="header__search-icon" />
           </form>
           <button className="header__button">+ Add New Warehouse</button>
         </section>
