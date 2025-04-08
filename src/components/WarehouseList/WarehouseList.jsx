@@ -14,6 +14,9 @@ import { ModalContext } from "../../context/context";
 const WarehouseList = () => {
   const [wareHouses, setWarehouses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [ascending, setAscending] = useState(false);
+
   const isTablet = useMediaQuery({ minWidth: 768 });
   const { setIsModal, setModalText } = useContext(ModalContext);
 
@@ -49,6 +52,36 @@ const WarehouseList = () => {
     }
   }
 
+  const handleSort = (sortingParam, sortOrder) => {
+    if (sortOrder === true){
+    wareHouses.sort((a, b) => {
+      if (a[sortingParam].toLowerCase() < b[sortingParam].toLowerCase()) {
+        return -1
+      }
+      if (b[sortingParam].toLowerCase() < a[sortingParam].toLowerCase()){
+        return 1
+      }
+
+      return 0
+    })
+  }
+  else {
+    wareHouses.sort((a, b) => {
+      console.log(a[sortingParam], b[sortingParam]);
+      if (b[sortingParam].toLowerCase() < a[sortingParam].toLowerCase()) {
+        return -1
+      }
+      if (a[sortingParam].toLowerCase() < b[sortingParam].toLowerCase()){
+        return 1
+      }
+
+      return 0
+    })
+  }
+  console.log("Sorted warehouses:", wareHouses);
+  setWarehouses(wareHouses);
+  }
+
   return (
     <>
       <section className="warehouses_list">
@@ -70,7 +103,11 @@ const WarehouseList = () => {
                     <div className="table-header__contents">
                       <div>WAREHOUSE </div>
                       <div className="sort-icon">
-                        <SortIcon className="sort-icon" />
+                        <SortIcon onClick={() => {
+                          ascending ? setAscending(false) : setAscending(true)
+                          setSortBy("warehouse_name")
+                          handleSort(sortBy, ascending)
+                        }} className="sort-icon" />
                       </div>
                     </div>
                   </th>
@@ -78,7 +115,11 @@ const WarehouseList = () => {
                     <div className="table-header__contents">
                       <div>ADDRESS </div>
                       <div>
-                        <SortIcon className="sort-icon" />
+                        <SortIcon onClick={() => {
+                          ascending ? setAscending(false) : setAscending(true)
+                          setSortBy("address")
+                          handleSort(sortBy, ascending)
+                        }} className="sort-icon" />
                       </div>
                     </div>
                   </th>
@@ -86,7 +127,11 @@ const WarehouseList = () => {
                     <div className="table-header__contents">
                       <div>CONTACT NAME </div>
                       <div className="sort-icon">
-                        <SortIcon className="sort-icon" />
+                        <SortIcon onClick={() => {
+                          ascending ? setAscending(false) : setAscending(true)
+                          setSortBy("contact_name")
+                          handleSort(sortBy, ascending)
+                        }} className="sort-icon" />
                       </div>
                     </div>
                   </th>
@@ -94,7 +139,11 @@ const WarehouseList = () => {
                     <div className="table-header__contents">
                       <div>CONTACT INFORMATION</div>
                       <div className="sort-icon">
-                        <SortIcon className="sort-icon" />
+                        <SortIcon onClick={() => {
+                          ascending ? setAscending(false) : setAscending(true)
+                          setSortBy("contact_email")
+                          handleSort(sortBy, ascending)
+                        }} className="sort-icon" />
                       </div>
                     </div>
                   </th>
