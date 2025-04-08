@@ -10,11 +10,12 @@ import WarehouseEdit from './components/WarehouseEdit/WarehouseEdit.jsx'
 import WarehouseInventoryItem from './pages/WarehousePage/WarehousePage.jsx'
 import InventoryTable from './components/InventoryTable/InventoryTable.jsx'
 import ItemDetails from './components/ItemDetails/ItemDetails.jsx'
+import WarehouseList from './components/WarehouseList/WarehouseList.jsx'
 
 const router = createBrowserRouter([
   {path: "/", element: <App />, children: [
     { path: "/", element: <HomePage /> },
-    { path: "/warehouse", element: <WarehousePage /> },
+    { path: "/warehouse", element: <WarehouseList /> },
     { path: "/warehouse/:id", element: <InventoryTable /> },
     { path: "/warehouse/edit/:id", element: <WarehouseEdit /> },
     { path: "/warehouse/:id/item/:itemid", element: <ItemDetails /> },
