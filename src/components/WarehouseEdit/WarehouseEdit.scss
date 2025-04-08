@@ -27,10 +27,17 @@
     }
   }
 
-  // WAREHOUSE INFORMATION (main container)
-  .form__warehouse-details {
+  .form {
     display: flex;
     flex-direction: row;
+    padding: 32px 40px;
+  }
+
+  // WAREHOUSE INFORMATION (main container)
+
+  .form__warehouse-details {
+    display: flex;
+    flex-direction: column;
     padding: 32px 40px;
     border-top: 1px solid $instock-cloud;
 
