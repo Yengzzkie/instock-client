@@ -22,3 +22,11 @@ _mixins.scss
     @content;
   }
 }
+
+
+@mixin flex($direction: row, $align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
