@@ -1,5 +1,8 @@
-import "./Table.scss";
+import "./InventoryTable.scss";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ModalContext } from "../../context/context";
+import { useParams } from "react-router-dom";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -45,16 +48,30 @@ const TABLE_DATA = [
   },
 ];
 
-const Table = () => {
+const InventoryTable = () => {
+  const { setIsModal, setModalText } = useContext(ModalContext);
+  const { id } = useParams();
+
+  console.log(id)
+
+  // this function will handle the text content of the modal by setting the setModalText
+  // to whatever is passed on to the 'text' parameter
+  // This method will make the Modal reusable
+  const callModalHandler = (text) => {
+    setModalText(text);
+    setIsModal(true);
+  };
+
   return (
     <div className="table__container">
-
       {/* NAVIGATION */}
       <div className="table__nav">
         <div className="back-link">
           <ArrowBack /> <h1 className="table__nav-header">Washington</h1>
         </div>
-        <button className="btn-main edit-btn"><EditWhite /> Edit</button>
+        <button className="btn-main edit-btn">
+          <EditWhite /> Edit
+        </button>
       </div>
 
       <div className="table__warehouse-details">
@@ -90,9 +107,9 @@ const Table = () => {
           <tr>
             {TABLE_HEAD.map((head, index) => (
               <th key={index}>
-                <td>
+                <span>
                   {head.toUpperCase()} <Sort />
-                </td>
+                </span>
               </th>
             ))}
           </tr>
@@ -101,14 +118,18 @@ const Table = () => {
         <tbody>
           {TABLE_DATA.map((row, index) => (
             <tr key={index}>
-              <td className="table__item-name">
-                <Link>{row.item}</Link> <ChevronRight />
+              <td data-label="item" className="table__item-name">
+                {/* replace the 'index' in route to the ID of the item */}
+                <Link to={`/warehouse/${id}/item/${index}`}>{row.item}</Link> <ChevronRight />
               </td>
-              <td>{row.category}</td>
-              <td>{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
-              <td>{row.quantity}</td>
-              <td>
-                <Delete className="table__cta-delete" />
+              <td data-label="category">{row.category}</td>
+              <td data-label="status">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
+              <td data-label="quantity">{row.quantity}</td>
+              <td data-label="Action">
+                <Delete
+                  onClick={() => callModalHandler({header: `Delete ${row.item} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
+                  className="table__cta-delete"
+                />
                 <Edit className="table__cta-edit" />
               </td>
             </tr>
@@ -119,4 +140,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default InventoryTable;

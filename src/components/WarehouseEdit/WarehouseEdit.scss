@@ -2,12 +2,10 @@
 
 .form__container {
   background: #fff;
-  width: 80%;
+  // width: 80%; change width to 100%
   margin: 10px auto;
-  box-shadow: 0 3px 6px $instock-cloud;
-  transform: translateY(-100px);
-
-  
+  // box-shadow: 0 3px 6px $instock-cloud; remove this since the parent container will hold the box shadow
+  // transform: translateY(-100px);
 
   // NAVIGATION
   .form__nav {
@@ -29,17 +27,10 @@
     }
   }
 
-  .form {
-    display: flex;
-    flex-direction: row;
-    padding: 32px 40px;
-  }
-
   // WAREHOUSE INFORMATION (main container)
-
   .form__warehouse-details {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 32px 40px;
     border-top: 1px solid $instock-cloud;
 
