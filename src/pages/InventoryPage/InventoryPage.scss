@@ -1,0 +1,83 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/variables" as variables;
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+
+    &__header{
+        display: none;
+    }
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 0.7px solid variables.$instock-cloud;
+    padding-top: 1.2rem;
+    padding-right: 0.8rem;
+}
+.table-data-inventory{
+    display: block;
+    border: none;
+    width: 30%;
+    position: relative;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 0.8rem;
+
+    &:before{
+        content: attr(data-label);
+        position: absolute;
+        bottom: 3rem;
+        font-weight: 600;
+        text-align: left;
+        color: variables.$instock-slate;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    &:nth-child(1)::before{
+        padding-bottom: 0.2rem;
+    }
+    &:nth-child(1) {
+        order: 1;
+        font-weight: 600;
+        color: variables.$instock-blue;
+        
+    }
+    a{
+        color: inherit;
+        font-weight: inherit;
+    }
+    &:nth-child(2) {order: 3;}
+    &:nth-child(3) {order: 2;}
+    &:nth-child(3)::before{
+        padding-bottom: 0.2rem;
+    }
+    &:nth-child(4) {order: 4;}
+    &:nth-child(5) {
+        order: 5;
+        margin-left: auto;
+    }
+    &__actions{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.instock-tag{
+    font-weight: 600;
+}
+.arrow-chevron{
+    position:absolute;
+    font-size: 0.9rem;
+}
+.row-actions{
+    padding-top: 0.3rem;
+    
+}

@@ -26,10 +26,14 @@ const WarehouseList = () => {
   useEffect(() => {
     getWarehouses();
   }, []);
+
+
   const callModalHandler = (text) => {
     setModalText(text);
     setIsModal(true);
   };
+
+  
   // search functionality
   const handleSubmit = (e) => {
     e.preventDefault();
