@@ -26,12 +26,11 @@ const WarehouseList = () => {
   useEffect(() => {
     getWarehouses();
   }, []);
-  console.log("Warehouses", wareHouses);
   const callModalHandler = (text) => {
     setModalText(text);
     setIsModal(true);
   };
-
+  // search functionality
   const handleSubmit = (e) => {
     e.preventDefault();
     const filteredResults = wareHouses.filter((item) => {
@@ -50,7 +49,7 @@ const WarehouseList = () => {
       setSearchQuery("");
     }
   }
-
+  // sorting functionality
   const handleSort = (sortingParam, sortOrder) => {
     if (sortOrder === true){
     wareHouses.sort((a, b) => {
@@ -172,7 +171,7 @@ const WarehouseList = () => {
                       <td className="warehouse-table__actions">
                         <div className="table-delete">
                           <DeleteIcon 
-                          onClick={() => callModalHandler({header: `Delete ${warehouse.item} warehouse item`, body: `Please confirm that you'd like to delete ${warehouse.item} from the inventory list. You won't be able to undo this action.`})}
+                          onClick={() => callModalHandler({header: `Delete ${warehouse.warehouse_name} warehouse`, body: `Please confirm that you'd like to delete ${warehouse.warehouse_name} from the warehouse list. You won't be able to undo this action.`})}
                           />
                         </div>
                         <div className="table-edit">
