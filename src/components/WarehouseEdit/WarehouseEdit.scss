@@ -1,5 +1,6 @@
 @use "../../styles/partials/variables" as *;
 
+
 .form__container {
   background: #fff;
   // width: 80%; change width to 100%
@@ -63,7 +64,7 @@
       color: $instock-black;
       font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 2rem;
     }
   }
 
@@ -107,3 +108,5 @@
     }
   }
 }
+
+
