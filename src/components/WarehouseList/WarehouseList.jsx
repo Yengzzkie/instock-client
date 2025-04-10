@@ -152,7 +152,7 @@ const WarehouseList = () => {
                   <>
                     <tr className="table-data" key={index}>
                       <td>
-                        <Link to={`/warehouse/:${warehouse.id}`}>
+                        <Link to={`/warehouse/${warehouse.id}`}>
                         <span className="warehouse-name">
                           {warehouse.warehouse_name}
                         </span>
