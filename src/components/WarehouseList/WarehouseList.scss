@@ -55,6 +55,27 @@
         padding: 0.3rem 0.8rem;
         align-items: center;
         justify-content: space-between;
+
+        &--inventory{
+            display: flex;
+            flex-direction: row;
+            border: 1px solid variables.$instock-cloud;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            
+            @include tablet{
+            width: 28%;
+            position: relative;
+            left: 3rem;
+            
+            }
+            @include desktop{
+                left: 8rem;
+            }
+        }
+
         @include tablet{
             padding: 0.5rem 1rem;
             width: 24%;
@@ -87,6 +108,7 @@
     &__search-icon{
         flex-shrink: 0;
         width: 1.5rem;
+        cursor: pointer;
     }
     &__button{
         font-family: "Titillium Web", sans-serif;

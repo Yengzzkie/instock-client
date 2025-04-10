@@ -26,10 +26,14 @@ const WarehouseList = () => {
   useEffect(() => {
     getWarehouses();
   }, []);
+
+
   const callModalHandler = (text) => {
     setModalText(text);
     setIsModal(true);
   };
+
+
   // search functionality
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -175,7 +179,7 @@ const WarehouseList = () => {
                           />
                         </div>
                         <div className="table-edit">
-                          <Link to={`/warehouse/edit/:${warehouse.id}`}>
+                          <Link to={`/warehouse/edit/${warehouse.id}`}>
                           <EditIcon />
                           </Link>
                         </div>
@@ -193,7 +197,7 @@ const WarehouseList = () => {
                     <div className="warehouse-card__col-1">
                       <div className="warehouse-card__warehouse">
                         <h4 className="warehouse-title">WAREHOUSE</h4>
-                        <Link to={`/warehouse/:${warehouse.id}`}>
+                        <Link to={`/warehouse/${warehouse.id}`}>
                         <div className="warehouse-card__warehouse-name">
                           <p className="warehouse-name">
                             {warehouse.warehouse_name}
@@ -232,7 +236,7 @@ const WarehouseList = () => {
                     <DeleteIcon 
                     onClick={() => callModalHandler({header: `Delete ${warehouse.item} warehouse item`, body: `Please confirm that you'd like to delete ${warehouse.item} from the inventory list. You won't be able to undo this action.`})}
                     className="delete-icon" />
-                    <Link to={`/warehouse/edit/:${warehouse.id}`}>
+                    <Link to={`/warehouse/edit/${warehouse.id}`}>
                     <EditIcon className="edit-icon" />
                     </Link>
                   </div>
