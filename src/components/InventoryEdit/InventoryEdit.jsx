@@ -6,11 +6,59 @@ import FormField from "../FormField/FormField.jsx";
 
 const InventoryEdit = () => {
   const { itemID } = useParams();
+  const [isError, setIsError] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.target;
+    const name = form.name.value.trim();
+    const description = form.description.value.trim();
+    const category = form.category.value.trim();
+    const status = form.status.value.trim();
+    const quantity = form.quantity.value.trim();
+    const warehouses = form.warehouses.value.trim();
+
+    const errors = {
+      name: !name,
+      description: !description,
+      category: !category,
+      status: !status,
+      quantity: !quantity,
+      warehouses: !warehouses
+    };
+
+    setIsError(errors);
   };
 
+  // --- Fields ---
+  const inventoryDetails = [
+    { label: "Item Name", class: "", type: "input", name: "name", placeholder: "Item Name", value: "", /* onChange: "",*/ },
+    { label: "Description", class: "", type: "textarea", name: "description", placeholder: "Description", value: "", /* onChange: "", */ },
+    { label: "Category", class: "", type: "select", name: "category", placeholder: "Category", value: "", /* onChange: "", */
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+      ]
+    },
+  ];
+
+  const inventoryAvailability = [
+    { label: "Status", class: "", type: "radio", name: "status", placeholder: "Status", value: "Out of Stock", /* onChange: "", */
+      options: [
+        { value: "In Stock", label: "In Stock" },
+        { value: "Out of Stock", label: "Out of Stock" },
+      ]
+    },
+    { label: "Quantity", class: "", type: "number", name: "quantity", placeholder: "Quantity", value: "", /* onChange: "", */ },
+    { label: "Warehouse", class: "", type: "select", name: "warehouses", placeholder: "Warehouse", value: "", /* onChange: "", */
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+      ]
+    }
+  ];
+  
   return ( 
     <>
       <div className="form__container form__container-inventory">
@@ -29,92 +77,19 @@ const InventoryEdit = () => {
             <div className="form__column form__column-left">
               <h2 className="form__header">Item Details</h2>
 
-              <FormField input={{
-                label: "Item Name",
-                class: "",
-                type: "input",
-                name: "name", 
-                placeholder: "Item Name",
-                value: "",
-                // onChange: "",
-                }}
-              />
-              
-              <FormField input={{
-                label: "Description",
-                class: "",
-                type: "textarea",
-                name: "description", 
-                placeholder: "Description",
-                value: "",
-                // onChange: "",
-                }}
-              />
-              
-              <FormField input={{
-                label: "Category",
-                class: "",
-                type: "select",
-                name: "category", 
-                placeholder: "Category",
-                value: "",
-                // onChange: "",
+              {inventoryDetails.map((params, index) => (
+                <FormField key={index} input={{...params, error: isError[params.name]}} />
+              ))}
 
-                options: [
-                  { value: "1", label: "Option 1" },
-                  { value: "2", label: "Option 2" },
-                ]
-                }}
-              />
             </div>
 
             {/* ITEM AVAILABILITY CONTAINER */}
             <div className="form__column">
               <h2 className="form__header">Item Availability</h2>
 
-              <FormField input={{
-                label: "Status",
-                class: "",
-                type: "radio",
-                name: "status", 
-                placeholder: "Status",
-                value: "Out of Stock",
-                // onChange: "",
-
-                options: [
-                  { value: "In Stock", label: "In Stock" },
-                  { value: "Out of Stock", label: "Out of Stock" },
-                ]
-                }}
-              />
-
-              {/* Show only if Status is set to In Stock */}
-              <FormField input={{
-                label: "Quantity",
-                class: "",
-                type: "number",
-                name: "quantity", 
-                placeholder: "Quantity",
-                value: "500",
-                // onChange: "",
-                }}
-              />
-
-              <FormField input={{
-                label: "Warehouse",
-                class: "",
-                type: "select",
-                name: "warehouses", 
-                placeholder: "warehouse",
-                value: "",
-                // onChange: "",
-
-                options: [
-                  { value: "1", label: "Option 1" },
-                  { value: "2", label: "Option 2" },
-                ]
-                }}
-              />
+              {inventoryAvailability.map((params, index) => (
+                <FormField key={index} input={{...params, error: isError[params.name]}} />
+              ))}
             </div>
           </div>
 

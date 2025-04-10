@@ -16,7 +16,7 @@ const FormField = ({input}) => {
       value: "",
       // onChange: "", // function name
 
-      // options - used only for [type:"dropdown"], otherwise remove this
+      // options - used only for type:["select", "radio"], otherwise remove this
       options: [
         { value: "1", label: "Option 1" },
         { value: "2", label: "Option 2" },
@@ -25,12 +25,17 @@ const FormField = ({input}) => {
     />
   */}
 
+  if(input.error){
+    input.class = "error";
+  }  
+
   return (
     <>
       <div className="form__group">
-        <label className="form-label" {...(input.type !== "radio" ? { htmlFor: input.name } : {})}>
+        <label className="form-label" {...(input.type !== "radio" ? { htmlFor: input.name } : {})}> {/* if input is radiobutton, remove `for` attribute */}
           {input.label}
         </label>
+        
 
         {input.type === "select" ? (
           <select
@@ -93,7 +98,9 @@ const FormField = ({input}) => {
             ))}
           </div>
         ) : (
-          <></>
+          <>
+            {/* display nothing if input is not in the following {select, input, number, textarea, search, radio} */}
+          </>
         )}
         
         {input.class.includes('error') && (
