@@ -55,6 +55,20 @@
         padding: 0.3rem 0.8rem;
         align-items: center;
         justify-content: space-between;
+
+        &--inventory{
+            display: flex;
+            flex-direction: row;
+            border: 1px solid variables.$instock-cloud;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: space-between;
+            width: 28%;
+            position: relative;
+            left: 3rem;
+            padding: 0.5rem 1rem;
+        }
+
         @include tablet{
             padding: 0.5rem 1rem;
             width: 24%;

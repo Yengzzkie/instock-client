@@ -24,8 +24,8 @@ const InventoryPage = () => {
 
   const TABLE_HEADERS = [
     "INVENTORY ITEM",
-    "STATUS",
     "CATEGORY",
+    "STATUS",
     "QTY",
     "WAREHOUSE",
     "ACTIONS"
@@ -44,7 +44,7 @@ const InventoryPage = () => {
         <section className="header">
           <h1 className="header__title">Inventory</h1>
 
-          <form className="header__search">
+          <form className="header__search--inventory">
             <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="header__search-text" placeholder="Search..."/>
             <SearchIcon className="header__search-icon" />
           </form>
@@ -56,7 +56,10 @@ const InventoryPage = () => {
             <tr className="row">
               {TABLE_HEADERS.map((item, index) => (
                 <th className="head" key={index}>
-                  <span>{item} <SortIcon /></span>
+                  <div className="head__wrapper">
+                  <span className="head__inventory">{item}</span>
+                  <span className="head__icon"><SortIcon /></span>
+                  </div>
                   </th>
               ))}
             </tr>
@@ -78,15 +81,29 @@ const InventoryPage = () => {
                 </td>
               <td data-label = "QTY" className="table-data-inventory">{item.qty}</td>
               <td data-label = "WAREHOUSE" className="table-data-inventory">{item.warehouse}</td>
-              </tr>
-              <tr className="row-actions">
-              <td className="table-data-inventory__actions">
+              <td className="table-data-inventory__actions-tablet">
+                <div className="actions_wrapper">
                 <div className="delete">
                 <DeleteIcon
                 onClick={() => callModalHandler({header: `Delete ${item.item} inventory`, body: `Please confirm that you'd like to delete ${item.item} from the inventory list. You won't be able to undo this action.`})} />
                 </div>
                 <div className="edit">
                   <EditIcon />
+                </div>
+                </div>
+              </td>
+              </tr>
+              {/* mobile layout responsive design for actions column */}
+              <tr className="row-actions">
+              <td className="table-data-inventory__actions">
+                <div className="actions_wrapper">
+                <div className="delete">
+                <DeleteIcon
+                onClick={() => callModalHandler({header: `Delete ${item.item} inventory`, body: `Please confirm that you'd like to delete ${item.item} from the inventory list. You won't be able to undo this action.`})} />
+                </div>
+                <div className="edit">
+                  <EditIcon />
+                </div>
                 </div>
               </td>
               </tr>
