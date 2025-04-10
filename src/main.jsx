@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     { path: "/warehouse/:id/item/:itemid", element: <ItemDetails /> },
     { path: "/inventory", element: <InventoryPage /> },
     { path: "/inventory/:id", element: <InventoryPage /> }, // change element here to Inventory Details component
-    { path: "/inventory/edit/:id", element: <InventoryEdit /> }, // change element here to Edit Inventory Details component
+    { path: "/inventory/edit/:id", element: <InventoryEdit /> },
   ]},
 ]);
 
