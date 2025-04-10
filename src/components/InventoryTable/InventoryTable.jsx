@@ -1,8 +1,9 @@
 import "./InventoryTable.scss";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/context";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -20,37 +21,24 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-const TABLE_DATA = [
-  { item: "Laptop", category: "Electronics", status: "In Stock", quantity: 10 },
-  {
-    item: "Office Chair",
-    category: "Furniture",
-    status: "Low Stock",
-    quantity: 3,
-  },
-  {
-    item: "Notebook",
-    category: "Stationery",
-    status: "Out of Stock",
-    quantity: 0,
-  },
-  {
-    item: "Headphones",
-    category: "Electronics",
-    status: "In Stock",
-    quantity: 25,
-  },
-  {
-    item: "Whiteboard",
-    category: "Office Supplies",
-    status: "In Stock",
-    quantity: 7,
-  },
-];
-
 const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
   const { id } = useParams();
+  const [inventoryData, setInventoryData] = useState([]);
+
+  async function getInventoryData() {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/warehouses/${id}/inventories`);
+      setInventoryData(response.data)
+      console.log(response.data);
+    } catch (error) {
+      console.error(`Failed to get data for warehouse with ID ${id}:`, error)
+    }
+  }
+
+  useEffect(() => {
+    getInventoryData();
+  });
 
   // this function will handle the text content of the modal by setting the setModalText
   // to whatever is passed on to the 'text' parameter
@@ -114,18 +102,18 @@ const InventoryTable = () => {
         </thead>
         {/* TABLE BODY */}
         <tbody className="inventory__table-body">
-          {TABLE_DATA.map((row, index) => (
+          {inventoryData.map((row, index) => (
             <tr className="inventory__table-row" key={index}>
               <td data-label="item" className="table__item-name inventory__table-data">
                 {/* replace the 'index' in route to the ID of the item */}
-                <Link to={`/warehouse/${id}/item/${index}`}>{row.item}</Link> <ChevronRight />
+                <Link to={`/warehouse/${id}/item/${index}`}>{row.item_name}</Link> <ChevronRight />
               </td>
               <td data-label="category" className="inventory__table-data">{row.category}</td>
               <td data-label="status" className="inventory__table-data">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
               <td data-label="quantity" className="inventory__table-data">{row.quantity}</td>
               <td data-label="Action" className="inventory__table-data">
                 <Delete
-                  onClick={() => callModalHandler({header: `Delete ${row.item} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
+                  onClick={() => callModalHandler({header: `Delete ${row.item_name} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
                   className="table__cta-delete"
                 />
                 <Edit className="table__cta-edit" />
