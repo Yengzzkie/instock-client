@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from 'axios';
 import "./InventoryEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import FormField from "../FormField/FormField.jsx";
 
 const InventoryEdit = () => {
-  const { itemID } = useParams();
+  const URL = import.meta.env.VITE_URL;
+  const PORT = import.meta.env.VITE_PORT;
+
+  const { id } = useParams();
   const [isError, setIsError] = useState({});
+  
+  const [inventoryItem, setInventoryItem] = useState([]);
+
+  const fetchInventoryItem = async () => {
+    try {
+      console.log(`${URL}:${PORT}/inventory/${id}`);
+    } catch(error) {
+      console.log("Error fetching inventory:", error.response?.data || error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchInventoryItem();
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +98,6 @@ const InventoryEdit = () => {
               {inventoryDetails.map((params, index) => (
                 <FormField key={index} input={{...params, error: isError[params.name]}} />
               ))}
-
             </div>
 
             {/* ITEM AVAILABILITY CONTAINER */}
