@@ -16,6 +16,12 @@
             padding: 0 0.7rem;
             width: 100%;
         }
+        @include desktop{
+            display: table-header-group;
+            background-color: variables.$instock-light-grey;
+            padding: 0 0.7rem;
+            width: 100%;
+        }
     }
 }
 .head{
@@ -25,8 +31,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 
     @include tablet{
+        display: table-cell;
+    }
+    @include desktop{
         display: table-cell;
     }
 
@@ -64,6 +74,15 @@
         justify-content: space-between;
         align-items: center;
     }
+    @include desktop{
+        display: table-row;
+        padding-top: 0;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.row:hover{
+    background-color: #2E66E512;
 }
 .table-data-inventory{
     display: table-cell;
@@ -126,9 +145,13 @@
     }
     &__actions-tablet{
         display: none;
+
         @include tablet{
         display: table-cell;
         }
+        @include desktop{
+            display: table-cell;
+            }
     }
 }
 }
@@ -143,6 +166,9 @@
     padding-top: 0.3rem;
     @include tablet{
         display: none;
+    } 
+    @include desktop{
+        display: none;
     }   
 }
 .actions_wrapper{
@@ -151,7 +177,14 @@
     @include tablet{
         justify-content: flex-start;
     }
+    @include desktop{
+        justify-content: flex-start;
+    }
 }
 .delete{
     padding-right: 1rem;
+    cursor: pointer;
+}
+.edit{
+    cursor: pointer;
 }

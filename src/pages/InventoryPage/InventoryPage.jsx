@@ -69,7 +69,7 @@ const InventoryPage = () => {
               <>
               <tr key={index} className="row">
               <td data-label = "INVENTORY ITEM" className="table-data-inventory">
-              <Link to={`/warehouse/:id/item/:${item.id}`}>
+              <Link to={`/warehouse/:id/item/${item.id}`}>
                 {item.item} 
                 <span className="arrow-chevron"><ChevronRight /> </span>
                 </Link>
