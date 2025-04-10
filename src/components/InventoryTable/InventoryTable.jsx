@@ -52,8 +52,6 @@ const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
   const { id } = useParams();
 
-  console.log(id)
-
   // this function will handle the text content of the modal by setting the setModalText
   // to whatever is passed on to the 'text' parameter
   // This method will make the Modal reusable
@@ -101,12 +99,12 @@ const InventoryTable = () => {
         </div>
       </div>
 
-      <table>
+      <table className="inventory__table">
         {/* TABLE HEADER */}
-        <thead>
-          <tr>
+        <thead className="inventory__table-head">
+          <tr className="inventory__table-row">
             {TABLE_HEAD.map((head, index) => (
-              <th key={index}>
+              <th className="inventory__table-header" key={index}>
                 <span>
                   {head.toUpperCase()} <Sort />
                 </span>
@@ -115,17 +113,17 @@ const InventoryTable = () => {
           </tr>
         </thead>
         {/* TABLE BODY */}
-        <tbody>
+        <tbody className="inventory__table-body">
           {TABLE_DATA.map((row, index) => (
-            <tr key={index}>
-              <td data-label="item" className="table__item-name">
+            <tr className="inventory__table-row" key={index}>
+              <td data-label="item" className="table__item-name inventory__table-data">
                 {/* replace the 'index' in route to the ID of the item */}
                 <Link to={`/warehouse/${id}/item/${index}`}>{row.item}</Link> <ChevronRight />
               </td>
-              <td data-label="category">{row.category}</td>
-              <td data-label="status">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
-              <td data-label="quantity">{row.quantity}</td>
-              <td data-label="Action">
+              <td data-label="category" className="inventory__table-data">{row.category}</td>
+              <td data-label="status" className="inventory__table-data">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
+              <td data-label="quantity" className="inventory__table-data">{row.quantity}</td>
+              <td data-label="Action" className="inventory__table-data">
                 <Delete
                   onClick={() => callModalHandler({header: `Delete ${row.item} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
                   className="table__cta-delete"

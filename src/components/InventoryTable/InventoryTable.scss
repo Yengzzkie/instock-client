@@ -82,21 +82,21 @@
   }
 
   // MAIN TABLE
-  table {
+  .inventory__table {
     width: 100%;
     padding: 32px 40px;
     border-collapse: collapse;
 
     // TABLE HEADER
-    thead {
+    .inventory__table-head {
       background: $instock-light-grey;
       text-align: left;
       & * {
         color: $instock-slate;
       }
 
-      tr {
-        th {
+      .inventory__table-row {
+        .inventory__table-header {
           font-weight: 300;
 
           span {
@@ -116,10 +116,10 @@
     }
 
     // TABLE BODY
-    tbody {
+    .inventory__table-body {
       font-weight: 300;
 
-      tr {
+      .inventory__table-row {
 
         &:hover {
           background-color: $instock-transparentblue;
@@ -145,7 +145,7 @@
           }
         }
 
-        td {
+        .inventory__table-data {
           padding: 16px 24px;
 
           .table__cta-edit {
@@ -193,15 +193,15 @@
       }
     }
 
-    table {
+    .inventory__table {
       display: block;
       padding: 0;
 
-      thead {
+      .inventory__table-head {
         display: none;
       }
 
-      tbody tr {
+      .inventory__table-body .inventory__table-row {
         display: flex;
         flex-wrap: wrap;
         border-bottom: 1px solid $instock-cloud;
@@ -223,7 +223,7 @@
           }
         }
 
-        td {
+        .inventory__table-data {
           box-sizing: border-box;
           position: relative;
           width: 50%;
