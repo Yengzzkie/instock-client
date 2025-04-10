@@ -1,37 +1,72 @@
 @use "../../styles/partials/variables" as *;
 
-.form__group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin: 0.5rem 0 1rem;
+.form {
+  &-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
 
-  .form-input {
-    transition: $transition-active-input;
-    margin: 0.5rem 0;
-
-    &::placeholder {
-      color: $instock-slate;
-      font-size: 14px;
+    label {
+      font-weight: normal;;
     }
+  }
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 1rem;
 
-    &[type="search"] {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-color: transparent;
-      background-image: url("../../assets/Icons/search-24px.svg");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 24px;
-    }
+    .form-input {
+      transition: $transition-active-input;
+      margin: 0.5rem 0;
 
-    &:focus {
-      border-color: $instock-blue;
-    }
+      &::placeholder {
+        color: $instock-slate;
+        font-size: 14px;
+      }
 
-    &.error {
-      border-color: $instock-red;
+      &[type="search"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: transparent;
+        background-image: url("../../assets/Icons/search-24px.svg");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 24px;
+      }
+
+      &[type="radio"] {
+        margin-right: 10px;
+        
+        &+ span {
+          color: $instock-slate;
+        }
+
+        &:checked {
+          border-color: red;
+          &+ span {
+            color: $instock-black;
+          }
+        }
+      }
+
+      &[type="number"] {
+        width: 120px;
+      }
+
+      &.textarea {
+        min-height: 120px;
+        border-radius: 20px;
+        resize: vertical;
+      }
+
+      &:focus {
+        border-color: $instock-blue;
+      }
+
+      &.error {
+        border-color: $instock-red;
+      }
     }
   }
 }
