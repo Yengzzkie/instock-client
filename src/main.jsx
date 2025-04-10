@@ -20,6 +20,8 @@ const router = createBrowserRouter([
     { path: "/warehouse/edit/:id", element: <WarehouseEdit /> },
     { path: "/warehouse/:id/item/:itemid", element: <ItemDetails /> },
     { path: "/inventory", element: <InventoryPage /> },
+    { path: "/inventory/:id", element: <InventoryPage /> }, // change element here to Inventory Details component
+    { path: "/inventory/edit/:id", element: <InventoryPage /> }, // change element here to Edit Inventory Details component
   ]},
 ]);
 
