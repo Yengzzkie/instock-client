@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import "./WarehouseEdit.scss";
+import "./AddNewWarehouse.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
-const WarehouseEdit = () => {
-  const { warehouseId } = useParams(); // Get warehouse ID from URL
-
+const AddNewWarehouse = () => {
   const initialWarehouseData = {
     warehouseName: "",
     streetAddress: "",
@@ -47,22 +44,20 @@ const WarehouseEdit = () => {
 
     console.log("Submitting payload:", payload);
 
-
     try {
-      const response = await fetch(
-        `http://localhost:8080/warehouses/${warehouseId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("http://localhost:8080/warehouses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-      if (!response.ok) throw new Error("Failed to update warehouse details");
+      if (!response.ok) throw new Error("Failed to create warehouse");
 
-      alert("Warehouse details updated successfully!");
+      alert("Warehouse created successfully!");
+      setWarehouseData(initialWarehouseData);
+      setContactData(initialContactData);
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again.");
@@ -75,15 +70,16 @@ const WarehouseEdit = () => {
   };
 
   return (
-    <div className="form__container">
-      {/* NAVIGATION */}
-      <div className="form__nav">
-        <div className="back-link">
-          <ArrowBack /> <h1 className="form__nav-header">Edit Warehouse</h1>
+    <div className="addWarehouse">
+      <div className="form__container">
+        {/* NAVIGATION */}
+        <div className="form__nav">
+          <div className="back-link">
+            <ArrowBack />
+            <h1 className="form__nav-header">Add New Warehouse</h1>
+          </div>
         </div>
-      </div>
 
-      
         <form onSubmit={handleSubmit} className="form__warehouse-details">
           {/* WAREHOUSE DETAILS COLUMN */}
           <div className="form">
@@ -95,7 +91,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="warehouseName"
-                placeholder="Washington"
+                placeholder="Warehouse Name"
                 value={warehouseData.warehouseName}
                 onChange={handleWarehouseChange}
               />
@@ -105,7 +101,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="streetAddress"
-                placeholder="33 Pearl Street SW"
+                placeholder="Street Address"
                 value={warehouseData.streetAddress}
                 onChange={handleWarehouseChange}
               />
@@ -115,7 +111,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="city"
-                placeholder="Washington"
+                placeholder="City"
                 value={warehouseData.city}
                 onChange={handleWarehouseChange}
               />
@@ -125,7 +121,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="country"
-                placeholder="USA"
+                placeholder="Country"
                 value={warehouseData.country}
                 onChange={handleWarehouseChange}
               />
@@ -134,12 +130,13 @@ const WarehouseEdit = () => {
             {/* CONTACT DETAILS CONTAINER */}
             <div className="form__contact-info">
               <h2 className="warehouse_label">Contact Details</h2>
+
               <label>Contact Name</label>
               <input
                 className="form-input"
                 type="text"
                 name="contactName"
-                placeholder="Graeme Lyon"
+                placeholder="Contact Name"
                 value={contactData.contactName}
                 onChange={handleContactChange}
               />
@@ -149,7 +146,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="position"
-                placeholder="Warehouse Manager"
+                placeholder="Position"
                 value={contactData.position}
                 onChange={handleContactChange}
               />
@@ -159,7 +156,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="phoneNumber"
-                placeholder="+1 (647) 504-0911"
+                placeholder="Phone Number"
                 value={contactData.phoneNumber}
                 onChange={handleContactChange}
               />
@@ -169,7 +166,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="email"
                 name="email"
-                placeholder="glyon@instock.com"
+                placeholder="Email"
                 value={contactData.email}
                 onChange={handleContactChange}
               />
@@ -186,13 +183,13 @@ const WarehouseEdit = () => {
               Cancel
             </button>
             <button type="submit" className="btn-main save-btn">
-              Save Changes
+              + Add Warehouse
             </button>
           </div>
         </form>
       </div>
-    
+    </div>
   );
 };
 
-export default WarehouseEdit;
+export default AddNewWarehouse;

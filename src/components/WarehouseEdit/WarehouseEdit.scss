@@ -1,5 +1,6 @@
 @use "../../styles/partials/variables" as *;
 
+
 .form__container {
   background: #fff;
   // width: 80%; change width to 100%
@@ -27,10 +28,17 @@
     }
   }
 
-  // WAREHOUSE INFORMATION (main container)
-  .form__warehouse-details {
+  .form {
     display: flex;
     flex-direction: row;
+    padding: 32px 40px;
+  }
+
+  // WAREHOUSE INFORMATION (main container)
+
+  .form__warehouse-details {
+    display: flex;
+    flex-direction: column;
     padding: 32px 40px;
     border-top: 1px solid $instock-cloud;
 
@@ -56,7 +64,7 @@
       color: $instock-black;
       font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 2rem;
     }
   }
 
@@ -100,3 +108,5 @@
     }
   }
 }
+
+
