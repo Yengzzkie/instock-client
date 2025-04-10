@@ -93,20 +93,6 @@ const InventoryPage = () => {
                 </div>
               </td>
               </tr>
-              {/* mobile layout responsive design for actions column */}
-              {/* <tr className="row-actions">
-              <td className="table-data-inventory__actions">
-                <div className="actions_wrapper">
-                <div className="delete">
-                <DeleteIcon
-                onClick={() => callModalHandler({header: `Delete ${item.item} inventory`, body: `Please confirm that you'd like to delete ${item.item} from the inventory list. You won't be able to undo this action.`})} />
-                </div>
-                <div className="edit">
-                  <EditIcon />
-                </div>
-                </div>
-              </td>
-              </tr> */}
               </>
             ))}
           </tbody>
