@@ -81,7 +81,7 @@ const InventoryPage = () => {
                 </td>
               <td data-label = "QTY" className="table-data-inventory">{item.qty}</td>
               <td data-label = "WAREHOUSE" className="table-data-inventory">{item.warehouse}</td>
-              <td className="table-data-inventory__actions-tablet">
+              <td className="table-data-inventory">
                 <div className="actions_wrapper">
                 <div className="delete">
                 <DeleteIcon
@@ -94,7 +94,7 @@ const InventoryPage = () => {
               </td>
               </tr>
               {/* mobile layout responsive design for actions column */}
-              <tr className="row-actions">
+              {/* <tr className="row-actions">
               <td className="table-data-inventory__actions">
                 <div className="actions_wrapper">
                 <div className="delete">
@@ -106,7 +106,7 @@ const InventoryPage = () => {
                 </div>
                 </div>
               </td>
-              </tr>
+              </tr> */}
               </>
             ))}
           </tbody>
