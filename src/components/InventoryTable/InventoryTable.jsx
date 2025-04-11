@@ -41,7 +41,7 @@ const InventoryTable = () => {
   async function getWarehouseData() {
     try {
       const response = await axios.get(`http://localhost:8000/api/warehouses/${id}`);
-      console.log(response.data)
+
       setWarehouseData(response.data)
     } catch (error) {
       console.error(`Failed to get data for warehouse with ID ${id}:`, error)
