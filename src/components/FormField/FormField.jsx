@@ -2,27 +2,47 @@ import "../FormField/FormField.scss";
 
 const FormField = ({input}) => {
   {/* 
-    Usage:
+    HOW TO USE:
     
-    1. import the component (e.g. import FormField from "../FormField/FormField.jsx";)
-    2. Create an element by using the code below
+    1. Import the required components
+      - import FormField from "../FormField/FormField.jsx";
+      - import HandleError from "../FormField/HandleError.jsx";
 
-    <FormField input={{
-      label: "",
-      class: "", // modifiers. (e.g. error)
-      type: "", // choices: select, input, number, textarea, search, radio
-      name: "", 
-      placeholder: "",
-      value: "",
-      // onChange: "", // function name
+    2. In handleSubmit() function, add this:
+      // this will perform the error handling.
+      // `errors` will return an object of boolean whether a certain input is empty or not.
+      // `data` will return the actual value of the input fields.
+      const { data, errors } = HandleError(e.target.elements);
 
-      // options - used only for type:["select", "radio"], otherwise remove this
-      options: [
-        { value: "1", label: "Option 1" },
-        { value: "2", label: "Option 2" },
-      ]
-      }}
-    />
+      // setting the object `errors` to setIsError() which will be used in the FormField component
+      // this will perform the changing of layout dynamically
+      setIsError(errors);
+
+      // checking whether we are getting the value of the inputs
+      console.log(data);
+      
+    3. Create an element by using the code below.
+      // Refer to InventoryEdit component for a much cleaner code
+      <FormField input={{
+        label: "",
+        class: "", // modifiers. (e.g. error)
+        type: "", // choices: select, input, number, textarea, search, radio
+        name: "", 
+        placeholder: "",
+        // onChange: "", // function name
+
+        // options - used only for type:["select", "radio"], otherwise remove this
+        // add this in jsx file for retrieving the options dynamically
+        options: [
+          { value: "1", label: "Option 1" },
+          { value: "2", label: "Option 2" },
+        ]
+
+        // Add this in jsx file and strictly do not change these
+        error: isError[params.name],
+        onChange: handleOnChange
+        }}
+      />
   */}
 
   if(input.error){
@@ -41,7 +61,7 @@ const FormField = ({input}) => {
             className={`form-input ${input.class}`}
             id={input.name}
             name={input.name}
-            defaultValue={input.value}
+            value={input.value}
             onChange={input.onChange}
           >
             {input.options?.map((option, index) => (
@@ -85,11 +105,11 @@ const FormField = ({input}) => {
             {input.options?.map((option, index) => (
               <label key={index}>
                 <input
-                  className={`form-input`}
+                  className={`form-input ${input.value} ${option.value}`}
                   type="radio"
                   name={input.name}
                   value={option.value}
-                  defaultChecked={input.value === option.value}
+                  checked={input.value === option.value}
                   onChange={input.onChange}
                 />
                 <span>{option.label}</span>
