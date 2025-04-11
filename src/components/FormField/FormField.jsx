@@ -36,7 +36,6 @@ const FormField = ({input}) => {
           {input.label}
         </label>
         
-
         {input.type === "select" ? (
           <select
             className={`form-input ${input.class}`}

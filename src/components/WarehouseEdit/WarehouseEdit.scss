@@ -2,7 +2,8 @@
 
 
 .form__container {
-  background: #fff;
+  background: linear-gradient(to bottom, $instock-white 80%, $instock-light-grey 20%);
+  background-repeat: no-repeat;
   // width: 80%; change width to 100%
   margin: 10px auto;
   // box-shadow: 0 3px 6px $instock-cloud; remove this since the parent container will hold the box shadow

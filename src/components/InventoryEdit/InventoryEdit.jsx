@@ -6,8 +6,8 @@ import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import FormField from "../FormField/FormField.jsx";
 
 const InventoryEdit = () => {
-  const URL = import.meta.env.VITE_URL;
-  const PORT = import.meta.env.VITE_PORT;
+  const PORT = import.meta.env.VITE_PORT || "8080";
+  const URL = `http://localhost:${PORT}`;
 
   const { id } = useParams();
   const [isError, setIsError] = useState({});
@@ -16,7 +16,7 @@ const InventoryEdit = () => {
 
   const fetchInventoryItem = async () => {
     try {
-      console.log(`${URL}:${PORT}/inventory/${id}`);
+      console.log(`${URL}/inventory/${id}`);
     } catch(error) {
       console.log("Error fetching inventory:", error.response?.data || error.message);
     }
