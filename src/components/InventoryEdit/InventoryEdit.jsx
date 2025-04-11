@@ -6,8 +6,8 @@ import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import FormField from "../FormField/FormField.jsx";
 
 const InventoryEdit = () => {
-  const URL = import.meta.env.VITE_URL;
-  const PORT = import.meta.env.VITE_PORT;
+  const URL = import.meta.env.VITE_URL || "http://localhost";
+  const PORT = import.meta.env.VITE_PORT || "8080";
 
   const { id } = useParams();
   const [isError, setIsError] = useState({});
