@@ -1,5 +1,5 @@
 import "./ItemDetails.scss";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -11,16 +11,13 @@ import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 const ItemDetails = () => {
   const { id, itemid } = useParams();
   const [itemData, setItemData] = useState({});
-  const location = useLocation(); // instead of fetching the data for a warehouse, useLocation is used instead to prevent additional fetch, this extracts the object passed
-  // in the InventoryTable's Link component.
-  const warehouseName = location.state?.warehouseName;
 
   // this will fetch the data for a particular item based on the itemid from params
   async function getItemData() {
     try {
       const response = await axios.get(`http://localhost:8000/api/inventories/${itemid}`);
 
-      setItemData(response.data[0])
+      setItemData(response.data)
     } catch (error) {
       console.error(`Failed to get data for warehouse with ID ${itemid}:`, error)
     }
@@ -71,7 +68,7 @@ const ItemDetails = () => {
 
           <div>
             <p className="item-label">WAREHOUSE:</p>
-            <p>{warehouseName}</p>
+            <p>{itemData.warehouse_name}</p>
           </div>
         </div>
       </div>
