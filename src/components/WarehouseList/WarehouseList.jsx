@@ -12,6 +12,9 @@ import { useContext } from "react";
 import { ModalContext } from "../../context/context";
 
 const WarehouseList = () => {
+  const URL = import.meta.env.VITE_URL || "http://localhost";
+  const PORT = import.meta.env.VITE_PORT || "8080";
+
   const [wareHouses, setWarehouses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [ascending, setAscending] = useState(false);
@@ -20,7 +23,7 @@ const WarehouseList = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
 
   const getWarehouses = async () => {
-    const response = await axios.get("http://localhost:8000/api/warehouses");
+    const response = await axios.get(`${URL}:${PORT}/api/warehouses`);
     setWarehouses(response.data);
   };
   useEffect(() => {
