@@ -11,15 +11,15 @@ const FormField = ({input}) => {
     2. In handleSubmit() function, add this:
       // this will perform the error handling.
       // `errors` will return an object of boolean whether a certain input is empty or not.
-      // `formData` will return the actual value of the input fields.
-      const { formData, errors } = HandleError(e.target.elements);
+      // `data` will return the actual value of the input fields.
+      const { data, errors } = HandleError(e.target.elements);
 
       // setting the object `errors` to setIsError() which will be used in the FormField component
       // this will perform the changing of layout dynamically
       setIsError(errors);
 
       // checking whether we are getting the value of the inputs
-      console.log(formData);
+      console.log(data);
       
     3. Create an element by using the code below.
       // Refer to InventoryEdit component for a much cleaner code
