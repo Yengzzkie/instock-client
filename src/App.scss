@@ -12,7 +12,8 @@
   width: 80%;
   margin: 10px auto;
   height: fit-content;
-  max-height: 80vh;
+  min-height: auto;
+  max-height: 100%;
   box-shadow: 0 0 6px $instock-cloud;
   transform: translateY(-115px);
 }
