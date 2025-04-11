@@ -1,0 +1,66 @@
+{
+  "inventoryDetails": [
+    {
+      "label": "Item Name",
+      "class": "",
+      "type": "input",
+      "name": "name",
+      "placeholder": "Item Name",
+      "value": ""
+    },
+    {
+      "label": "Description",
+      "class": "",
+      "type": "textarea",
+      "name": "description",
+      "placeholder": "Description",
+      "value": ""
+    },
+    {
+      "label": "Category",
+      "class": "",
+      "type": "select",
+      "name": "category",
+      "placeholder": "Category",
+      "value": "",
+      "options": [
+        { "value": "1", "label": "Option 1" },
+        { "value": "2", "label": "Option 2" }
+      ]
+    }
+  ],
+  "inventoryAvailability": [
+    {
+      "label": "Status",
+      "class": "",
+      "type": "radio",
+      "name": "status",
+      "placeholder": "Status",
+      "value": "Out of Stock",
+      "options": [
+        { "value": "In Stock", "label": "In Stock" },
+        { "value": "Out of Stock", "label": "Out of Stock" }
+      ]
+    },
+    {
+      "label": "Quantity",
+      "class": "",
+      "type": "number",
+      "name": "quantity",
+      "placeholder": "Quantity",
+      "value": ""
+    },
+    {
+      "label": "Warehouse",
+      "class": "",
+      "type": "select",
+      "name": "warehouses",
+      "placeholder": "Warehouse",
+      "value": "",
+      "options": [
+        { "value": "1", "label": "Option 1" },
+        { "value": "2", "label": "Option 2" }
+      ]
+    }
+  ]
+}
