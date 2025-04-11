@@ -47,7 +47,7 @@ const InventoryEdit = () => {
       setWarehouse(response.data);
       console.log(response.data);
     } catch (error) {
-      console.log("Error fetching categories:", error.response?.data || error.message);
+      console.log("Error fetching warehouses:", error.response?.data || error.message);
     }
   };
 
