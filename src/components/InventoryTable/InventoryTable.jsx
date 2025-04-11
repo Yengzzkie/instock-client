@@ -25,12 +25,24 @@ const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
   const { id } = useParams();
   const [inventoryData, setInventoryData] = useState([]);
+  const [warehouseData, setWarehouseData] = useState({});
 
+  // function for getting all available inventory for particular warehouse
   async function getInventoryData() {
     try {
       const response = await axios.get(`http://localhost:8000/api/warehouses/${id}/inventories`);
       setInventoryData(response.data)
-      console.log(response.data);
+    } catch (error) {
+      console.error(`Failed to get inventory for warehouse with ID ${id}:`, error)
+    }
+  }
+
+  // function for getting the data for a warehouse
+  async function getWarehouseData() {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/warehouses/${id}`);
+      console.log(response.data)
+      setWarehouseData(response.data)
     } catch (error) {
       console.error(`Failed to get data for warehouse with ID ${id}:`, error)
     }
@@ -38,7 +50,8 @@ const InventoryTable = () => {
 
   useEffect(() => {
     getInventoryData();
-  });
+    getWarehouseData();
+  }, []);
 
   // this function will handle the text content of the modal by setting the setModalText
   // to whatever is passed on to the 'text' parameter
@@ -53,7 +66,7 @@ const InventoryTable = () => {
       {/* NAVIGATION */}
       <div className="table__nav">
         <div className="back-link">
-          <ArrowBack /> <h1 className="table__nav-header">Washington</h1>
+          <ArrowBack /> <h1 className="table__nav-header">{warehouseData.warehouse_name}</h1>
         </div>
         <button className="btn-main edit-btn">
           <EditWhite /> Edit
@@ -64,10 +77,10 @@ const InventoryTable = () => {
         {/* WAREHOUSE ADDRESS CONTAINER */}
         <div className="table__address">
           <p className="warehouse_label">WAREHOUSE ADDRESS:</p>
-          <p>666 Inferno St.</p>
-          <span>Tonshingwa</span>
+          <p>{warehouseData.address}</p>
+          <span>{warehouseData.city}</span>
           <span>, </span>
-          <span>Japan</span>
+          <span>{warehouseData.country}</span>
         </div>
 
         {/* CONTACT INFORMATION CONTAINER */}
@@ -75,14 +88,14 @@ const InventoryTable = () => {
           {/* CONTACT NAME */}
           <div className="contact-name">
             <p className="warehouse_label">CONTACT NAME:</p>
-            <p>Lucy Fier</p>
-            <p>Floor Manager</p>
+            <p>{warehouseData.contact_name}</p>
+            <p>{warehouseData.contact_position}</p>
           </div>
           {/* CONTACT NUMBER */}
           <div className="contact-number">
             <p className="warehouse_label">CONTACT INFORMATION:</p>
-            <p>+1 800-666-1313</p>
-            <p>go2hell@email.com</p>
+            <p>{warehouseData.contact_phone}</p>
+            <p>{warehouseData.contact_email}</p>
           </div>
         </div>
       </div>
@@ -105,8 +118,7 @@ const InventoryTable = () => {
           {inventoryData.map((row, index) => (
             <tr className="inventory__table-row" key={index}>
               <td data-label="item" className="table__item-name inventory__table-data">
-                {/* replace the 'index' in route to the ID of the item */}
-                <Link to={`/warehouse/${id}/item/${index}`}>{row.item_name}</Link> <ChevronRight />
+                <Link state={{ warehouseName: warehouseData.warehouse_name }} to={`/warehouse/${id}/item/${row.id}`}>{row.item_name}</Link> <ChevronRight />
               </td>
               <td data-label="category" className="inventory__table-data">{row.category}</td>
               <td data-label="status" className="inventory__table-data">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
