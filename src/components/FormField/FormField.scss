@@ -1,0 +1,117 @@
+@use "../../styles/partials/variables" as *;
+
+.form {
+  &-label {
+    font-weight: 600;
+  }
+
+  &-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    label {
+      font-weight: normal;;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 1rem;
+
+    .form-input {
+      transition: $transition-active-input;
+      margin: 0.5rem 0;
+
+      &::placeholder {
+        color: $instock-slate;
+        font-size: 14px;
+      }
+
+      &[type="search"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: transparent;
+        background-image: url("../../assets/Icons/search-24px.svg");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 24px;
+      }
+
+      &[type="radio"] {
+        margin-right: 10px;
+        
+        &+ span {
+          color: $instock-slate;
+        }
+
+        &:checked {
+          border-color: red;
+          &+ span {
+            color: $instock-black;
+          }
+        }
+      }
+
+      &[type="number"] {
+        width: 120px;
+      }
+
+      &.textarea {
+        min-height: 120px;
+        border-radius: 20px;
+        resize: vertical;
+      }
+
+      &:focus {
+        border-color: $instock-blue;
+      }
+
+      &.error {
+        border-color: $instock-red;
+      }
+    }
+  }
+}
+
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  background-image: url("../../assets/Icons/arrow_drop_down-24px.svg");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 24px;
+
+  &:focus {
+    background-image: url("../../assets/Icons/arrow_drop_down_blue-24px.svg");
+    background-repeat: no-repeat;
+    background-position: right 17px center;
+    background-size: 10px;
+  }
+}
+
+span {
+  &.error {
+    display: inline-flex;
+    align-items: center;
+    color: $instock-red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      margin-right: 5px;
+      background-image: url('../../assets/Icons/error-24px.svg'); // Path to your SVG
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}

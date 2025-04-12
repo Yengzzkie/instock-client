@@ -1,0 +1,198 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/variables" as variables;
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+
+    &__header{
+        display: none;
+        @include tablet{
+            display: table-header-group;
+            background-color: variables.$instock-light-grey;
+            padding: 0 0.7rem;
+            width: 100%;
+        }
+        @include desktop{
+            display: table-header-group;
+            background-color: variables.$instock-light-grey;
+            padding: 0 0.7rem;
+            width: 100%;
+        }
+    }
+}
+.head{
+    font-size: 0.75rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    @include tablet{
+        display: table-cell;
+    }
+    @include desktop{
+        display: table-cell;
+    }
+
+    &__wrapper{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__inventory{
+        font-size: inherit;
+        color: variables.$instock-slate;
+        text-align: left;
+        font-weight: 600;
+    }
+    &__icon{
+        width: 16px;
+        margin-left: 4px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 0.7px solid variables.$instock-cloud;
+    padding-top: 1.2rem;
+    padding-right: 0.8rem;
+    @include tablet{
+        display: table-row;
+        padding-top: 0;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @include desktop{
+        display: table-row;
+        padding-top: 0;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.row:hover{
+    background-color: #2E66E512;
+}
+.table-data-inventory{
+    display: table-cell;
+    position: relative;
+    width: auto;
+    order: 0;
+    margin-left: 0;
+    font-size: 14px;
+
+    &:nth-child(1){
+        font-weight: 600;
+        color: variables.$instock-blue;
+    }
+    a{
+        color: inherit;
+        font-weight: inherit;
+    }
+
+    @include mobile {
+    display: block;
+    border: none;
+    width: 30%;
+    position: relative;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 0.8rem;
+
+    &:before{
+        content: attr(data-label);
+        position: absolute;
+        bottom: 3rem;
+        font-weight: 600;
+        text-align: left;
+        color: variables.$instock-slate;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    &:nth-child(1)::before{
+        padding-bottom: 0.2rem;
+    }
+    &:nth-child(1) {
+        order: 1;
+        font-weight: 600;
+        color: variables.$instock-blue;
+        
+    }
+    a{
+        color: inherit;
+        font-weight: inherit;
+    }
+    &:nth-child(2) {order: 3;}
+    
+    &:nth-child(3) {order: 2;}
+
+    &:nth-child(3)::before{
+        padding-bottom: 0.2rem;
+    }
+    &:nth-child(4) {order: 4;}
+
+    &:nth-child(5) {
+        order: 5;
+        margin-left: auto;
+        display: block;
+    }
+    &:nth-child(6){
+        order: 6;
+        display: block;
+        width: 100%;
+    }
+    &__actions-tablet{
+        display: flex;
+        @include tablet{
+        display: table-cell;
+        }
+        @include desktop{
+            display: table-cell;
+            }
+    }
+}
+}
+.instock-tag{
+    font-weight: 600;
+}
+.arrow-chevron{
+    position:absolute;
+    font-size: 0.9rem;
+}
+.row-actions{
+    padding-top: 0.3rem;
+    @include tablet{
+        display: none;
+    } 
+    @include desktop{
+        display: none;
+    }   
+}
+.actions_wrapper{
+    display: flex;
+    justify-content: space-between;
+    @include tablet{
+        justify-content: flex-start;
+    }
+    @include desktop{
+        justify-content: flex-start;
+    }
+}
+.delete{
+    padding-right: 1rem;
+    cursor: pointer;
+}
+.edit{
+    cursor: pointer;
+}

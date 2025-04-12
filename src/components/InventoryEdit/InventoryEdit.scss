@@ -1,0 +1,72 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.form__container-inventory {
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 40px;
+    border-top: 1px solid $instock-cloud;
+
+    &__fields {
+      display: flex;
+      flex-direction: row;
+      padding: 32px 40px;
+    }
+
+    &__buttons {
+      padding: 32px 40px;
+    }
+
+    &__column {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      &-left {
+        border-right: 1px solid $instock-cloud;
+        margin-right: 40px;
+        padding: 0 2rem 0 0;
+      }
+    }
+    
+    &__header {
+      color: $instock-black;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    @include mobile {
+      padding: 0;
+
+      &__fields {
+        flex-direction: column;
+        padding: 0;
+      }
+
+      &__column {
+        padding: 32px 40px;
+
+        &-left {
+          margin-right: 0;
+          border-right: none;
+          border-bottom: 1px solid $instock-cloud;
+        }
+      }
+
+      &__buttons {
+        justify-content: space-around;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+
+  }
+
+  @include mobile {
+    background: linear-gradient(to bottom, $instock-white 90%, $instock-light-grey 10%);
+  }
+}

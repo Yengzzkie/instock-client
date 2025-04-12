@@ -4,6 +4,9 @@ import "./AddNewWarehouse.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
 const AddNewWarehouse = () => {
+  const PORT = import.meta.env.VITE_PORT || "8080";
+  const URL = `http://localhost:${PORT}`;
+  
   const initialWarehouseData = {
     warehouseName: "",
     streetAddress: "",
@@ -46,7 +49,16 @@ const AddNewWarehouse = () => {
     console.log("Submitting payload:", payload);
 
     try {
-      const response = await axios.post("http://localhost:8080/api/warehouses", payload);
+      const response = await fetch(`${URL}/warehouses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error("Failed to create warehouse");
+
       alert("Warehouse created successfully!");
       setWarehouseData(initialWarehouseData);
       setContactData(initialContactData);
