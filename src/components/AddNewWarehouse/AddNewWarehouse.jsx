@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./AddNewWarehouse.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
 const AddNewWarehouse = () => {
   const PORT = import.meta.env.VITE_PORT || "8080";
   const URL = `http://localhost:${PORT}`;
-  
+  const navigate = useNavigate();
+
   const initialWarehouseData = {
     warehouseName: "",
     streetAddress: "",
@@ -22,6 +25,7 @@ const AddNewWarehouse = () => {
 
   const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
   const [contactData, setContactData] = useState(initialContactData);
+  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
 
   const handleWarehouseChange = (e) => {
     setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
@@ -48,21 +52,20 @@ const AddNewWarehouse = () => {
     console.log("Submitting payload:", payload);
 
     try {
-      const response = await fetch(`${URL}/warehouses`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await axios.post(`${URL}/api/warehouses`, payload);
 
-      if (!response.ok) throw new Error("Failed to create warehouse");
+      if (response.status !== 200 && response.status !== 201) {
+        throw new Error("Failed to create warehouse");
+      }
 
-      alert("Warehouse created successfully!");
+      // Show success message after data is successfully added
+      setSuccessMessage("Warehouse created successfully!");
+
       setWarehouseData(initialWarehouseData);
       setContactData(initialContactData);
+      navigate(-1); // go back after successful submission
     } catch (error) {
-      console.error(error);
+      console.error("Error creating warehouse:", error.response?.data || error.message);
       alert("An error occurred. Please try again.");
     }
   };
@@ -70,6 +73,7 @@ const AddNewWarehouse = () => {
   const handleCancel = () => {
     setWarehouseData(initialWarehouseData);
     setContactData(initialContactData);
+    navigate(-1); // go back when Cancel is clicked
   };
 
   return (
@@ -77,11 +81,22 @@ const AddNewWarehouse = () => {
       <div className="form__container">
         {/* NAVIGATION */}
         <div className="form__nav">
-          <div className="back-link">
+          <div
+            className="back-link"
+            onClick={() => navigate(-1)}
+            style={{ cursor: "pointer" }}
+          >
             <ArrowBack />
             <h1 className="form__nav-header">Add New Warehouse</h1>
           </div>
         </div>
+
+        {/* Success Message */}
+        {successMessage && (
+          <div className="success-message">
+            <p>{successMessage}</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="form__warehouse-details">
           {/* WAREHOUSE DETAILS COLUMN */}
