@@ -15,18 +15,14 @@ const InventoryEdit = () => {
   const [isError, setIsError] = useState({});
   
   const [inventoryItem, setInventoryItem] = useState([]);
-  const [categories, setCategories] = useState([
-    { "value": "Electronics", "label": "Electronics" },
-    { "value": "Gear", "label": "Gear" },
-    { "value": "Apparel", "label": "Apparel" }
-  ]);
+  const [categories, setCategories] = useState([]);
   const [warehouses, setWarehouse] = useState([]);
 
   const fetchInventoryItem = async () => {
     try {
       const response = await axios.get(`${URL}/api/inventories/${id}`);
-      setInventoryItem(response.data[0]);
-      console.log(response.data[0]);
+      setInventoryItem(response.data);
+      console.log(response.data);
     } catch(error) {
       console.log("Error fetching inventory:", error.response?.data || error.message);
     }
@@ -36,6 +32,7 @@ const InventoryEdit = () => {
     try {
       const response = await axios.get(`${URL}/api/categories`);
       setCategories(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log("Error fetching categories:", error.response?.data || error.message);
     }
@@ -53,7 +50,7 @@ const InventoryEdit = () => {
 
   useEffect(() => {
     fetchInventoryItem();
-    // fetchCategories();
+    fetchCategories();
     fetchWarehouses();
   }, [id]);
 
@@ -79,7 +76,10 @@ const InventoryEdit = () => {
     if (field.name === "category") {
       return {
         ...field,
-        options: categories
+        options: categories.map(category => ({
+          value: category,
+          label: category
+        }))
       };
     }
     return field;
