@@ -16,4 +16,8 @@
   max-height: 100%;
   box-shadow: 0 0 6px $instock-cloud;
   transform: translateY(-115px);
+
+  @include mobile{
+    margin:80px auto 10px;
+  }
 }

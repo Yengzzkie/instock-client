@@ -9,13 +9,14 @@ nav {
   align-items: center;
   justify-content: flex-start;
   height: 200px;
+  font-size: 14px;
 }
 
 .nav {
   &__container {
     display: flex;
     justify-content: space-between;
-    width: 1200px;
+    width: 80%;
     padding: 2rem;
     align-items: center;
 
