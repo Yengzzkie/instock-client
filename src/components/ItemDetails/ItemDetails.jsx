@@ -11,11 +11,12 @@ import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 const ItemDetails = () => {
   const { id, itemid } = useParams();
   const [itemData, setItemData] = useState({});
+  const PORT = import.meta.env.PORT || 8000;
 
   // this will fetch the data for a particular item based on the itemid from params
   async function getItemData() {
     try {
-      const response = await axios.get(`http://localhost:8000/api/inventories/${itemid}`);
+      const response = await axios.get(`http://localhost:${PORT}/api/inventories/${itemid}`);
 
       setItemData(response.data)
     } catch (error) {

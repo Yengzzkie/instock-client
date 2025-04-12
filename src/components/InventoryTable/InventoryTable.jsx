@@ -24,27 +24,31 @@ const TABLE_HEAD = [
 const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
   const { id } = useParams();
+  const PORT = import.meta.env.PORT || 8000;
   const [inventoryData, setInventoryData] = useState([]);
   const [warehouseData, setWarehouseData] = useState({});
 
   // function for getting all available inventory for particular warehouse
   async function getInventoryData() {
     try {
-      const response = await axios.get(`http://localhost:8000/api/warehouses/${id}/inventories`);
-      setInventoryData(response.data)
+      const response = await axios.get(
+        `http://localhost:${PORT}/api/warehouses/${id}/inventories`
+      );
+
+      setInventoryData(response.data);
     } catch (error) {
-      console.error(`Failed to get inventory for warehouse with ID ${id}:`, error)
+      console.error(`Failed to get inventory for warehouse with ID ${id}:`,error);
     }
   }
 
   // function for getting the data for a warehouse
   async function getWarehouseData() {
     try {
-      const response = await axios.get(`http://localhost:8000/api/warehouses/${id}`);
+      const response = await axios.get(`http://localhost:${PORT}/api/warehouses/${id}`);
 
-      setWarehouseData(response.data)
+      setWarehouseData(response.data);
     } catch (error) {
-      console.error(`Failed to get data for warehouse with ID ${id}:`, error)
+      console.error(`Failed to get data for warehouse with ID ${id}:`, error);
     }
   }
 
@@ -65,9 +69,14 @@ const InventoryTable = () => {
     <div className="table__container">
       {/* NAVIGATION */}
       <div className="table__nav">
-        <div className="back-link">
-          <ArrowBack /> <h1 className="table__nav-header">{warehouseData.warehouse_name}</h1>
-        </div>
+        <Link to={`/warehouse/`}>
+          <div className="back-link">
+            <ArrowBack />{" "}
+            <h1 className="table__nav-header">
+              {warehouseData.warehouse_name}
+            </h1>
+          </div>
+        </Link>
         <button className="btn-main edit-btn">
           <EditWhite /> Edit
         </button>
@@ -117,15 +126,35 @@ const InventoryTable = () => {
         <tbody className="inventory__table-body">
           {inventoryData.map((row, index) => (
             <tr className="inventory__table-row" key={index}>
-              <td data-label="item" className="table__item-name inventory__table-data">
-                <Link state={{ warehouseName: warehouseData.warehouse_name }} to={`/warehouse/${id}/item/${row.id}`}>{row.item_name}</Link> <ChevronRight />
+              <td
+                data-label="item"
+                className="table__item-name inventory__table-data"
+              >
+                <Link
+                  state={{ warehouseName: warehouseData.warehouse_name }}
+                  to={`/warehouse/${id}/item/${row.id}`}
+                >
+                  {row.item_name}
+                </Link>{" "}
+                <ChevronRight />
               </td>
-              <td data-label="category" className="inventory__table-data">{row.category}</td>
-              <td data-label="status" className="inventory__table-data">{row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}</td>
-              <td data-label="quantity" className="inventory__table-data">{row.quantity}</td>
+              <td data-label="category" className="inventory__table-data">
+                {row.category}
+              </td>
+              <td data-label="status" className="inventory__table-data">
+                {row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}
+              </td>
+              <td data-label="quantity" className="inventory__table-data">
+                {row.quantity}
+              </td>
               <td data-label="Action" className="inventory__table-data">
                 <Delete
-                  onClick={() => callModalHandler({header: `Delete ${row.item_name} inventory item`, body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`})}
+                  onClick={() =>
+                    callModalHandler({
+                      header: `Delete ${row.item_name} inventory item`,
+                      body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`,
+                    })
+                  }
                   className="table__cta-delete"
                 />
                 <Edit className="table__cta-edit" />
