@@ -31,13 +31,14 @@ const InventoryTable = () => {
   // function for getting all available inventory for particular warehouse
   async function getInventoryData() {
     try {
-      const response = await axios.get(
-        `http://localhost:${PORT}/api/warehouses/${id}/inventories`
-      );
+      const response = await axios.get(`http://localhost:${PORT}/api/warehouses/${id}/inventories`);
 
       setInventoryData(response.data);
     } catch (error) {
-      console.error(`Failed to get inventory for warehouse with ID ${id}:`,error);
+      console.error(
+        `Failed to get inventory for warehouse with ID ${id}:`,
+        error
+      );
     }
   }
 
@@ -124,35 +125,38 @@ const InventoryTable = () => {
         </thead>
         {/* TABLE BODY */}
         <tbody className="inventory__table-body">
-          {inventoryData.map((row, index) => (
-            <tr className="inventory__table-row" key={index}>
+          {inventoryData.map((item) => (
+            <tr className="inventory__table-row" key={item.id}>
               <td
                 data-label="item"
                 className="table__item-name inventory__table-data"
               >
                 <Link
                   state={{ warehouseName: warehouseData.warehouse_name }}
-                  to={`/warehouse/${id}/item/${row.id}`}
+                  to={`/warehouse/${id}/item/${item.id}`}
                 >
-                  {row.item_name}
+                  {item.item_name}
                 </Link>{" "}
                 <ChevronRight />
               </td>
               <td data-label="category" className="inventory__table-data">
-                {row.category}
+                {item.category}
               </td>
               <td data-label="status" className="inventory__table-data">
-                {row.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}
+                {item.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}
               </td>
               <td data-label="quantity" className="inventory__table-data">
-                {row.quantity}
+                {item.quantity}
               </td>
               <td data-label="Action" className="inventory__table-data">
                 <Delete
                   onClick={() =>
                     callModalHandler({
-                      header: `Delete ${row.item_name} inventory item`,
-                      body: `Please confirm that you'd like to delete ${row.item} from the inventory list. You won't be able to undo this action.`,
+
+                      header: `Delete ${item.item_name} inventory item`,  // this serves as the header of the modal
+                      body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
+                      type: "inventory", // this will act as a type identifier for the modal, this will be used to determine which axios request to send when the delete button is clicked, this is optional in warehouse delete modal
+                      objectId: item.id, // this will be used to identify which item to delete
                     })
                   }
                   className="table__cta-delete"

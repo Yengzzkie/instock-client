@@ -205,6 +205,7 @@ const WarehouseList = () => {
                               callModalHandler({
                                 header: `Delete ${warehouse.warehouse_name} warehouse`,
                                 body: `Please confirm that you'd like to delete ${warehouse.warehouse_name} from the warehouse list. You won't be able to undo this action.`,
+                                objectId: warehouse.id,
                               })
                             }
                           />
