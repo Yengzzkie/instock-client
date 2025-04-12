@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "./AddNewWarehouse.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
@@ -45,21 +46,12 @@ const AddNewWarehouse = () => {
     console.log("Submitting payload:", payload);
 
     try {
-      const response = await fetch("http://localhost:8080/warehouses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) throw new Error("Failed to create warehouse");
-
+      const response = await axios.post("http://localhost:8080/api/warehouses", payload);
       alert("Warehouse created successfully!");
       setWarehouseData(initialWarehouseData);
       setContactData(initialContactData);
     } catch (error) {
-      console.error(error);
+      console.error("Error creating warehouse:", error.response?.data || error.message);
       alert("An error occurred. Please try again.");
     }
   };
