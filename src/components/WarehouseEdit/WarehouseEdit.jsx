@@ -29,7 +29,9 @@ const WarehouseEdit = () => {
   useEffect(() => {
     const fetchWarehouseData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/warehouses/${warehouseId}`);
+        const response = await axios.get(
+          `http://localhost:8080/warehouses/${warehouseId}`
+        );
         const data = response.data;
 
         // Assuming the response structure matches these fields
@@ -89,7 +91,8 @@ const WarehouseEdit = () => {
         }
       );
 
-      if (response.status !== 200) throw new Error("Failed to update warehouse details");
+      if (response.status !== 200)
+        throw new Error("Failed to update warehouse details");
 
       alert("Warehouse details updated successfully!");
       navigate(-1); // Take us back to the previous page after success
@@ -106,121 +109,124 @@ const WarehouseEdit = () => {
   };
 
   return (
-    <div className="form__container">
-      {/* NAVIGATION */}
-      <div className="form__nav">
-        <div className="back-link">
-          <ArrowBack onClick={() => navigate(-1)} /> {/* Back to previous page */}
-          <h1 className="form__nav-header">Edit Warehouse</h1>
+    <div className="editWarehouse">
+      <div className="form__container">
+        {/* NAVIGATION */}
+        <div className="form__nav">
+          <div className="back-link">
+            <ArrowBack onClick={() => navigate(-1)} />{" "}
+            {/* Back to previous page */}
+            <h1 className="form__nav-header">Edit Warehouse</h1>
+          </div>
         </div>
+
+        <form onSubmit={handleSubmit} className="form__warehouse-details">
+          {/* WAREHOUSE DETAILS COLUMN */}
+          <div className="form">
+            <div className="form__address">
+              <h2 className="warehouse_label">Warehouse Details</h2>
+
+              <label>Warehouse Name</label>
+              <input
+                className="form-input"
+                type="text"
+                name="warehouseName"
+                placeholder="Washington"
+                value={warehouseData.warehouseName}
+                onChange={handleWarehouseChange}
+              />
+
+              <label>Street Address</label>
+              <input
+                className="form-input"
+                type="text"
+                name="streetAddress"
+                placeholder="33 Pearl Street SW"
+                value={warehouseData.streetAddress}
+                onChange={handleWarehouseChange}
+              />
+
+              <label>City</label>
+              <input
+                className="form-input"
+                type="text"
+                name="city"
+                placeholder="Washington"
+                value={warehouseData.city}
+                onChange={handleWarehouseChange}
+              />
+
+              <label>Country</label>
+              <input
+                className="form-input"
+                type="text"
+                name="country"
+                placeholder="USA"
+                value={warehouseData.country}
+                onChange={handleWarehouseChange}
+              />
+            </div>
+
+            {/* CONTACT DETAILS CONTAINER */}
+            <div className="form__contact-info">
+              <h2 className="warehouse_label">Contact Details</h2>
+              <label>Contact Name</label>
+              <input
+                className="form-input"
+                type="text"
+                name="contactName"
+                placeholder="Graeme Lyon"
+                value={contactData.contactName}
+                onChange={handleContactChange}
+              />
+
+              <label>Position</label>
+              <input
+                className="form-input"
+                type="text"
+                name="position"
+                placeholder="Warehouse Manager"
+                value={contactData.position}
+                onChange={handleContactChange}
+              />
+
+              <label>Phone Number</label>
+              <input
+                className="form-input"
+                type="text"
+                name="phoneNumber"
+                placeholder="+1 (647) 504-0911"
+                value={contactData.phoneNumber}
+                onChange={handleContactChange}
+              />
+
+              <label>Email</label>
+              <input
+                className="form-input"
+                type="email"
+                name="email"
+                placeholder="glyon@instock.com"
+                value={contactData.email}
+                onChange={handleContactChange}
+              />
+            </div>
+          </div>
+
+          {/* BUTTONS INSIDE FORM */}
+          <div className="form__buttons">
+            <button
+              type="button"
+              className="btn-main cancel-btn"
+              onClick={handleCancel} // Navigate back on cancel
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn-main save-btn">
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit} className="form__warehouse-details">
-        {/* WAREHOUSE DETAILS COLUMN */}
-        <div className="form">
-          <div className="form__address">
-            <h2 className="warehouse_label">Warehouse Details</h2>
-
-            <label>Warehouse Name</label>
-            <input
-              className="form-input"
-              type="text"
-              name="warehouseName"
-              placeholder="Washington"
-              value={warehouseData.warehouseName}
-              onChange={handleWarehouseChange}
-            />
-
-            <label>Street Address</label>
-            <input
-              className="form-input"
-              type="text"
-              name="streetAddress"
-              placeholder="33 Pearl Street SW"
-              value={warehouseData.streetAddress}
-              onChange={handleWarehouseChange}
-            />
-
-            <label>City</label>
-            <input
-              className="form-input"
-              type="text"
-              name="city"
-              placeholder="Washington"
-              value={warehouseData.city}
-              onChange={handleWarehouseChange}
-            />
-
-            <label>Country</label>
-            <input
-              className="form-input"
-              type="text"
-              name="country"
-              placeholder="USA"
-              value={warehouseData.country}
-              onChange={handleWarehouseChange}
-            />
-          </div>
-
-          {/* CONTACT DETAILS CONTAINER */}
-          <div className="form__contact-info">
-            <h2 className="warehouse_label">Contact Details</h2>
-            <label>Contact Name</label>
-            <input
-              className="form-input"
-              type="text"
-              name="contactName"
-              placeholder="Graeme Lyon"
-              value={contactData.contactName}
-              onChange={handleContactChange}
-            />
-
-            <label>Position</label>
-            <input
-              className="form-input"
-              type="text"
-              name="position"
-              placeholder="Warehouse Manager"
-              value={contactData.position}
-              onChange={handleContactChange}
-            />
-
-            <label>Phone Number</label>
-            <input
-              className="form-input"
-              type="text"
-              name="phoneNumber"
-              placeholder="+1 (647) 504-0911"
-              value={contactData.phoneNumber}
-              onChange={handleContactChange}
-            />
-
-            <label>Email</label>
-            <input
-              className="form-input"
-              type="email"
-              name="email"
-              placeholder="glyon@instock.com"
-              value={contactData.email}
-              onChange={handleContactChange}
-            />
-          </div>
-        </div>
-
-        {/* BUTTONS INSIDE FORM */}
-        <div className="form__buttons">
-          <button
-            type="button"
-            className="btn-main cancel-btn"
-            onClick={handleCancel} // Navigate back on cancel
-          >
-            Cancel
-          </button>
-          <button type="submit" className="btn-main save-btn">
-            Save Changes
-          </button>
-        </div>
-      </form>
     </div>
   );
 };
