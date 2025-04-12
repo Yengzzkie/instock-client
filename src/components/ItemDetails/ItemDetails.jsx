@@ -11,7 +11,7 @@ import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 const ItemDetails = () => {
   const { id, itemid } = useParams();
   const [itemData, setItemData] = useState({});
-  const PORT = import.meta.env.PORT;
+  const PORT = import.meta.env.PORT || 8000;
 
   // this will fetch the data for a particular item based on the itemid from params
   async function getItemData() {

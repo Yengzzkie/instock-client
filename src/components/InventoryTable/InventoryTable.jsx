@@ -24,7 +24,7 @@ const TABLE_HEAD = [
 const InventoryTable = () => {
   const { setIsModal, setModalText } = useContext(ModalContext);
   const { id } = useParams();
-  const PORT = import.meta.env.PORT;
+  const PORT = import.meta.env.PORT || 8000;
   const [inventoryData, setInventoryData] = useState([]);
   const [warehouseData, setWarehouseData] = useState({});
 
