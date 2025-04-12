@@ -1,12 +1,10 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .addWarehouse {
   .form__container {
-    background: #fff;
-    // width: 80%; change width to 100%
+    background: $instock-white;
     margin: 10px auto;
-    // box-shadow: 0 3px 6px $instock-cloud; remove this since the parent container will hold the box shadow
-    // transform: translateY(-100px);
 
     // NAVIGATION
     .form__nav {
@@ -32,6 +30,11 @@
       display: flex;
       flex-direction: row;
       padding: 32px 40px;
+
+      @include mobile {
+        flex-direction: column;
+        padding: 0;
+      }
     }
 
     // WAREHOUSE INFORMATION (main container)
@@ -58,6 +61,13 @@
         border-right: 1px solid $instock-cloud;
         margin-right: 40px;
         padding: 0 2rem 0 0;
+
+        @include mobile {
+          border-bottom: 1px solid $instock-cloud;
+          border-right: none;
+          margin: 0 0 2rem 0;
+          padding: 0;
+        }
       }
 
       .warehouse_label {
@@ -83,6 +93,10 @@
       display: flex;
       justify-content: flex-end;
       padding: 1rem 4rem 2rem;
+
+      @include mobile {
+        padding: 0;
+      }
 
       .btn-main {
         font-size: 16px;
