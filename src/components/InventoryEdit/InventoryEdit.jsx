@@ -25,8 +25,8 @@ const InventoryEdit = () => {
   const fetchInventoryItem = async () => {
     try {
       const response = await axios.get(`${URL}/api/inventories/${id}`);
-      setInventoryItem(response.data[0]);
-      console.log(response.data[0]);
+      setInventoryItem(response.data);
+      console.log(response.data);
     } catch(error) {
       console.log("Error fetching inventory:", error.response?.data || error.message);
     }
