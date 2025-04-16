@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import "./WarehouseEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
 const WarehouseEdit = () => {
-  const { warehouseId } = useParams(); // Get warehouse ID from URL
-  const navigate = useNavigate(); // We use this to navigate to the previous page
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const initialWarehouseData = {
     warehouseName: "",
@@ -25,22 +25,22 @@ const WarehouseEdit = () => {
   const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
   const [contactData, setContactData] = useState(initialContactData);
 
-  // Fetch warehouse data from the API
+  // Fetch warehouse info
   useEffect(() => {
     const fetchWarehouseData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/warehouses/${warehouseId}`
+          `http://localhost:8080/api/warehouses/${id}`
         );
         const data = response.data;
 
-        // Assuming the response structure matches these fields
         setWarehouseData({
           warehouseName: data.warehouse_name,
           streetAddress: data.address,
           city: data.city,
           country: data.country,
         });
+
         setContactData({
           contactName: data.contact_name,
           position: data.contact_position,
@@ -54,7 +54,7 @@ const WarehouseEdit = () => {
     };
 
     fetchWarehouseData();
-  }, [warehouseId]);
+  }, [id]);
 
   const handleWarehouseChange = (e) => {
     setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
@@ -78,11 +78,37 @@ const WarehouseEdit = () => {
       contact_email: contactData.email,
     };
 
-    console.log("Submitting payload:", payload);
+    // Regex validations
+    const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (
+      !payload.warehouse_name ||
+      !payload.address ||
+      !payload.city ||
+      !payload.country ||
+      !payload.contact_name ||
+      !payload.contact_position ||
+      !payload.contact_phone ||
+      !payload.contact_email
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (!phoneRegex.test(payload.contact_phone)) {
+      alert("Invalid phone number.");
+      return;
+    }
+
+    if (!emailRegex.test(payload.contact_email)) {
+      alert("Invalid email address.");
+      return;
+    }
 
     try {
       const response = await axios.patch(
-        `http://localhost:8080/warehouses/${warehouseId}`,
+        `http://localhost:8080/api/warehouses/${id}`,
         payload,
         {
           headers: {
@@ -95,7 +121,7 @@ const WarehouseEdit = () => {
         throw new Error("Failed to update warehouse details");
 
       alert("Warehouse details updated successfully!");
-      navigate(-1); // Take us back to the previous page after success
+      navigate(-1);
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again.");
@@ -105,23 +131,20 @@ const WarehouseEdit = () => {
   const handleCancel = () => {
     setWarehouseData(initialWarehouseData);
     setContactData(initialContactData);
-    navigate(-1); // This also takes us back if the user hits "Cancel"
+    navigate(-1);
   };
 
   return (
     <div className="editWarehouse">
       <div className="form__container">
-        {/* NAVIGATION */}
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack onClick={() => navigate(-1)} />{" "}
-            {/* Back to previous page */}
+            <ArrowBack onClick={() => navigate(-1)} />
             <h1 className="form__nav-header">Edit Warehouse</h1>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="form__warehouse-details">
-          {/* WAREHOUSE DETAILS COLUMN */}
           <div className="form">
             <div className="form__address">
               <h2 className="warehouse_label">Warehouse Details</h2>
@@ -131,7 +154,7 @@ const WarehouseEdit = () => {
                 className="form-input"
                 type="text"
                 name="warehouseName"
-                placeholder="Washington"
+                placeholder={warehouseData.warehouseName}
                 value={warehouseData.warehouseName}
                 onChange={handleWarehouseChange}
               />
@@ -167,9 +190,9 @@ const WarehouseEdit = () => {
               />
             </div>
 
-            {/* CONTACT DETAILS CONTAINER */}
             <div className="form__contact-info">
               <h2 className="warehouse_label">Contact Details</h2>
+
               <label>Contact Name</label>
               <input
                 className="form-input"
@@ -212,12 +235,11 @@ const WarehouseEdit = () => {
             </div>
           </div>
 
-          {/* BUTTONS INSIDE FORM */}
           <div className="form__buttons">
             <button
               type="button"
               className="btn-main cancel-btn"
-              onClick={handleCancel} // Navigate back on cancel
+              onClick={handleCancel}
             >
               Cancel
             </button>
