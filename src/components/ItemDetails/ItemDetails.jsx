@@ -37,9 +37,11 @@ const ItemDetails = () => {
             <ArrowBack /> <h1 className="table__nav-header">{itemData.item_name}</h1>
           </div>
         </Link>
-        <button className="btn-main edit-btn">
-          <EditWhite /> Edit
-        </button>
+        <Link to={`/inventory/edit/${itemid}`}>
+          <button className="btn-main edit-btn">
+            <EditWhite /> Edit
+          </button>
+        </Link>
       </div>
 
       {/* ITEM DETAILS CONTAINER */}
