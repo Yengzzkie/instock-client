@@ -88,7 +88,6 @@ const WarehouseList = () => {
       <section className="warehouses_list">
         <section className="header">
           <h1 className="header__title">Warehouses</h1>
-
           <form className="header__search">
             <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="header__search-text" placeholder="Search..."/>
             <SearchIcon onClick={handleSubmit} className="header__search-icon" />

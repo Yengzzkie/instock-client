@@ -56,26 +56,6 @@
         align-items: center;
         justify-content: space-between;
 
-        &--inventory{
-            display: flex;
-            flex-direction: row;
-            border: 1px solid variables.$instock-cloud;
-            border-radius: 20px;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem 1rem;
-            
-            @include tablet{
-            width: 28%;
-            position: relative;
-            left: 3rem;
-            
-            }
-            @include desktop{
-                left: 8rem;
-            }
-        }
-
         @include tablet{
             padding: 0.5rem 1rem;
             width: 24%;
@@ -87,6 +67,21 @@
             width: 26%;
             position: relative;
             left: 7rem;
+        }
+
+        &--inventory{
+            padding: 0.5rem 1rem;
+            
+            @include tablet{
+            width: 28%;
+            position: relative;
+            left: 3rem;
+            
+            }
+            @include desktop{
+                width: 28%;
+                left: 8rem;
+            }
         }
     }
     &__search-text{
