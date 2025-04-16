@@ -78,9 +78,11 @@ const InventoryTable = () => {
             </h1>
           </div>
         </Link>
-        <button className="btn-main edit-btn">
-          <EditWhite /> Edit
-        </button>
+        <Link to={`/warehouse/edit/${id}`}>
+          <button className="btn-main edit-btn">
+            <EditWhite /> Edit
+          </button>
+        </Link>
       </div>
 
       <div className="table__warehouse-details">
