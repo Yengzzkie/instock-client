@@ -82,8 +82,9 @@
             margin-top: 1rem;
             margin-bottom: 1.5rem;
             @include tablet{
-                margin-top: 1.5rem;
+                margin-top: 0;
                 margin-bottom: 0.5rem;
+                font-size: 1.5rem;
             }
         }
         &__fields{
@@ -144,6 +145,8 @@
     gap: 10px;
     @include tablet{
         justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1.5rem;
     }
 
     &--cancel{
