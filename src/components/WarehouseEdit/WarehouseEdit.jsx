@@ -5,6 +5,8 @@ import "./WarehouseEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
 const WarehouseEdit = () => {
+  const PORT = import.meta.env.VITE_PORT || "8080";
+  const URL = `http://localhost:${PORT}`;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const WarehouseEdit = () => {
     const fetchWarehouseData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/warehouses/${id}`
+          `${URL}/api/warehouses/${id}`
         );
         const data = response.data;
 
@@ -109,7 +111,7 @@ const WarehouseEdit = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:8080/api/warehouses/${id}`,
+        `${URL}/api/warehouses/${id}`,
         payload,
         {
           headers: {
@@ -146,7 +148,7 @@ const WarehouseEdit = () => {
         </div>
         <form onSubmit={handleSubmit} className="form form__warehouse-details">
           <div className="form__fields">
-            <div className="form__column form__column-left form__address">
+            <div className="form__column form__column-left">
               <h2 className="form__header">Warehouse Details</h2>
 
               <div className="form__group">
@@ -198,7 +200,7 @@ const WarehouseEdit = () => {
               </div>
             </div>
 
-            <div className="form__column form__contact-info">
+            <div className="form__column">
               <h2 className="form__header">Contact Details</h2>
 
               <div className="form__group">
