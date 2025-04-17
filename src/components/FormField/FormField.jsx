@@ -26,7 +26,7 @@ const FormField = ({input}) => {
       <FormField input={{
         label: "",
         class: "", // modifiers. (e.g. error)
-        type: "", // choices: select, input, number, textarea, search, radio
+        type: "", // choices: select, text, number, textarea, search, radio
         name: "", 
         placeholder: "",
         // onChange: "", // function name
@@ -79,7 +79,7 @@ const FormField = ({input}) => {
             defaultValue={input.value}
             onChange={input.onChange}
           />
-        ) : input.type === "input" ? (
+        ) : input.type === "text" ? (
           <input
             className={`form-input ${input.class}`}
             id={input.name}

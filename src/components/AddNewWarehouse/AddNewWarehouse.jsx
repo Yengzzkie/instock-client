@@ -81,13 +81,8 @@ const AddNewWarehouse = () => {
       <div className="form__container">
         {/* NAVIGATION */}
         <div className="form__nav">
-          <div
-            className="back-link"
-            onClick={() => navigate(-1)}
-            style={{ cursor: "pointer" }}
-          >
-            <ArrowBack />
-            <h1 className="form__nav-header">Add New Warehouse</h1>
+          <div className="back-link">
+            <ArrowBack onClick={() => navigate(-1)} /> <h1 className="form__nav-header">Add New Warehouse</h1>
           </div>
         </div>
 
@@ -98,96 +93,113 @@ const AddNewWarehouse = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="form__warehouse-details">
-          {/* WAREHOUSE DETAILS COLUMN */}
-          <div className="form">
-            <div className="form__address">
-              <h2 className="warehouse_label">Warehouse Details</h2>
+        <form onSubmit={handleSubmit} className="form form__warehouse-details">
+          {/* WAREHOUSE DETAILS */}
+          <div className="form__fields">
+            {/* ADDRESS DETAILS CONTAINER */}
+            <div className="form__column form__column-left">
+              <h2 className="form__header">Warehouse Details</h2>
 
-              <label>Warehouse Name</label>
-              <input
-                className="form-input"
-                type="text"
-                name="warehouseName"
-                placeholder="Warehouse Name"
-                value={warehouseData.warehouseName}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Warehouse Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="warehouseName"
+                  placeholder="Warehouse Name"
+                  value={warehouseData.warehouseName}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>Street Address</label>
-              <input
-                className="form-input"
-                type="text"
-                name="streetAddress"
-                placeholder="Street Address"
-                value={warehouseData.streetAddress}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Street Address</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="streetAddress"
+                  placeholder="Street Address"
+                  value={warehouseData.streetAddress}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>City</label>
-              <input
-                className="form-input"
-                type="text"
-                name="city"
-                placeholder="City"
-                value={warehouseData.city}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">City</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={warehouseData.city}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>Country</label>
-              <input
-                className="form-input"
-                type="text"
-                name="country"
-                placeholder="Country"
-                value={warehouseData.country}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Country</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="country"
+                  placeholder="Country"
+                  value={warehouseData.country}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
             </div>
 
             {/* CONTACT DETAILS CONTAINER */}
-            <div className="form__contact-info">
-              <h2 className="warehouse_label">Contact Details</h2>
+            <div className="form__column">
+              <h2 className="form__header">Contact Details</h2>
 
-              <label>Contact Name</label>
-              <input
-                className="form-input"
-                type="text"
-                name="contactName"
-                placeholder="Contact Name"
-                value={contactData.contactName}
-                onChange={handleContactChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Contact Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="contactName"
+                  placeholder="Contact Name"
+                  value={contactData.contactName}
+                  onChange={handleContactChange}
+                />
+              </div>
 
-              <label>Position</label>
-              <input
-                className="form-input"
-                type="text"
-                name="position"
-                placeholder="Position"
-                value={contactData.position}
-                onChange={handleContactChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Position</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="position"
+                  placeholder="Position"
+                  value={contactData.position}
+                  onChange={handleContactChange}
+                />
+              </div>
 
-              <label>Phone Number</label>
-              <input
-                className="form-input"
-                type="text"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={contactData.phoneNumber}
-                onChange={handleContactChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Phone Number</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  value={contactData.phoneNumber}
+                  onChange={handleContactChange}
+                />
+              </div>
 
-              <label>Email</label>
-              <input
-                className="form-input"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={contactData.email}
-                onChange={handleContactChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Email</label>
+                <input
+                  className="form-input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={contactData.email}
+                  onChange={handleContactChange}
+                />
+              </div>
             </div>
           </div>
 

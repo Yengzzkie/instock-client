@@ -3,7 +3,7 @@
     {
       "label": "Item Name",
       "class": "",
-      "type": "input",
+      "type": "text",
       "name": "item_name",
       "placeholder": "Item Name"
     },
