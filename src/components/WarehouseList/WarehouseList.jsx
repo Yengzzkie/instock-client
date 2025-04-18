@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import SearchIcon from "../../../assets/Icons/search-24px.svg?react";
+import CloseIcon from "../../../assets/Icons/close-24px.svg?react";
 import ChevronRight from "../../../assets/Icons/chevron_right-24px.svg?react";
 import DeleteIcon from "../../../assets/Icons/delete_outline-24px.svg?react";
 import EditIcon from "../../../assets/Icons/edit-24px.svg?react";
@@ -12,20 +13,25 @@ import { useContext } from "react";
 import { ModalContext } from "../../context/context";
 
 const WarehouseList = () => {
-  const PORT = import.meta.env.VITE_PORT || "8080";
+  const PORT = import.meta.env.VITE_PORT || 8080;
   const URL = `http://localhost:${PORT}`;
-
+  const isTablet = useMediaQuery({ minWidth: 768 });
+  const { setIsModal, setModalText } = useContext(ModalContext);
   const [wareHouses, setWarehouses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [ascending, setAscending] = useState(false);
-
-  const isTablet = useMediaQuery({ minWidth: 768 });
-  const { setIsModal, setModalText } = useContext(ModalContext);
+  const [filteredWarehouses, setFilteredWarehouses] = useState(wareHouses);
 
   const getWarehouses = async () => {
-    const response = await axios.get(`${URL}/api/warehouses`);
-    setWarehouses(response.data);
+    try {
+      const response = await axios.get(`${URL}/api/warehouses`);
+      setWarehouses(response.data);
+      setFilteredWarehouses(response.data);
+    } catch (error) {
+      console.error("Error fetching warehouses:", error);
+    }
   };
+
   useEffect(() => {
     getWarehouses();
   }, []);
@@ -36,30 +42,33 @@ const WarehouseList = () => {
   };
 
   // search functionality
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const filteredResults = wareHouses.filter((item) => {
-      if (
-        item.warehouse_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.contact_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.contact_email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.contact_phone.toLowerCase().includes(searchQuery.toLowerCase())
-      ) {
-        return item;
-      }
-    });
-    if (filteredResults.length > 0) {
-      setWarehouses(filteredResults);
-      setSearchQuery("");
-    }
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchQuery(searchValue);
+
+    const filteredResults = wareHouses.filter(
+      (item) =>
+        item.warehouse_name.toLowerCase().includes(searchValue) ||
+        item.address.toLowerCase().includes(searchValue) ||
+        item.city.toLowerCase().includes(searchValue) ||
+        item.country.toLowerCase().includes(searchValue) ||
+        item.contact_name.toLowerCase().includes(searchValue) ||
+        item.contact_email.toLowerCase().includes(searchValue) ||
+        item.contact_phone.toLowerCase().includes(searchValue)
+    );
+
+    setFilteredWarehouses(filteredResults);
   };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setFilteredWarehouses(wareHouses);
+  };
+
   // sorting functionality
   const handleSort = (sortingParam, sortOrder) => {
     if (sortOrder === true) {
-      wareHouses.sort((a, b) => {
+      filteredWarehouses.sort((a, b) => {
         if (a[sortingParam].toLowerCase() < b[sortingParam].toLowerCase()) {
           return -1;
         }
@@ -70,8 +79,7 @@ const WarehouseList = () => {
         return 0;
       });
     } else {
-      wareHouses.sort((a, b) => {
-        console.log(a[sortingParam], b[sortingParam]);
+      filteredWarehouses.sort((a, b) => {
         if (b[sortingParam].toLowerCase() < a[sortingParam].toLowerCase()) {
           return -1;
         }
@@ -82,7 +90,7 @@ const WarehouseList = () => {
         return 0;
       });
     }
-    setWarehouses(wareHouses);
+    setWarehouses(filteredWarehouses);
   };
 
   return (
@@ -94,14 +102,18 @@ const WarehouseList = () => {
           <form className="header__search">
             <input
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearch}
               className="header__search-text"
               placeholder="Search..."
             />
-            <SearchIcon
-              onClick={handleSubmit}
-              className="header__search-icon"
-            />
+            {searchQuery ? (
+              <CloseIcon
+                className="header__search-icon"
+                onClick={clearSearch}
+              />
+            ) : (
+              <SearchIcon className="header__search-icon" />
+            )}
           </form>
 
           {/* Made BUTTON link to the AddNewWarehouse Component */}
@@ -178,9 +190,9 @@ const WarehouseList = () => {
                 </tr>
               </thead>
               <tbody>
-                {wareHouses.map((warehouse, index) => (
+                {filteredWarehouses.map((warehouse) => (
                   <>
-                    <tr className="table-data" key={index}>
+                    <tr className="table-data" key={warehouse.id}>
                       <td>
                         <Link to={`/warehouse/${warehouse.id}`}>
                           <span className="warehouse-name">
@@ -188,7 +200,7 @@ const WarehouseList = () => {
                           </span>
                           <span className="arrow-table">
                             {" "}
-                            <ChevronRight />{" "}
+                            <ChevronRight className="chevron-right" />{" "}
                           </span>
                         </Link>
                       </td>
@@ -223,9 +235,9 @@ const WarehouseList = () => {
             </table>
           ) : (
             <section className="warehouse-cards">
-              {wareHouses.map((warehouse, index) => (
-                <>
-                  <div key={index} className="warehouse-card">
+              {filteredWarehouses.map((warehouse) => (
+                <div key={warehouse.id}>
+                  <div className="warehouse-card">
                     <div className="warehouse-card__col-1">
                       <div className="warehouse-card__warehouse">
                         <h4 className="warehouse-title">WAREHOUSE</h4>
@@ -268,17 +280,17 @@ const WarehouseList = () => {
                     <DeleteIcon
                       onClick={() =>
                         callModalHandler({
-                          header: `Delete ${warehouse.item} warehouse item`,
-                          body: `Please confirm that you'd like to delete ${warehouse.item} from the inventory list. You won't be able to undo this action.`,
+                          header: `Delete ${warehouse.warehouse_name} warehouse item`,
+                          body: `Please confirm that you'd like to delete ${warehouse.warehouse_name} from the inventory list. You won't be able to undo this action.`,
                         })
                       }
-                      className="delete-icon"
+                      className="delete-icon table-delete"
                     />
                     <Link to={`/warehouse/edit/${warehouse.id}`}>
-                      <EditIcon className="edit-icon" />
+                      <EditIcon className="edit-icon table-edit" />
                     </Link>
                   </div>
-                </>
+                </div>
               ))}
             </section>
           )}
