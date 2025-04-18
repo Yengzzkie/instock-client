@@ -7,6 +7,7 @@ import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
+import EditButton from "../EditButton/EditButton";
 
 const ItemDetails = () => {
   const { id, itemid } = useParams();
@@ -37,11 +38,7 @@ const ItemDetails = () => {
             <ArrowBack /> <h1 className="table__nav-header">{itemData.item_name}</h1>
           </div>
         </Link>
-        <Link to={`/inventory/edit/${itemid}`}>
-          <button className="btn-main edit-btn">
-            <EditWhite /> Edit
-          </button>
-        </Link>
+        <EditButton path={`/inventory/edit/${itemid}`} />
       </div>
 
       {/* ITEM DETAILS CONTAINER */}
