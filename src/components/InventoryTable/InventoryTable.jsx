@@ -12,6 +12,7 @@ import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
+import EditButton from "../EditButton/EditButton";
 
 const TABLE_HEAD = [
   "INVENTORY ITEM",
@@ -78,11 +79,7 @@ const InventoryTable = () => {
             </h1>
           </div>
         </Link>
-        <Link to={`/warehouse/edit/${id}`}>
-          <button className="btn-main edit-btn">
-            <EditWhite /> Edit
-          </button>
-        </Link>
+        <EditButton path={`/warehouse/edit/${id}`} />
       </div>
 
       <div className="table__warehouse-details">
