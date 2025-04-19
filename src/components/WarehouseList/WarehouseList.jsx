@@ -191,45 +191,43 @@ const WarehouseList = () => {
               </thead>
               <tbody>
                 {filteredWarehouses.map((warehouse) => (
-                  <>
-                    <tr className="table-data" key={warehouse.id}>
-                      <td>
-                        <Link to={`/warehouse/${warehouse.id}`}>
-                          <span className="warehouse-name">
-                            {warehouse.warehouse_name}
-                          </span>
-                          <span className="arrow-table">
-                            {" "}
-                            <ChevronRight className="chevron-right" />{" "}
-                          </span>
+                  <tr className="table-data" key={warehouse.id}>
+                    <td>
+                      <Link to={`/warehouse/${warehouse.id}`}>
+                        <span className="warehouse-name">
+                          {warehouse.warehouse_name}
+                        </span>
+                        <span className="arrow-table">
+                          {" "}
+                          <ChevronRight className="chevron-right" />{" "}
+                        </span>
+                      </Link>
+                    </td>
+                    <td>{warehouse.address}</td>
+                    <td>{warehouse.contact_name}</td>
+                    <td>
+                      <div>{warehouse.contact_phone}</div>
+                      <div>{warehouse.contact_email}</div>
+                    </td>
+                    <td className="warehouse-table__actions">
+                      <div className="table-delete">
+                        <DeleteIcon
+                          onClick={() =>
+                            callModalHandler({
+                              header: `Delete ${warehouse.warehouse_name} warehouse`,
+                              body: `Please confirm that you'd like to delete ${warehouse.warehouse_name} from the warehouse list. You won't be able to undo this action.`,
+                              objectId: warehouse.id,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="table-edit">
+                        <Link to={`/warehouse/edit/${warehouse.id}`}>
+                          <EditIcon />
                         </Link>
-                      </td>
-                      <td>{warehouse.address}</td>
-                      <td>{warehouse.contact_name}</td>
-                      <td>
-                        <div>{warehouse.contact_phone}</div>
-                        <div>{warehouse.contact_email}</div>
-                      </td>
-                      <td className="warehouse-table__actions">
-                        <div className="table-delete">
-                          <DeleteIcon
-                            onClick={() =>
-                              callModalHandler({
-                                header: `Delete ${warehouse.warehouse_name} warehouse`,
-                                body: `Please confirm that you'd like to delete ${warehouse.warehouse_name} from the warehouse list. You won't be able to undo this action.`,
-                                objectId: warehouse.id,
-                              })
-                            }
-                          />
-                        </div>
-                        <div className="table-edit">
-                          <Link to={`/warehouse/edit/${warehouse.id}`}>
-                            <EditIcon />
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
+                      </div>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>

@@ -151,7 +151,6 @@ const InventoryTable = () => {
                 <Delete
                   onClick={() =>
                     callModalHandler({
-
                       header: `Delete ${item.item_name} inventory item`,  // this serves as the header of the modal
                       body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
                       type: "inventory", // this will act as a type identifier for the modal, this will be used to determine which axios request to send when the delete button is clicked, this is optional in warehouse delete modal
@@ -160,7 +159,9 @@ const InventoryTable = () => {
                   }
                   className="table__cta-delete"
                 />
-                <Edit className="table__cta-edit" />
+                <Link to={`/inventory/edit/${item.id}`}>
+                  <Edit className="table__cta-edit" />
+                </Link>
               </td>
             </tr>
           ))}

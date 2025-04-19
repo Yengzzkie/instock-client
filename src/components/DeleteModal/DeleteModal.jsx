@@ -25,13 +25,13 @@ const WarehouseDeleteModal = () => {
   // function that will send an axios request to delete an inventory item
   async function deleteItem() {
     try {
-      const response = await axios.delete(`http://localhost:${PORT}/api/inventories/${modalText.id}`);
+      const response = await axios.delete(`http://localhost:${PORT}/api/inventories/${modalText.objectId}`);
       console.log(response.data);
     } catch (error) {
       console.error(`Failed to delete inventory item with ID ${modalText.objectId}:`, error);
     } finally {
       setIsModal(false);
-      window.location.reload();
+      // window.location.reload();
     }
   }
 
