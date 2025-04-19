@@ -195,7 +195,7 @@ const WarehouseList = () => {
                     onClick={() =>
                       callModalHandler({
                         header: `Delete ${item.warehouse_name} warehouse?`,  // this serves as the header of the modal
-                        body: `Please confirm that you'd like to delete ${item.warehouse_name} from the warehouse list. You won't be able to undo this action.`, // this serves as the body of the modal
+                        body: `Please confirm that you'd like to delete the ${item.warehouse_name} from the list of warehouses. You won't be able to undo this action.`, // this serves as the body of the modal
                         deleteCallback: () => deleteWarehouse(item.id), // this will be used to call the delete function from inside the Delete Modal
                       })
                     }
