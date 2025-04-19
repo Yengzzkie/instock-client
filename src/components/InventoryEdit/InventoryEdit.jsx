@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./InventoryEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -13,10 +13,14 @@ const InventoryEdit = () => {
 
   const { id } = useParams();
   const [isError, setIsError] = useState({});
+  const [isDisabled, setDisabled] = useState(false);
+  const [isFormSuccess, setFormSuccess] = useState(false);
   
   const [inventoryItem, setInventoryItem] = useState([]);
   const [categories, setCategories] = useState([]);
   const [warehouses, setWarehouse] = useState([]);
+  
+  const navigate = useNavigate();
 
   const fetchInventoryItem = async () => {
     try {
@@ -51,18 +55,50 @@ const InventoryEdit = () => {
     fetchWarehouses();
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { data, errors } = HandleError(e.target.elements);
     setIsError(errors);
     setInventoryItem((prev) => ({ ...prev, ...data }));
+
+    if (Object.values(errors).includes(true)) {
+      setDisabled(true);
+      return;
+    }
+    setDisabled(false);
+
+    try {
+      const response = await axios.patch(`${URL}/api/inventories/${id}`, {
+        warehouse_id: inventoryItem.warehouse_id,
+        item_name: inventoryItem.item_name,
+        description: inventoryItem.description,
+        category: inventoryItem.category,
+        status: inventoryItem.status,
+        quantity: inventoryItem.quantity,
+      });
+
+      if (response.status === 200) {
+        await fetchInventoryItem();
+        setIsError({});
+        setFormSuccess(true);
+
+        setTimeout(() => {
+          setFormSuccess(false);
+        }, 3000);
+
+        console.log("success");
+      }
+    } catch (error) {
+      console.error("Failed to edit inventory:", error.response?.data || error.message);
+    }
   };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
     setInventoryItem((prev) => ({ ...prev, [name]: value }));
+    setDisabled(false);
   }
 
   // --- Fields ---
@@ -98,14 +134,20 @@ const InventoryEdit = () => {
         {/* NAVIGATION */}
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack /> <h1 className="form__nav-header">Edit Inventory Item</h1>
+            <ArrowBack onClick={() => navigate("/inventory")} /> <h1 className="form__nav-header">Edit Inventory Item</h1>
           </div>
         </div>
   
         <form onSubmit={handleSubmit} className="form">
+
+          {isFormSuccess && 
+            <div className="form__message">
+              <span className={`badge badge-success`}>You have successfully edited inventory</span>
+            </div>
+          }
+
           {/* FORM FIELDS */}
           <div className="form__fields">
-
             {/* INVENTORY ITEM DETAILS COLUMN */}
             <div className="form__column form__column-left">
               <h2 className="form__header">Item Details</h2>
@@ -136,11 +178,11 @@ const InventoryEdit = () => {
             <button
               type="button"
               className="btn-main cancel-btn"
-              // onClick={handleCancel}
+              onClick={() => navigate("/inventory")}
             >
               Cancel
             </button>
-            <button type="submit" className="btn-main save-btn">
+            <button type="submit" className={`btn-main save-btn ${isDisabled ? 'disabled' : ''}`}>
               Save Changes
             </button>
           </div>
