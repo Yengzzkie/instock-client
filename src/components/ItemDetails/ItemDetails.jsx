@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
-import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 import EditButton from "../EditButton/EditButton";

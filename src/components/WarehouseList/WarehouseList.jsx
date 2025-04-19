@@ -100,6 +100,19 @@ const WarehouseList = () => {
     }
     setWarehouses(filteredWarehouses);
   };
+
+  // function for deleting a warehouse
+  // this function will be called when the delete button is clicked in the delete modal
+  async function deleteWarehouse(warehouseId) {
+    try {
+      await axios.delete(`http://localhost:${PORT}/api/warehouses/${warehouseId}`);
+    } catch (error) {
+      console.error(`Failed to delete warehouse with ID ${warehouseId}:`, error);
+    } finally {
+      setIsModal(false);
+      getWarehouses();
+    }
+  }
   
   return (
     <>
@@ -181,11 +194,9 @@ const WarehouseList = () => {
                   <Delete
                     onClick={() =>
                       callModalHandler({
-
-                        header: `Delete ${item.warehouse_name} inventory item`,  // this serves as the header of the modal
-                        body: `Please confirm that you'd like to delete ${item.warehouse_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
-                        type: "inventory", // this will act as a type identifier for the modal, this will be used to determine which axios request to send when the delete button is clicked, this is optional in warehouse delete modal
-                        objectId: item.id, // this will be used to identify which item to delete
+                        header: `Delete ${item.warehouse_name} warehouse?`,  // this serves as the header of the modal
+                        body: `Please confirm that you'd like to delete the ${item.warehouse_name} from the list of warehouses. You won't be able to undo this action.`, // this serves as the body of the modal
+                        deleteCallback: () => deleteWarehouse(item.id), // this will be used to call the delete function from inside the Delete Modal
                       })
                     }
                     className="table__cta-delete"

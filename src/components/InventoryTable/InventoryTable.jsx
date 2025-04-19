@@ -8,7 +8,6 @@ import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import Edit from "../../assets/Icons/edit-24px.svg?react";
-import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
@@ -51,6 +50,19 @@ const InventoryTable = () => {
       setWarehouseData(response.data);
     } catch (error) {
       console.error(`Failed to get data for warehouse with ID ${id}:`, error);
+    }
+  }
+
+  // function for deleting an inventory item
+  // this function will be called when the delete button is clicked in the delete modal
+  async function deleteItem(itemId) {
+    try {
+      await axios.delete(`http://localhost:${PORT}/api/inventories/${itemId}`);
+    } catch (error) {
+      console.error(`Failed to delete inventory item with ID ${itemId}:`, error);
+    } finally {
+      setIsModal(false);
+      getInventoryData();
     }
   }
 
@@ -151,16 +163,16 @@ const InventoryTable = () => {
                 <Delete
                   onClick={() =>
                     callModalHandler({
-
                       header: `Delete ${item.item_name} inventory item`,  // this serves as the header of the modal
                       body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
-                      type: "inventory", // this will act as a type identifier for the modal, this will be used to determine which axios request to send when the delete button is clicked, this is optional in warehouse delete modal
-                      objectId: item.id, // this will be used to identify which item to delete
+                      deleteCallback: () => deleteItem(item.id), // this will be used to call the delete function from inside the delete modal
                     })
                   }
                   className="table__cta-delete"
                 />
-                <Edit className="table__cta-edit" />
+                <Link to={`/inventory/edit/${item.id}`}>
+                  <Edit className="table__cta-edit" />
+                </Link>
               </td>
             </tr>
           ))}
