@@ -107,24 +107,26 @@ const WarehouseList = () => {
         <section className="header">
           <h1 className="header__title">Warehouses</h1>
 
-          <form className="header__search">
-            <input
-              value={searchQuery}
-              onChange={handleSearch}
-              className="header__search-text"
-              placeholder="Search..."
-            />
-            {searchQuery ? (
-              <CloseIcon
-                className="header__search-icon"
-                onClick={clearSearch}
+          <div className="header__actions">
+            <form className="header__search">
+              <input
+                value={searchQuery}
+                onChange={handleSearch}
+                className="header__search-text"
+                placeholder="Search..."
               />
-            ) : (
-              <SearchIcon className="header__search-icon" />
-            )}
-          </form>
+              {searchQuery ? (
+                <CloseIcon
+                  className="header__search-icon"
+                  onClick={clearSearch}
+                />
+              ) : (
+                <SearchIcon className="header__search-icon" />
+              )}
+            </form>
 
-          <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
+            <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
+          </div>
         </section>
         
         <table className="inventory__table">

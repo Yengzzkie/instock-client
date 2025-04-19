@@ -32,9 +32,9 @@
   @include desktop {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 1.5rem;
+    padding: 32px 40px 30px 40px;
   }
   &__title {
     font-weight: 600;
@@ -42,9 +42,14 @@
     @include tablet {
       font-size: 2rem;
     }
-    @include desktop {
-      position: relative;
-      right: 3.3rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 15px;
+
+    @include mobile {
+      flex-direction: column;
     }
   }
   &__search {
@@ -52,7 +57,7 @@
     flex-direction: row;
     border: 1px solid variables.$instock-cloud;
     border-radius: 20px;
-    padding: 0.3rem 0.8rem;
+    padding: 0.5rem 1rem;
     align-items: center;
     justify-content: space-between;
 
@@ -83,9 +88,6 @@
     }
     @include desktop {
       padding: 0.5rem 1rem;
-      width: 26%;
-      position: relative;
-      left: 7rem;
     }
   }
   &__search-text {
