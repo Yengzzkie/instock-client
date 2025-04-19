@@ -8,7 +8,6 @@ import Delete from "../../assets/Icons/delete_outline-24px.svg?react";
 import ChevronRight from "../../assets/Icons/chevron_right-24px.svg?react";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import Edit from "../../assets/Icons/edit-24px.svg?react";
-import EditWhite from "../../assets/Icons/edit-white-24px.svg?react";
 import Sort from "../../assets/Icons/sort-24px.svg?react";
 import InStockTag from "../InStockTag/InStockTag";
 import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";

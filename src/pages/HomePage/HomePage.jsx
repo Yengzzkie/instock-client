@@ -1,10 +1,9 @@
-import AddNewWarehouse from "../../components/AddNewWarehouse/AddNewWarehouse";
+import WarehouseList from "../../components/WarehouseList/WarehouseList";
 
 const HomePage = () => {
   return (
     <>
-      {/* <h1>Hello from HomePage</h1> */}
-      <AddNewWarehouse/>
+      <WarehouseList/>
     </>
   );
 };
