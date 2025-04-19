@@ -54,6 +54,19 @@ const InventoryTable = () => {
     }
   }
 
+  // function for deleting an inventory item
+  // this function will be called when the delete button is clicked in the delete modal
+  async function deleteItem(itemId) {
+    try {
+      await axios.delete(`http://localhost:${PORT}/api/inventories/${itemId}`);
+    } catch (error) {
+      console.error(`Failed to delete inventory item with ID ${itemId}:`, error);
+    } finally {
+      setIsModal(false);
+      getInventoryData();
+    }
+  }
+
   useEffect(() => {
     getInventoryData();
     getWarehouseData();
@@ -153,8 +166,7 @@ const InventoryTable = () => {
                     callModalHandler({
                       header: `Delete ${item.item_name} inventory item`,  // this serves as the header of the modal
                       body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
-                      type: "inventory", // this will act as a type identifier for the modal, this will be used to determine which axios request to send when the delete button is clicked, this is optional in warehouse delete modal
-                      objectId: item.id, // this will be used to identify which item to delete
+                      deleteCallback: () => deleteItem(item.id), // this will be used to call the delete function from inside the delete modal
                     })
                   }
                   className="table__cta-delete"
