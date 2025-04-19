@@ -66,6 +66,10 @@
       $instock-light-grey 20%
     );
 
+    &__message {
+      padding: 0 40px;
+    }
+
     &__fields {
       display: flex;
       flex-direction: row;
@@ -145,6 +149,11 @@
       &.save-btn {
         background: $instock-blue;
         color: #fff;
+
+        &.disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
       }
 
       &:hover {
@@ -161,5 +170,18 @@
       justify-content: center;
       gap: 15px;
     }
+  }
+}
+
+.badge {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: .25rem;
+  padding: 8px;
+
+  &-success {
+    color: #fff;
+    background-color: #37b554;
   }
 }

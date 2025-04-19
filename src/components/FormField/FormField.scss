@@ -28,6 +28,8 @@
       font-weight: 300;
       transition: $transition-active-input;
       margin: 0.5rem 0;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 14px;
 
       &::placeholder {
         color: $instock-slate;
