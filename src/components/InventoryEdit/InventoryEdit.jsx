@@ -1,102 +1,159 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./InventoryEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import FormField from "../FormField/FormField.jsx";
+import HandleError from "../FormField/HandleError.jsx";
+import Fields from "./InventoryFields.json";
 
 const InventoryEdit = () => {
-  const URL = import.meta.env.VITE_URL;
-  const PORT = import.meta.env.VITE_PORT;
+  const PORT = import.meta.env.VITE_PORT || "8080";
+  const URL = `http://localhost:${PORT}`;
 
   const { id } = useParams();
   const [isError, setIsError] = useState({});
+  const [isDisabled, setDisabled] = useState(false);
+  const [isFormSuccess, setFormSuccess] = useState(false);
   
   const [inventoryItem, setInventoryItem] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [warehouses, setWarehouse] = useState([]);
+  
+  const navigate = useNavigate();
 
   const fetchInventoryItem = async () => {
     try {
-      console.log(`${URL}:${PORT}/inventory/${id}`);
+      const response = await axios.get(`${URL}/api/inventories/${id}`);
+      setInventoryItem(response.data);
     } catch(error) {
       console.log("Error fetching inventory:", error.response?.data || error.message);
     }
   }
 
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${URL}/api/categories`);
+      setCategories(response.data);
+    } catch (error) {
+      console.log("Error fetching categories:", error.response?.data || error.message);
+    }
+  };
+
+  const fetchWarehouses = async () => {
+    try {
+      const response = await axios.get(`${URL}/api/warehouses`);
+      setWarehouse(response.data);
+    } catch (error) {
+      console.log("Error fetching warehouses:", error.response?.data || error.message);
+    }
+  };
+
   useEffect(() => {
     fetchInventoryItem();
+    fetchCategories();
+    fetchWarehouses();
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const name = form.name.value.trim();
-    const description = form.description.value.trim();
-    const category = form.category.value.trim();
-    const status = form.status.value.trim();
-    const quantity = form.quantity.value.trim();
-    const warehouses = form.warehouses.value.trim();
-
-    const errors = {
-      name: !name,
-      description: !description,
-      category: !category,
-      status: !status,
-      quantity: !quantity,
-      warehouses: !warehouses
-    };
-
+    const { data, errors } = HandleError(e.target.elements);
     setIsError(errors);
+    setInventoryItem((prev) => ({ ...prev, ...data }));
+
+    if (Object.values(errors).includes(true)) {
+      setDisabled(true);
+      return;
+    }
+    setDisabled(false);
+
+    try {
+      const response = await axios.patch(`${URL}/api/inventories/${id}`, {
+        warehouse_id: inventoryItem.warehouse_id,
+        item_name: inventoryItem.item_name,
+        description: inventoryItem.description,
+        category: inventoryItem.category,
+        status: inventoryItem.status,
+        quantity: inventoryItem.quantity,
+      });
+
+      if (response.status === 200) {
+        await fetchInventoryItem();
+        setIsError({});
+        setFormSuccess(true);
+
+        setTimeout(() => {
+          setFormSuccess(false);
+        }, 3000);
+
+        console.log("success");
+      }
+    } catch (error) {
+      console.error("Failed to edit inventory:", error.response?.data || error.message);
+    }
   };
 
-  // --- Fields ---
-  const inventoryDetails = [
-    { label: "Item Name", class: "", type: "input", name: "name", placeholder: "Item Name", value: "", /* onChange: "",*/ },
-    { label: "Description", class: "", type: "textarea", name: "description", placeholder: "Description", value: "", /* onChange: "", */ },
-    { label: "Category", class: "", type: "select", name: "category", placeholder: "Category", value: "", /* onChange: "", */
-      options: [
-        { value: "1", label: "Option 1" },
-        { value: "2", label: "Option 2" },
-      ]
-    },
-  ];
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
 
-  const inventoryAvailability = [
-    { label: "Status", class: "", type: "radio", name: "status", placeholder: "Status", value: "Out of Stock", /* onChange: "", */
-      options: [
-        { value: "In Stock", label: "In Stock" },
-        { value: "Out of Stock", label: "Out of Stock" },
-      ]
-    },
-    { label: "Quantity", class: "", type: "number", name: "quantity", placeholder: "Quantity", value: "", /* onChange: "", */ },
-    { label: "Warehouse", class: "", type: "select", name: "warehouses", placeholder: "Warehouse", value: "", /* onChange: "", */
-      options: [
-        { value: "1", label: "Option 1" },
-        { value: "2", label: "Option 2" },
-      ]
+    setInventoryItem((prev) => ({ ...prev, [name]: value }));
+    setDisabled(false);
+  }
+
+  // --- Fields ---
+  // getting the fields from the InventoryFields.json file
+  const inventoryDetails = Fields.inventoryDetails.map(field => {
+    if (field.name === "category") {
+      return {
+        ...field,
+        options: categories.map(category => ({
+          value: category,
+          label: category
+        }))
+      };
     }
-  ];
-  
+    return field;
+  });
+  const inventoryAvailability = Fields.inventoryAvailability.map(field => {
+    if (field.name === "warehouse_id") {
+      return {
+        ...field,
+        options: warehouses.map(warehouse => ({
+          value: warehouse.id,
+          label: warehouse.warehouse_name
+        }))
+      };
+    }
+    return field;
+  });
+
   return ( 
     <>
       <div className="form__container form__container-inventory">
         {/* NAVIGATION */}
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack /> <h1 className="form__nav-header">Edit Inventory Item</h1>
+            <ArrowBack onClick={() => navigate("/inventory")} /> <h1 className="form__nav-header">Edit Inventory Item</h1>
           </div>
         </div>
   
         <form onSubmit={handleSubmit} className="form">
+
+          {isFormSuccess && 
+            <div className="form__message">
+              <span className={`badge badge-success`}>You have successfully edited inventory</span>
+            </div>
+          }
+
           {/* FORM FIELDS */}
           <div className="form__fields">
-
             {/* INVENTORY ITEM DETAILS COLUMN */}
             <div className="form__column form__column-left">
               <h2 className="form__header">Item Details</h2>
 
               {inventoryDetails.map((params, index) => (
-                <FormField key={index} input={{...params, error: isError[params.name]}} />
+                <FormField key={index} input={{...params, value: inventoryItem[params.name], error: isError[params.name], onChange: handleOnChange}} />
               ))}
             </div>
 
@@ -104,9 +161,15 @@ const InventoryEdit = () => {
             <div className="form__column">
               <h2 className="form__header">Item Availability</h2>
 
-              {inventoryAvailability.map((params, index) => (
-                <FormField key={index} input={{...params, error: isError[params.name]}} />
-              ))}
+              {inventoryAvailability.map((params, index) => {
+                if (inventoryItem.status === "Out of Stock" && params.name === "quantity") {
+                  return null;
+                }
+
+                return (
+                  <FormField key={index} input={{...params, value: inventoryItem[params.name], error: isError[params.name], onChange: handleOnChange}} />
+                );
+              })}
             </div>
           </div>
 
@@ -115,11 +178,11 @@ const InventoryEdit = () => {
             <button
               type="button"
               className="btn-main cancel-btn"
-              // onClick={handleCancel}
+              onClick={() => navigate("/inventory")}
             >
               Cancel
             </button>
-            <button type="submit" className="btn-main save-btn">
+            <button type="submit" className={`btn-main save-btn ${isDisabled ? 'disabled' : ''}`}>
               Save Changes
             </button>
           </div>

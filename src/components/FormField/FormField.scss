@@ -1,6 +1,10 @@
 @use "../../styles/partials/variables" as *;
 
 .form {
+  &-label {
+    font-weight: 600;
+  }
+
   &-radio-group {
     display: flex;
     flex-wrap: wrap;
@@ -10,14 +14,22 @@
       font-weight: normal;;
     }
   }
+
   &__group {
     display: flex;
     flex-direction: column;
     margin: 0.5rem 0 1rem;
 
     .form-input {
+      border: 1px solid $instock-cloud;
+      border-radius: 5rem;
+      padding: 0.7rem;
+      outline: none;
+      font-weight: 300;
       transition: $transition-active-input;
       margin: 0.5rem 0;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 14px;
 
       &::placeholder {
         color: $instock-slate;

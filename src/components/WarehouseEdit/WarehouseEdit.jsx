@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./WarehouseEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
 const WarehouseEdit = () => {
-  const { warehouseId } = useParams(); // Get warehouse ID from URL
+  const PORT = import.meta.env.VITE_PORT || "8080";
+  const URL = `http://localhost:${PORT}`;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const initialWarehouseData = {
     warehouseName: "",
@@ -23,8 +27,40 @@ const WarehouseEdit = () => {
   const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
   const [contactData, setContactData] = useState(initialContactData);
 
+  // Fetch warehouse info
+  useEffect(() => {
+    const fetchWarehouseData = async () => {
+      try {
+        const response = await axios.get(
+          `${URL}/api/warehouses/${id}`
+        );
+        const data = response.data;
+
+        setWarehouseData({
+          warehouseName: data.warehouse_name,
+          streetAddress: data.address,
+          city: data.city,
+          country: data.country,
+        });
+
+        setContactData({
+          contactName: data.contact_name,
+          position: data.contact_position,
+          phoneNumber: data.contact_phone,
+          email: data.contact_email,
+        });
+      } catch (error) {
+        console.error("Error fetching warehouse data:", error);
+        // alert("Failed to load warehouse data");
+      }
+    };
+
+    fetchWarehouseData();
+  }, [id]);
+
   const handleWarehouseChange = (e) => {
     setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
+    console.log(warehouseData);
   };
 
   const handleContactChange = (e) => {
@@ -45,24 +81,50 @@ const WarehouseEdit = () => {
       contact_email: contactData.email,
     };
 
-    console.log("Submitting payload:", payload);
+    // Regex validations
+    const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+    if (
+      !payload.warehouse_name ||
+      !payload.address ||
+      !payload.city ||
+      !payload.country ||
+      !payload.contact_name ||
+      !payload.contact_position ||
+      !payload.contact_phone ||
+      !payload.contact_email
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (!phoneRegex.test(payload.contact_phone)) {
+      alert("Invalid phone number.");
+      return;
+    }
+
+    if (!emailRegex.test(payload.contact_email)) {
+      alert("Invalid email address.");
+      return;
+    }
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/warehouses/${warehouseId}`,
+      const response = await axios.patch(
+        `${URL}/api/warehouses/${id}`,
+        payload,
         {
-          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
         }
       );
 
-      if (!response.ok) throw new Error("Failed to update warehouse details");
+      if (response.status !== 200)
+        throw new Error("Failed to update warehouse details");
 
       alert("Warehouse details updated successfully!");
+      navigate(-1);
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again.");
@@ -72,111 +134,121 @@ const WarehouseEdit = () => {
   const handleCancel = () => {
     setWarehouseData(initialWarehouseData);
     setContactData(initialContactData);
+    navigate(-1);
   };
 
   return (
-    <div className="form__container">
-      {/* NAVIGATION */}
-      <div className="form__nav">
-        <div className="back-link">
-          <ArrowBack /> <h1 className="form__nav-header">Edit Warehouse</h1>
+    <div className="editWarehouse">
+      <div className="form__container">
+
+        <div className="form__nav">
+          <div className="back-link">
+            <ArrowBack onClick={() => navigate(-1)} /> <h1 className="form__nav-header">Edit Warehouse</h1>
+          </div>
         </div>
-      </div>
+        <form onSubmit={handleSubmit} className="form form__warehouse-details">
+          <div className="form__fields">
+            <div className="form__column form__column-left">
+              <h2 className="form__header">Warehouse Details</h2>
 
-      
-        <form onSubmit={handleSubmit} className="form__warehouse-details">
-          {/* WAREHOUSE DETAILS COLUMN */}
-          <div className="form">
-            <div className="form__address">
-              <h2 className="warehouse_label">Warehouse Details</h2>
+              <div className="form__group">
+                <label className="form-label">Warehouse Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="warehouseName"
+                  placeholder={warehouseData.warehouseName}
+                  value={warehouseData.warehouseName}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>Warehouse Name</label>
-              <input
-                className="form-input"
-                type="text"
-                name="warehouseName"
-                placeholder="Washington"
-                value={warehouseData.warehouseName}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Street Address</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="streetAddress"
+                  placeholder="33 Pearl Street SW"
+                  value={warehouseData.streetAddress}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>Street Address</label>
-              <input
-                className="form-input"
-                type="text"
-                name="streetAddress"
-                placeholder="33 Pearl Street SW"
-                value={warehouseData.streetAddress}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">City</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="city"
+                  placeholder="Washington"
+                  value={warehouseData.city}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
 
-              <label>City</label>
-              <input
-                className="form-input"
-                type="text"
-                name="city"
-                placeholder="Washington"
-                value={warehouseData.city}
-                onChange={handleWarehouseChange}
-              />
-
-              <label>Country</label>
-              <input
-                className="form-input"
-                type="text"
-                name="country"
-                placeholder="USA"
-                value={warehouseData.country}
-                onChange={handleWarehouseChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Country</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="country"
+                  placeholder="USA"
+                  value={warehouseData.country}
+                  onChange={handleWarehouseChange}
+                />
+              </div>
             </div>
 
-            {/* CONTACT DETAILS CONTAINER */}
-            <div className="form__contact-info">
-              <h2 className="warehouse_label">Contact Details</h2>
-              <label>Contact Name</label>
-              <input
-                className="form-input"
-                type="text"
-                name="contactName"
-                placeholder="Graeme Lyon"
-                value={contactData.contactName}
-                onChange={handleContactChange}
-              />
+            <div className="form__column">
+              <h2 className="form__header">Contact Details</h2>
 
-              <label>Position</label>
-              <input
-                className="form-input"
-                type="text"
-                name="position"
-                placeholder="Warehouse Manager"
-                value={contactData.position}
-                onChange={handleContactChange}
-              />
-
-              <label>Phone Number</label>
-              <input
-                className="form-input"
-                type="text"
-                name="phoneNumber"
-                placeholder="+1 (647) 504-0911"
-                value={contactData.phoneNumber}
-                onChange={handleContactChange}
-              />
-
-              <label>Email</label>
-              <input
-                className="form-input"
-                type="email"
-                name="email"
-                placeholder="glyon@instock.com"
-                value={contactData.email}
-                onChange={handleContactChange}
-              />
+              <div className="form__group">
+                <label className="form-label">Contact Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="contactName"
+                  placeholder="Graeme Lyon"
+                  value={contactData.contactName}
+                  onChange={handleContactChange}
+                />
+              </div>
+              <div className="form__group">
+                <label className="form-label">Position</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="position"
+                  placeholder="Warehouse Manager"
+                  value={contactData.position}
+                  onChange={handleContactChange}
+                />
+              </div>
+              <div className="form__group">
+                <label className="form-label">Phone Number</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="+1 (647) 504-0911"
+                  value={contactData.phoneNumber}
+                  onChange={handleContactChange}
+                />
+              </div>
+              <div className="form__group">
+                <label className="form-label">Email</label>
+                <input
+                  className="form-input"
+                  type="email"
+                  name="email"
+                  placeholder="glyon@instock.com"
+                  value={contactData.email}
+                  onChange={handleContactChange}
+                />
+              </div>
             </div>
           </div>
-
-          {/* BUTTONS INSIDE FORM */}
           <div className="form__buttons">
             <button
               type="button"
@@ -191,7 +263,7 @@ const WarehouseEdit = () => {
           </div>
         </form>
       </div>
-    
+    </div>
   );
 };
 

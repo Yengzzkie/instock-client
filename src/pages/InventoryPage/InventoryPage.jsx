@@ -88,7 +88,9 @@ const InventoryPage = () => {
                 onClick={() => callModalHandler({header: `Delete ${item.item} inventory`, body: `Please confirm that you'd like to delete ${item.item} from the inventory list. You won't be able to undo this action.`})} />
                 </div>
                 <div className="edit">
-                  <EditIcon />
+                  <Link to={`/inventory/edit/${item.id}`}>
+                    <EditIcon className="edit-icon table-edit" />
+                  </Link>
                 </div>
                 </div>
               </td>
