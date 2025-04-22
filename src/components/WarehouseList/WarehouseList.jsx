@@ -136,7 +136,7 @@ const WarehouseList = () => {
                 <SearchIcon className="header__search-icon" />
               )}
             </form>
-            <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
+            <button className="header__button" onClick={() => navigate(`/warehouse/add`)}>+ Add New Warehouse</button>
           </div>
         </section>
         
