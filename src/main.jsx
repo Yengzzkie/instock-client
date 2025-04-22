@@ -11,7 +11,7 @@ import ItemDetails from "./components/ItemDetails/ItemDetails.jsx";
 import WarehouseList from "./components/WarehouseList/WarehouseList.jsx";
 import InventoryEdit from "./components/InventoryEdit/InventoryEdit.jsx";
 import AddNewWarehouse from './components/AddNewWarehouse/AddNewWarehouse.jsx';
-
+import AddInventoryPage from "./pages/AddNewInventoryPage/AddNewInventoryPage.jsx";
 
 const router = createBrowserRouter([
   {
