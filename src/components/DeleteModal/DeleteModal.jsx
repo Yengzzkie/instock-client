@@ -26,7 +26,7 @@ const WarehouseDeleteModal = () => {
         <Close className="close-btn" onClick={() => setIsModal(false)} />
 
         <div className="modal__text-content">
-          <h1 className="modal__header">{`${modalText.header}`}?</h1>
+          <h1 className="modal__header">{`${modalText.header}`}</h1>
           <p>{modalText.body}</p>
         </div>
 
