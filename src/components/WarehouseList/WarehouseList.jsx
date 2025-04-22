@@ -119,7 +119,6 @@ const WarehouseList = () => {
       <section className="warehouses_list table__container">
         <section className="header">
           <h1 className="header__title">Warehouses</h1>
-
           <div className="header__actions">
             <form className="header__search">
               <input
@@ -137,7 +136,6 @@ const WarehouseList = () => {
                 <SearchIcon className="header__search-icon" />
               )}
             </form>
-
             <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
           </div>
         </section>

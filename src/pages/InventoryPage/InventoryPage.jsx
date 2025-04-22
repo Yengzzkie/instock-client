@@ -44,7 +44,7 @@ const InventoryPage = () => {
         <section className="header">
           <h1 className="header__title">Inventory</h1>
 
-          <form className="header__search--inventory">
+          <form className="header__search header__search--inventory">
             <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="header__search-text" placeholder="Search..."/>
             <SearchIcon className="header__search-icon" />
           </form>

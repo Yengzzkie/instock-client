@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/inventory", element: <InventoryPage /> },
       { path: "/inventory/:id", element: <InventoryPage /> }, // change element here to Inventory Details component
       { path: "/inventory/edit/:id", element: <InventoryEdit /> },
+      {path: "/inventory/add", element: <AddInventoryPage />}
     ],
   },
 ]);
