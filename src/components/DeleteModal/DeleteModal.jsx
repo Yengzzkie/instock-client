@@ -1,11 +1,11 @@
 import "./DeleteModal.scss";
 import { useContext } from "react";
 import { ModalContext } from "../../context/context.js";
+import { toast } from "react-toastify";
 import Close from "../../assets/Icons/close-24px.svg?react";
 
 const WarehouseDeleteModal = () => {
   const { setIsModal, modalText } = useContext(ModalContext);
-  const PORT = import.meta.env.VITE_PORT || 8000;
 
   // function for deleting a warehouse/inventory
   // this will extract the deleteCallback function from the modalText object
@@ -13,6 +13,8 @@ const WarehouseDeleteModal = () => {
   async function deleteHandler() {
     try {
       modalText.deleteCallback();
+      toast.success(`Successfully deleted ${modalText.data.item_name || modalText.data.warehouse_name}`);
+
     } catch (error) {
       console.error(`Deletion error:`, error);
     }

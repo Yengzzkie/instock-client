@@ -136,7 +136,7 @@ const WarehouseList = () => {
                 <SearchIcon className="header__search-icon" />
               )}
             </form>
-            <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
+            <button className="header__button" onClick={() => navigate(`/warehouse/add`)}>+ Add New Warehouse</button>
           </div>
         </section>
         
@@ -194,6 +194,7 @@ const WarehouseList = () => {
                       callModalHandler({
                         header: `Delete ${item.warehouse_name} warehouse?`,  // this serves as the header of the modal
                         body: `Please confirm that you'd like to delete the ${item.warehouse_name} from the list of warehouses. You won't be able to undo this action.`, // this serves as the body of the modal
+                        data: item, // this will be used to pass the data to the modal
                         deleteCallback: () => deleteWarehouse(item.id), // this will be used to call the delete function from inside the Delete Modal
                       })
                     }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "./WarehouseEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -82,7 +83,7 @@ const WarehouseEdit = () => {
     };
 
     // Regex validations
-    const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    const phoneRegex = /^\+?(\d{1,3})?[-.\s]?[(]?\d{3}[)]?[-.\s]?\d{3}[-.\s]?\d{4}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (
@@ -95,17 +96,17 @@ const WarehouseEdit = () => {
       !payload.contact_phone ||
       !payload.contact_email
     ) {
-      alert("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
 
     if (!phoneRegex.test(payload.contact_phone)) {
-      alert("Invalid phone number.");
+      toast.error("Invalid phone number.");
       return;
     }
 
     if (!emailRegex.test(payload.contact_email)) {
-      alert("Invalid email address.");
+      toast.error("Invalid email address.");
       return;
     }
 
@@ -123,11 +124,13 @@ const WarehouseEdit = () => {
       if (response.status !== 200)
         throw new Error("Failed to update warehouse details");
 
-      alert("Warehouse details updated successfully!");
+      // alert("Warehouse details updated successfully!");
+      toast.success("Warehouse details updated successfully!");
       navigate(-1);
     } catch (error) {
       console.error(error);
-      alert("An error occurred. Please try again.");
+      // alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 
