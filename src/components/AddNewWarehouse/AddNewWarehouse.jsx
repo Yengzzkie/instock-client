@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "./AddNewWarehouse.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -25,7 +26,7 @@ const AddNewWarehouse = () => {
 
   const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
   const [contactData, setContactData] = useState(initialContactData);
-  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
+  // const [successMessage, setSuccessMessage] = useState(""); // New state for success message
 
   const handleWarehouseChange = (e) => {
     setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
@@ -55,12 +56,13 @@ const AddNewWarehouse = () => {
       const response = await axios.post(`${URL}/api/warehouses`, payload);
 
       if (response.status !== 200 && response.status !== 201) {
+        toast.error("Failed to create warehouse");
         throw new Error("Failed to create warehouse");
       }
 
       // Show success message after data is successfully added
-      setSuccessMessage("Warehouse created successfully!");
-
+      // setSuccessMessage("Warehouse created successfully!");
+      toast.success("Warehouse created successfully!");
       setWarehouseData(initialWarehouseData);
       setContactData(initialContactData);
       navigate(-1); // go back after successful submission
@@ -87,11 +89,11 @@ const AddNewWarehouse = () => {
         </div>
 
         {/* Success Message */}
-        {successMessage && (
+        {/* {successMessage && (
           <div className="success-message">
             <p>{successMessage}</p>
           </div>
-        )}
+        )} */}
 
         <form onSubmit={handleSubmit} className="form form__warehouse-details">
           {/* WAREHOUSE DETAILS */}
