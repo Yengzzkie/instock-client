@@ -134,7 +134,7 @@ const InventoryEdit = () => {
         {/* NAVIGATION */}
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack onClick={() => navigate("/inventory")} /> <h1 className="form__nav-header">Edit Inventory Item</h1>
+            <ArrowBack onClick={() => navigate(-1)} /> <h1 className="form__nav-header">Edit Inventory Item</h1>
           </div>
         </div>
   
