@@ -225,6 +225,12 @@
 }
 .contact-email {
   font-size: 0.9rem;
+
+  @include mobile {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
 }
 .arrow-icon {
   font-size: 0.9rem;
@@ -322,8 +328,8 @@
     }
 
     .chevron-right {
-        transform: translateX(4px);
-        transition: transform 0.1s ease-in-out;
+      transform: translateX(4px);
+      transition: transform 0.1s ease-in-out;
     }
   }
 }

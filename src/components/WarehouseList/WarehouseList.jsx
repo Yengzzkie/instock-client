@@ -188,7 +188,7 @@ const WarehouseList = () => {
                 </td>
                 <td data-label="CONTACT INFORMATION" className="inventory__table-data">
                   <div>{item.contact_phone}</div>
-                  <div>{item.contact_email}</div>
+                  <div className="contact-email">{item.contact_email}</div>
                 </td>
                 <td data-label="Action" className="inventory__table-data">
                   <Delete
