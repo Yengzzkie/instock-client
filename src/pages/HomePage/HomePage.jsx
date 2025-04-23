@@ -1,7 +1,9 @@
+import WarehouseList from "../../components/WarehouseList/WarehouseList";
+
 const HomePage = () => {
   return (
     <>
-      <h1>Hello from HomePage</h1>
+      <WarehouseList/>
     </>
   );
 };
