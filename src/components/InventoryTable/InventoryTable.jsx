@@ -154,10 +154,10 @@ const InventoryTable = () => {
                 {item.category}
               </td>
               <td data-label="status" className="inventory__table-data">
-                {item.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}
+                {item.status === "In Stock" ? <InStockTag /> : <OutOfStockTag />}
               </td>
               <td data-label="quantity" className="inventory__table-data">
-                {item.quantity}
+                {item.status === "Out of Stock" ? 0 : item.quantity}
               </td>
               <td data-label="Action" className="inventory__table-data">
                 <Delete
