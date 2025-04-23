@@ -154,10 +154,10 @@ const InventoryTable = () => {
                 {item.category}
               </td>
               <td data-label="status" className="inventory__table-data">
-                {item.quantity !== 0 ? <InStockTag /> : <OutOfStockTag />}
+                {item.status === "In Stock" ? <InStockTag /> : <OutOfStockTag />}
               </td>
               <td data-label="quantity" className="inventory__table-data">
-                {item.quantity}
+                {item.status === "Out of Stock" ? 0 : item.quantity}
               </td>
               <td data-label="Action" className="inventory__table-data">
                 <Delete
@@ -165,6 +165,7 @@ const InventoryTable = () => {
                     callModalHandler({
                       header: `Delete ${item.item_name} inventory item`,  // this serves as the header of the modal
                       body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`, // this serves as the body of the modal
+                      data: item, // this will be used to pass the data of the item to the modal
                       deleteCallback: () => deleteItem(item.id), // this will be used to call the delete function from inside the delete modal
                     })
                   }

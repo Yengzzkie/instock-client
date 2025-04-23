@@ -119,7 +119,6 @@ const WarehouseList = () => {
       <section className="warehouses_list table__container">
         <section className="header">
           <h1 className="header__title">Warehouses</h1>
-
           <div className="header__actions">
             <form className="header__search">
               <input
@@ -137,8 +136,7 @@ const WarehouseList = () => {
                 <SearchIcon className="header__search-icon" />
               )}
             </form>
-
-            <button className="header__button" onClick={() => navigate(`add`)}>+ Add New Warehouse</button>
+            <button className="header__button" onClick={() => navigate(`/warehouse/add`)}>+ Add New Warehouse</button>
           </div>
         </section>
         
@@ -188,7 +186,7 @@ const WarehouseList = () => {
                 </td>
                 <td data-label="CONTACT INFORMATION" className="inventory__table-data">
                   <div>{item.contact_phone}</div>
-                  <div>{item.contact_email}</div>
+                  <div className="contact-email">{item.contact_email}</div>
                 </td>
                 <td data-label="Action" className="inventory__table-data">
                   <Delete
@@ -196,6 +194,7 @@ const WarehouseList = () => {
                       callModalHandler({
                         header: `Delete ${item.warehouse_name} warehouse?`,  // this serves as the header of the modal
                         body: `Please confirm that you'd like to delete the ${item.warehouse_name} from the list of warehouses. You won't be able to undo this action.`, // this serves as the body of the modal
+                        data: item, // this will be used to pass the data to the modal
                         deleteCallback: () => deleteWarehouse(item.id), // this will be used to call the delete function from inside the Delete Modal
                       })
                     }

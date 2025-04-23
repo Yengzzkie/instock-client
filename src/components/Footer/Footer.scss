@@ -1,18 +1,17 @@
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/variables" as *;
 
-
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    padding: 36px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 36px;
 
-    .footer__header {
-        color: $instock-slate;
-        font-family: 'Titillium Web', sans-serif;
-        text-align: center;
-    }
+  .footer__header {
+    color: $instock-slate;
+    font-family: "Titillium Web", sans-serif;
+    text-align: center;
+  }
 }

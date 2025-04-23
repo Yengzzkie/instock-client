@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import "./WarehouseEdit.scss";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 
@@ -81,33 +80,8 @@ const WarehouseEdit = () => {
       contact_email: contactData.email,
     };
 
-    // Regex validations
-    const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    console.log("Submitting payload:", payload);
 
-    if (
-      !payload.warehouse_name ||
-      !payload.address ||
-      !payload.city ||
-      !payload.country ||
-      !payload.contact_name ||
-      !payload.contact_position ||
-      !payload.contact_phone ||
-      !payload.contact_email
-    ) {
-      alert("All fields are required.");
-      return;
-    }
-
-    if (!phoneRegex.test(payload.contact_phone)) {
-      alert("Invalid phone number.");
-      return;
-    }
-
-    if (!emailRegex.test(payload.contact_email)) {
-      alert("Invalid email address.");
-      return;
-    }
 
     try {
       const response = await axios.patch(
@@ -124,10 +98,10 @@ const WarehouseEdit = () => {
         throw new Error("Failed to update warehouse details");
 
       alert("Warehouse details updated successfully!");
-      navigate(-1);
     } catch (error) {
       console.error(error);
-      alert("An error occurred. Please try again.");
+      // alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 

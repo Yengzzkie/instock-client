@@ -1,9 +1,11 @@
 import InventoryForm from "../../components/InventoryForm/InventoryForm.jsx";
 
-export const AddInventoryPage = () => {
+const AddInventoryPage = () => {
     return(
         <>
         <InventoryForm />
         </>
     )
 }
+
+export default AddInventoryPage;
