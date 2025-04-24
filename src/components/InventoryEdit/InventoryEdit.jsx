@@ -39,30 +39,6 @@ const InventoryEdit = () => {
       const response = await axios.get(`${URL}/api/categories`);
       setCategories(response.data);
     } catch (error) {
-      console.log(
-        "Error fetching categories:",
-        error.response?.data || error.message
-      );
-    }
-  };
-
-  const fetchWarehouses = async () => {
-    try {
-      const response = await axios.get(`${URL}/api/warehouses`);
-      setWarehouse(response.data);
-    } catch (error) {
-      console.log(
-        "Error fetching warehouses:",
-        error.response?.data || error.message
-      );
-    }
-  };
-
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get(`${URL}/api/categories`);
-      setCategories(response.data);
-    } catch (error) {
       console.log("Error fetching categories:", error.response?.data || error.message);
     }
   };
