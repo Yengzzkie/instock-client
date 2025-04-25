@@ -211,7 +211,7 @@ const InventoryEdit = () => {
             <button
               type="button"
               className="btn-main cancel-btn"
-              onClick={() => navigate("/inventory")}
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>

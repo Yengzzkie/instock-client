@@ -82,33 +82,8 @@ const WarehouseEdit = () => {
       contact_email: contactData.email,
     };
 
-    // Regex validations
-    const phoneRegex = /^\+?(\d{1,3})?[-.\s]?[(]?\d{3}[)]?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    console.log("Submitting payload:", payload);
 
-    if (
-      !payload.warehouse_name ||
-      !payload.address ||
-      !payload.city ||
-      !payload.country ||
-      !payload.contact_name ||
-      !payload.contact_position ||
-      !payload.contact_phone ||
-      !payload.contact_email
-    ) {
-      toast.error("All fields are required.");
-      return;
-    }
-
-    if (!phoneRegex.test(payload.contact_phone)) {
-      toast.error("Invalid phone number.");
-      return;
-    }
-
-    if (!emailRegex.test(payload.contact_email)) {
-      toast.error("Invalid email address.");
-      return;
-    }
 
     try {
       const response = await axios.patch(
@@ -124,9 +99,7 @@ const WarehouseEdit = () => {
       if (response.status !== 200)
         throw new Error("Failed to update warehouse details");
 
-      // alert("Warehouse details updated successfully!");
-      toast.success("Warehouse details updated successfully!");
-      navigate(-1);
+      alert("Warehouse details updated successfully!");
     } catch (error) {
       console.error(error);
       // alert("An error occurred. Please try again.");

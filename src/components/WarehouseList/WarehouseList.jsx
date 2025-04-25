@@ -152,7 +152,7 @@ const WarehouseList = () => {
                         onClick={() => {
                           const newAscending = !ascending;
                           setAscending(newAscending);
-                          handleSort("warehouse_name", newAscending);
+                          handleSort(head, newAscending);
                         }}
                         className="sort-icon"
                       />
