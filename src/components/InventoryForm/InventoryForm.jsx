@@ -6,14 +6,6 @@ import HandleError from "../FormField/HandleError.jsx"
 import axios from "axios";
 
 const InventoryForm = () => {
-    const [inventoryItem, setInventoryItem] = useState({
-        item_name: "",
-        description: "",
-        category: "",
-        status: "In Stock",
-        quantity: "",
-        warehouse_id: ""
-      });
     
     const [categories,   setCategories]   = useState([]);
     const [warehouses,   setWarehouses]   = useState([]);
@@ -45,6 +37,25 @@ const InventoryForm = () => {
         fetchCategories();
         fetchWarehouses();
     }, []);
+
+    const [inventoryItem, setInventoryItem] = useState({
+        item_name: "",
+        description: "",
+        category: categories[0],
+        status: "In Stock",
+        quantity: "",
+        warehouse_id: warehouses[0]
+      });
+      useEffect(() => {
+        
+        if (categories.length && warehouses.length) {
+          setInventoryItem(prev => ({
+            ...prev,
+            category: categories[0],
+            warehouse_id: warehouses[0].id  
+          }));
+        }
+      }, [categories, warehouses]);
     
 
     const addInventoryDetails = [
