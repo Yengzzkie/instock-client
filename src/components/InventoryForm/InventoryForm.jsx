@@ -2,6 +2,8 @@ import FormField from "../FormField/FormField.jsx";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
 import "./InventoryForm.scss";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import HandleError from "../FormField/HandleError.jsx";
 import axios from "axios";
 
@@ -18,17 +20,18 @@ const InventoryForm = () => {
   const [categories, setCategories] = useState([]);
   const [warehouses, setWarehouses] = useState([]);
   const [isError, setIsError] = useState({});
-  // const [isDisabled, setDisabled] = useState(false);
   const [isFormSuccess, setFormSuccess] = useState(false);
-
   const PORT = import.meta.env.VITE_PORT || "8080";
+  const navigate = useNavigate();
+
+
 
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
         `http://localhost:${PORT}/api/categories`
       );
-      console.log(response.data)
+
       setCategories(response.data);
     } catch (error) {
       console.log(
@@ -91,12 +94,10 @@ const InventoryForm = () => {
       name: "category",
       placeholder: "Please select",
       value: "",
-      options: [
-        { label: "Please select" },
-        { label: "Electronics" },
-        { label: "Consumables" },
-        { label: "Gear" },
-      ],
+      options: categories.map((category) => ({
+        value: category,
+        label: category,
+      })),
     },
   ];
   
@@ -117,7 +118,7 @@ const InventoryForm = () => {
       class: "",
       type: "text",
       name: "quantity",
-      placeholder: "0",
+      placeholder: "Enter quantity",
       value: "",
     },
     {
@@ -127,44 +128,24 @@ const InventoryForm = () => {
       name: "warehouse_id",
       placeholder: "Please select",
       value: "",
-      options: [
-        { label: "Please select" },
-        { label: "Mahattan" },
-        { label: "Toronto" },
-        { label: "New York" },
-      ],
+      options: warehouses.map((warehouse) => ({
+        value: warehouse.id,
+        label: warehouse.warehouse_name,
+      })),
     },
   ];
 
-  const inventoryDetails = addInventoryDetails.map((field) => {
-    if (field.name === "category") {
-      return {
-        ...field,
-        options: categories.map((category) => ({
-          value: category,
-          label: category,
-        })),
-      };
-    }
-    return field;
-  });
-
-  const inventoryAvailability = inventoryAvailableDetails.map((field) => {
-    if (field.name === "warehouse_id") {
-      return {
-        ...field,
-        options: warehouses.map((warehouse) => ({
-          value: warehouse.id,
-          label: warehouse.warehouse_name,
-        })),
-      };
-    }
-    return field;
-  });
-
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
+    if (name === "status") {
+      setInventoryItem((prev) => ({
+        ...prev,
+        [name]: value,
+        quantity: value === "In Stock" ? prev.value : "0",
+      }));
+
+    }
     setInventoryItem((prev) => ({ ...prev, [name]: value }));
     // setDisabled(false);
   };
@@ -189,7 +170,7 @@ const InventoryForm = () => {
       );
       console.log("Response data", response);
       if (response.status === 201) {
-        console.log("Item added successfully");
+
         setIsError({});
         setFormSuccess(true);
         // reset the form, if you want:
@@ -201,6 +182,8 @@ const InventoryForm = () => {
           quantity: "",
           warehouse_id: "",
         });
+
+        toast.success("Item added successfully");
         setTimeout(() => setFormSuccess(false), 3000);
       }
     } catch (error) {
@@ -215,7 +198,7 @@ const InventoryForm = () => {
     <div className="form__container form__container-inventory form__container-add">
       {/* NAVIGATION */}
       <div className="form__nav">
-        <div className="back-link">
+        <div className="back-link" onClick={() => navigate(-1)}>
           <ArrowBack />{" "}
           <h1 className="form__nav-header">Add New Inventory Item</h1>
         </div>
@@ -231,7 +214,7 @@ const InventoryForm = () => {
         <div className="form__fields">
           <div className="form__column form__column-left-inventory">
             <h2 className="form__header">Item Details</h2>
-            {inventoryDetails.map((item, index) => (
+            {addInventoryDetails.map((item, index) => (
               <FormField
                 key={index}
                 input={{
@@ -245,7 +228,7 @@ const InventoryForm = () => {
           </div>
           <div className="form__column">
             <h2 className="form__header">Item Availability</h2>
-            {inventoryAvailability.map((item, index) => (
+            {inventoryAvailableDetails.map((item, index) => (
               <FormField
                 key={index}
                 input={{
@@ -259,7 +242,7 @@ const InventoryForm = () => {
           </div>
         </div>
         <div className="footer-buttons">
-          <button className="footer-buttons--cancel">Cancel</button>
+          <button className="footer-buttons--cancel" onClick={() => navigate(-1)}>Cancel</button>
           <button className="footer-buttons--save">+ Add Item</button>
         </div>
       </form>
