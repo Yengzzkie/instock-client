@@ -202,7 +202,7 @@ const WarehouseList = () => {
                   />
                   <Edit 
                     className="table__cta-edit"
-                    onClick = {() => navigate(`edit/${item.id}`)}
+                    onClick = {() => navigate(`/warehouse/edit/${item.id}`)}
                   />
                 </td>
               </tr>
