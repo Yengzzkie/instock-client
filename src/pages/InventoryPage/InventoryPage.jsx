@@ -12,6 +12,7 @@ import { ModalContext } from "../../context/context";
 import "./InventoryPage.scss";
 import InStockTag from "../../components/InStockTag/InStockTag.jsx";
 import OutOfStockTag from "../../components/OutOfStockTag/OutOfStockTag.jsx";
+import { toast } from "react-toastify";
 
 const InventoryPage = () => {
   const PORT = import.meta.env.VITE_PORT || 8080;
@@ -99,7 +100,7 @@ const InventoryPage = () => {
     setFilteredInventory(inventoryList);
   };
 
-  const deleteInventory = async (inventoryId) => {
+  const deleteInventory = async (inventoryId, inventoryName) => {
     try {
       await axios.delete(
         `http://localhost:${PORT}/api/inventories/${inventoryId}`
@@ -110,8 +111,10 @@ const InventoryPage = () => {
         error
       );
     } finally {
+      toast.success(`Inventory Item: ${inventoryName} deleted!`);
       setIsModal(false);
       getInventory();
+      
     }
   };
 
@@ -198,7 +201,7 @@ const InventoryPage = () => {
                         callModalHandler({
                           header: `Delete ${item.item_name} inventory`,
                           body: `Please confirm that you'd like to delete ${item.item_name} from the inventory list. You won't be able to undo this action.`,
-                          deleteCallback: () => deleteInventory(item.id),
+                          deleteCallback: () => deleteInventory(item.id, item.item_name),
                         })
                       }
                     />
