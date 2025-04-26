@@ -1,11 +1,12 @@
+import "./App.scss";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import "./App.scss";
+import { ModalContext } from "./context/context";
+import { ToastContainer } from "react-toastify";
 import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 import DeleteModal from "./components/DeleteModal/DeleteModal";
-import { ModalContext } from "./context/context";
-import { ToastContainer } from "react-toastify";
+
 
 const App = () => {
   const [isModal, setIsModal] = useState(false);

@@ -1,7 +1,7 @@
+import "./index.scss";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.scss";
 import App from "./App.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import InventoryPage from "./pages/InventoryPage/InventoryPage.jsx";
@@ -20,13 +20,12 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/warehouse", element: <WarehouseList /> },
-      // Add new path to the AddNewWareHouse Component. Look at line 15 and 24
       { path: "/warehouse/add", element: <AddNewWarehouse /> },
       { path: "/warehouse/:id", element: <InventoryTable /> },
       { path: "/warehouse/edit/:id", element: <WarehouseEdit /> },
       { path: "/warehouse/:id/item/:itemid", element: <ItemDetails /> },
       { path: "/inventory", element: <InventoryPage /> },
-      { path: "/inventory/:id", element: <InventoryPage /> }, // change element here to Inventory Details component
+      { path: "/inventory/:id", element: <InventoryPage /> },
       { path: "/inventory/edit/:id", element: <InventoryEdit /> },
       {path: "/inventory/add", element: <AddInventoryPage />}
     ],

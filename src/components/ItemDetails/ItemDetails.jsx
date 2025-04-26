@@ -1,6 +1,5 @@
 import "./ItemDetails.scss";
 import { useParams, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ArrowBack from "../../assets/Icons/arrow_back-24px.svg?react";
@@ -9,7 +8,7 @@ import OutOfStockTag from "../OutOfStockTag/OutOfStockTag";
 import EditButton from "../EditButton/EditButton";
 
 const ItemDetails = () => {
-  const { id, itemid } = useParams();
+  const { itemid } = useParams();
   const [itemData, setItemData] = useState({});
   const navigate = useNavigate();
   const PORT = import.meta.env.VITE_PORT || 8000;
