@@ -1,0 +1,246 @@
+@use "../../styles/partials/global" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/variables" as variables;
+
+.inventory-form{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.header-form{
+    font-size: 1.75rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    line-height: 2.25rem;
+}
+.back-icon{
+    width: 2.5rem;
+    position: relative;
+    right: 0.5rem;
+}
+.main-form{
+    display: flex;
+    flex-direction: column;
+
+    &__details{
+        padding-top: 1rem;
+        border-top: 1px solid variables.$instock-cloud;
+    }
+    &__details-header{
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+}
+
+.form__container-add{
+    background: none;
+    .form{
+        border-top: 0;
+        @include tablet{
+            padding: 0;
+        }
+        @include desktop{
+            padding: 1.5rem 22px;
+            padding: 0;
+        }
+        &__nav{
+            display: flex;
+            align-items: center;
+            padding: 0;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid variables.$instock-cloud;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            @include tablet{
+                padding-left: 1.5rem;
+            }
+            @include desktop{
+                padding-left: 40px;
+            }
+        }
+        &__column{
+            padding: 0;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            gap: 18px;
+            @include tablet{
+                padding: 0;
+                gap: 1.5rem;
+            }
+            @include desktop{
+                padding: 0;
+                gap: 1.5rem;
+            }
+        }
+        &__nav-header{
+            line-height: 36px;
+        }
+        &__column-left-inventory{
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            border-bottom: 1px solid variables.$instock-cloud;
+            @include tablet{
+                border-bottom: none;
+                border-right: 1px solid variables.$instock-cloud;
+                margin-right: 2rem;
+                gap: 1.5rem;
+                padding-right: 2rem;
+            }
+            @include desktop{
+                border-bottom: none;
+                border-right: 1px solid variables.$instock-cloud;
+                margin-right: 2rem;
+                gap: 1.5rem;
+                padding-right: 2rem;
+            }
+        }
+        &__header{
+            margin: 0;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            @include tablet{
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+                font-size: 1.5rem;
+            }
+            @include desktop{
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+                font-size: 1.5rem;
+            }
+        }
+        &__fields{
+            display: flex;
+            flex-direction: column;
+            @include tablet{
+                display: flex;
+                flex-direction: row;
+                padding: 1.5rem 0.5rem;
+                padding-bottom: 0;
+                
+            }
+            @include desktop{
+                display: flex;
+                flex-direction: row;
+                padding: 1.5rem 22px;
+                padding-bottom: 0;
+                }
+            }
+        &__group{
+            margin: 0;
+            @include tablet{
+                margin: 0;
+            }
+            @include desktop{
+                margin: 0;
+            }
+            &:nth-child(1){
+            padding-top: 1rem;
+            @include tablet{
+                padding-right: 2rem;
+            }
+            @include desktop{
+                padding-right: 2rem;
+            }
+            }
+
+            .form-input{
+                font-family: "Titillium Web", sans-serif;
+                padding: 0.5rem;
+                &:nth-last-child(1){
+                    margin-bottom: 1.5rem;
+                }
+                }
+            .form-input textarea{
+                padding-left: 16px;
+            }
+            }
+        }
+    }
+    .back-link svg{
+        width: 2.2rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        @include tablet{
+            bottom: 0.1rem;
+        }
+        @include desktop{
+            bottom: 0.1rem;
+        }
+    }
+.footer-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #F7F8F9B2;
+    gap: 10px;
+    padding: 32px 40px;
+
+    @include tablet{
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    @include desktop{
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    &--cancel{
+        background-color: white;
+        padding: 0.5rem 1rem;
+        border: 1px solid variables.$instock-cloud;
+        border-radius: 20px;
+        font-size: 13px;
+        padding: 10px 20px;
+        color: variables.$instock-slate;
+
+        @include mobile {
+            flex: 1;
+        }
+
+        @include tablet{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 14px;
+        }
+        @include desktop{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 14px;
+        }
+    }
+    &--save{
+        background-color: variables.$instock-blue;
+        color: white;
+        border: 1px solid variables.$instock-cloud;
+        border-radius: 20px;
+        padding: 10px 20px;
+        
+        @include mobile {
+            flex: 1;
+        }
+
+        @include tablet{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 14px;
+        }
+        @include desktop{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 14px;
+        }
+    }
+}
+

@@ -1,0 +1,77 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+// NAVIGATION
+.itemDetails__nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 40px 24px 40px;
+  border-bottom: 1px solid $instock-cloud;
+
+  .back-link {
+    display: flex;
+    align-items: center;
+
+    .table__nav-header {
+      font-weight: 600;
+    }
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+}
+
+.itemDetails__container {
+  display: flex;
+  gap: 24px;
+  padding: 32px 40px 24px 40px;
+
+  & * {
+    color: $instock-graphite;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  .itemDetails__description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-right: 1px solid $instock-cloud;
+    padding-right: 16px;
+    flex: 1;
+
+    & * {
+      font-size: 14px;
+    }
+
+    @include mobile {
+      border-right: none;
+    }
+  }
+
+  .itemDetails__status {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+
+    .status_quantity-wrapper {
+      display: flex;
+      width: 100%;
+
+      & > * {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.item-label {
+  color: $instock-slate;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}

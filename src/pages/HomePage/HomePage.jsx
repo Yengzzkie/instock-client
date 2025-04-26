@@ -1,9 +1,11 @@
-
+import WarehouseList from "../../components/WarehouseList/WarehouseList";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <>
+      <WarehouseList/>
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
