@@ -1,7 +1,3 @@
-/*======================
-_mixins.scss
- ======================*/
-
 // Mobile -
 @mixin mobile {
   @media (min-width: 320px) and (max-width: 767px) {
@@ -22,7 +18,6 @@ _mixins.scss
     @content;
   }
 }
-
 
 @mixin flex($direction: row, $align: center, $justify: center) {
   display: flex;

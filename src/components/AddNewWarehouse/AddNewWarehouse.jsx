@@ -26,7 +26,6 @@ const AddNewWarehouse = () => {
 
   const [warehouseData, setWarehouseData] = useState(initialWarehouseData);
   const [contactData, setContactData] = useState(initialContactData);
-  // const [successMessage, setSuccessMessage] = useState(""); // New state for success message
 
   const handleWarehouseChange = (e) => {
     setWarehouseData({ ...warehouseData, [e.target.name]: e.target.value });
@@ -61,13 +60,15 @@ const AddNewWarehouse = () => {
       }
 
       // Show success message after data is successfully added
-      // setSuccessMessage("Warehouse created successfully!");
       toast.success("Warehouse created successfully!");
       setWarehouseData(initialWarehouseData);
       setContactData(initialContactData);
       navigate(-1); // go back after successful submission
     } catch (error) {
-      console.error("Error creating warehouse:", error.response?.data || error.message);
+      console.error(
+        "Error creating warehouse:",
+        error.response?.data || error.message
+      );
       alert("An error occurred. Please try again.");
     }
   };
@@ -84,16 +85,10 @@ const AddNewWarehouse = () => {
         {/* NAVIGATION */}
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack onClick={() => navigate(-1)} /> <h1 className="form__nav-header">Add New Warehouse</h1>
+            <ArrowBack onClick={() => navigate(-1)} />{" "}
+            <h1 className="form__nav-header">Add New Warehouse</h1>
           </div>
         </div>
-
-        {/* Success Message */}
-        {/* {successMessage && (
-          <div className="success-message">
-            <p>{successMessage}</p>
-          </div>
-        )} */}
 
         <form onSubmit={handleSubmit} className="form form__warehouse-details">
           {/* WAREHOUSE DETAILS */}
