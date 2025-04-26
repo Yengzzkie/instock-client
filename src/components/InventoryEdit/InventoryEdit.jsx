@@ -39,7 +39,10 @@ const InventoryEdit = () => {
       const response = await axios.get(`${URL}/api/categories`);
       setCategories(response.data);
     } catch (error) {
-      console.log("Error fetching categories:", error.response?.data || error.message);
+      console.log(
+        "Error fetching categories:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -48,7 +51,10 @@ const InventoryEdit = () => {
       const response = await axios.get(`${URL}/api/warehouses`);
       setWarehouse(response.data);
     } catch (error) {
-      console.log("Error fetching warehouses:", error.response?.data || error.message);
+      console.log(
+        "Error fetching warehouses:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -205,7 +211,7 @@ const InventoryEdit = () => {
             <button
               type="button"
               className="btn-main cancel-btn"
-              onClick={() => navigate("/inventory")}
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>

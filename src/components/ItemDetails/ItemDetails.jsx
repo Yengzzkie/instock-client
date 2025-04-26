@@ -1,5 +1,5 @@
 import "./ItemDetails.scss";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -11,32 +11,37 @@ import EditButton from "../EditButton/EditButton";
 const ItemDetails = () => {
   const { id, itemid } = useParams();
   const [itemData, setItemData] = useState({});
+  const navigate = useNavigate();
   const PORT = import.meta.env.VITE_PORT || 8000;
 
   // this will fetch the data for a particular item based on the itemid from params
   async function getItemData() {
     try {
-      const response = await axios.get(`http://localhost:${PORT}/api/inventories/${itemid}`);
+      const response = await axios.get(
+        `http://localhost:${PORT}/api/inventories/${itemid}`
+      );
 
-      setItemData(response.data)
+      setItemData(response.data);
     } catch (error) {
-      console.error(`Failed to get data for warehouse with ID ${itemid}:`, error)
+      console.error(
+        `Failed to get data for warehouse with ID ${itemid}:`,
+        error
+      );
     }
   }
 
   useEffect(() => {
     getItemData();
-  }, [])
+  }, []);
 
   return (
     <>
       {/* NAVIGATION */}
       <div className="itemDetails__nav">
-        <Link to={`/warehouse/${id}`}>
-          <div className="back-link">
-            <ArrowBack /> <h1 className="table__nav-header">{itemData.item_name}</h1>
-          </div>
-        </Link>
+        <div className="back-link">
+          <ArrowBack onClick={() => navigate(-1)} />{" "}
+          <h1 className="table__nav-header">{itemData.item_name}</h1>
+        </div>
         <EditButton path={`/inventory/edit/${itemid}`} />
       </div>
 
@@ -57,11 +62,11 @@ const ItemDetails = () => {
           <div className="status_quantity-wrapper">
             <div>
               <p className="item-label">STATUS:</p>
-              {itemData.quantity > 0 ? <InStockTag /> : <OutOfStockTag />}
+              {itemData.status === "In Stock" ? <InStockTag /> : <OutOfStockTag />}
             </div>
             <div>
               <p className="item-label">QUANTITY:</p>
-              {itemData.quantity}
+              {itemData.status === "In Stock" ? itemData.quantity : 0}
             </div>
           </div>
 

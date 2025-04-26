@@ -76,7 +76,7 @@ const FormField = ({input}) => {
             id={input.name}
             name={input.name}
             placeholder={input.placeholder}
-            defaultValue={input.value}
+            value={input.value}
             onChange={input.onChange}
           />
         ) : input.type === "text" ? (
@@ -86,7 +86,7 @@ const FormField = ({input}) => {
             type={input.type}
             name={input.name}
             placeholder={input.placeholder}
-            defaultValue={input.value}
+            value={input.value}
             onChange={input.onChange}
           />
         ) : input.type === "number" ? (
@@ -97,7 +97,7 @@ const FormField = ({input}) => {
             name={input.name}
             min="0"
             placeholder={input.placeholder}
-            defaultValue={input.value}
+            value={input.value}
             onChange={input.onChange}
           />
         ) : input.type === "radio" ? (

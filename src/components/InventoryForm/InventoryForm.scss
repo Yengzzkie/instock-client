@@ -151,12 +151,6 @@
                 padding-right: 2rem;
             }
             }
-            // &:nth-last-child(1){
-            //     border-bottom: none;
-            //     @include tablet{
-            //         border: none;
-            //     }
-            // }
 
             .form-input{
                 font-family: "Titillium Web", sans-serif;
@@ -174,7 +168,6 @@
     .back-link svg{
         width: 2.2rem;
         position: relative;
-        // bottom: 1rem;
         display: flex;
         align-items: center;
         @include tablet{
@@ -189,10 +182,9 @@
     flex-direction: row;
     justify-content: space-around;
     background-color: #F7F8F9B2;
-    width: 100%;
     gap: 10px;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 32px 40px;
+
     @include tablet{
         justify-content: flex-end;
         gap: 1rem;
@@ -210,12 +202,13 @@
         border: 1px solid variables.$instock-cloud;
         border-radius: 20px;
         font-size: 13px;
-        padding: 0;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding: 10px 20px;
         color: variables.$instock-slate;
+
+        @include mobile {
+            flex: 1;
+        }
+
         @include tablet{
             padding-left: 1rem;
             padding-right: 1rem;
@@ -232,11 +225,12 @@
         color: white;
         border: 1px solid variables.$instock-cloud;
         border-radius: 20px;
-        padding: 0;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding: 10px 20px;
+        
+        @include mobile {
+            flex: 1;
+        }
+
         @include tablet{
             padding-left: 1rem;
             padding-right: 1rem;
