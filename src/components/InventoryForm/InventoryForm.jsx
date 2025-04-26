@@ -147,7 +147,6 @@ const InventoryForm = () => {
 
     }
     setInventoryItem((prev) => ({ ...prev, [name]: value }));
-    // setDisabled(false);
   };
 
   const handleSubmit = async (e) => {
@@ -157,7 +156,6 @@ const InventoryForm = () => {
     const { errors } = HandleError(e.target.elements);
     setIsError(errors);
     if (Object.values(errors).includes(true)) {
-      // setDisabled(true);
       return;
     }
 

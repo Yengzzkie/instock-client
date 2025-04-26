@@ -151,12 +151,6 @@
                 padding-right: 2rem;
             }
             }
-            // &:nth-last-child(1){
-            //     border-bottom: none;
-            //     @include tablet{
-            //         border: none;
-            //     }
-            // }
 
             .form-input{
                 font-family: "Titillium Web", sans-serif;
@@ -174,7 +168,6 @@
     .back-link svg{
         width: 2.2rem;
         position: relative;
-        // bottom: 1rem;
         display: flex;
         align-items: center;
         @include tablet{

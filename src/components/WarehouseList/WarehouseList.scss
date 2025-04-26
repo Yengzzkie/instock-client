@@ -78,12 +78,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.5rem 1rem;
-
-      // @include tablet {
-      //   width: 28%;
-      //   position: relative;
-      //   left: 3rem;
-      // }
       @include desktop {
         left: 8rem;
       }
@@ -91,9 +85,6 @@
 
     @include tablet {
       padding: 0.5rem 1rem;
-      // width: 24%;
-      // position: relative;
-      // left: 1rem;
     }
     @include desktop {
       padding: 0.5rem 1rem;
