@@ -99,7 +99,7 @@ const WarehouseEdit = () => {
       if (response.status !== 200)
         throw new Error("Failed to update warehouse details");
 
-        toast.success("Warehouse created successfully!");
+        toast.success("Warehouse edited successfully!");
     } catch (error) {
       console.error(error);
       // alert("An error occurred. Please try again.");

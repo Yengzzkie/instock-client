@@ -178,7 +178,7 @@ const InventoryPage = () => {
                 {item.category}
               </td>
               <td data-label="STATUS" className="table-data-inventory">
-                {item.status === "In Stock" ? (
+                {item.status === "In Stock" && item.quantity > 0 ? (
                   <InStockTag className="instock-tag" />
                 ) : (
                   <OutOfStockTag className="outofstock-tag" />
