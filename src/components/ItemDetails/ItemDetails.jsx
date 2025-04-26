@@ -62,7 +62,7 @@ const ItemDetails = () => {
           <div className="status_quantity-wrapper">
             <div>
               <p className="item-label">STATUS:</p>
-              {itemData.status === "In Stock" ? <InStockTag /> : <OutOfStockTag />}
+              {itemData.status === "In Stock" && itemData.quantity > 0 ? <InStockTag /> : <OutOfStockTag /> }
             </div>
             <div>
               <p className="item-label">QUANTITY:</p>
