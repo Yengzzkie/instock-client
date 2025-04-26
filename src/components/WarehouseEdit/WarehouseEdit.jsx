@@ -32,9 +32,7 @@ const WarehouseEdit = () => {
   useEffect(() => {
     const fetchWarehouseData = async () => {
       try {
-        const response = await axios.get(
-          `${URL}/api/warehouses/${id}`
-        );
+        const response = await axios.get(`${URL}/api/warehouses/${id}`);
         const data = response.data;
 
         setWarehouseData({
@@ -52,7 +50,6 @@ const WarehouseEdit = () => {
         });
       } catch (error) {
         console.error("Error fetching warehouse data:", error);
-        // alert("Failed to load warehouse data");
       }
     };
 
@@ -84,7 +81,6 @@ const WarehouseEdit = () => {
 
     console.log("Submitting payload:", payload);
 
-
     try {
       const response = await axios.patch(
         `${URL}/api/warehouses/${id}`,
@@ -102,7 +98,6 @@ const WarehouseEdit = () => {
       alert("Warehouse details updated successfully!");
     } catch (error) {
       console.error(error);
-      // alert("An error occurred. Please try again.");
       toast.error("An error occurred. Please try again.");
     }
   };
@@ -116,10 +111,10 @@ const WarehouseEdit = () => {
   return (
     <div className="editWarehouse">
       <div className="form__container">
-
         <div className="form__nav">
           <div className="back-link">
-            <ArrowBack onClick={() => navigate(-1)} /> <h1 className="form__nav-header">Edit Warehouse</h1>
+            <ArrowBack onClick={() => navigate(-1)} />{" "}
+            <h1 className="form__nav-header">Edit Warehouse</h1>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="form form__warehouse-details">
